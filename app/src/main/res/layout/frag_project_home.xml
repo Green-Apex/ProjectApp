@@ -56,7 +56,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="top">
 
-                <com.acrobat.widgets.CustomTextView
+                <com.greenapex.widgets.CustomTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -75,14 +75,14 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <com.acrobat.widgets.CustomTextView
+                        <com.greenapex.widgets.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Status: "
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textColor="@color/black_font" />
 
-                        <com.acrobat.widgets.CustomTextView
+                        <com.greenapex.widgets.CustomTextView
                             android:id="@+id/tvStatus_fragProjectHome"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                             android:textColor="@color/purple" />
                     </LinearLayout>
 
-                    <com.acrobat.widgets.CustomTextView
+                    <com.greenapex.widgets.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cost: TBD"
@@ -101,7 +101,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -109,14 +109,14 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/black_font" />
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/lorem"
                 android:textColor="@color/black_font" />
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -124,7 +124,7 @@
                 android:text="@string/edit"
                 android:textColor="@color/blue" />
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -142,13 +142,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.acrobat.widgets.CustomTextView
+                    <com.greenapex.widgets.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="#1"
                         android:textColor="@color/black_font" />
 
-                    <com.acrobat.widgets.CustomTextView
+                    <com.greenapex.widgets.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -156,7 +156,7 @@
                         android:text="Milestone name"
                         android:textColor="@color/black_font" />
 
-                    <com.acrobat.widgets.CustomTextView
+                    <com.greenapex.widgets.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -184,7 +184,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center">
 
-                <com.acrobat.widgets.CustomTextView
+                <com.greenapex.widgets.CustomTextView
                     android:id="@+id/tvMakePayment_fragProjectHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                     android:text="@string/make_payment"
                     android:textColor="@color/white" />
 
-                <com.acrobat.widgets.CustomTextView
+                <com.greenapex.widgets.CustomTextView
                     android:id="@+id/tvReview_fragProjectHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.acrobat.widgets.CustomSwipeRefreshLayout
+    <com.greenapex.widgets.CustomSwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout_fragChat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,7 +23,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:scrollbars="none" />
-    </com.acrobat.widgets.CustomSwipeRefreshLayout>
+    </com.greenapex.widgets.CustomSwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         android:background="@color/chat_bottom_bg"
         android:padding="10dp">
 
-        <com.acrobat.widgets.CustomEditText
+        <com.greenapex.widgets.CustomEditText
             android:id="@+id/etMessage_fragChat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:layout_marginLeft="10dp"
             android:background="@color/black" />
 
-        <com.acrobat.widgets.CustomTextView
+        <com.greenapex.widgets.CustomTextView
             android:id="@+id/tvSend_fragChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

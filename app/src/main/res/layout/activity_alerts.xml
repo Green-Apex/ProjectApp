@@ -19,14 +19,14 @@
         android:background="@null"
         android:src="@drawable/close_btn" />
 
-    <com.acrobat.widgets.CustomTextView
+    <com.greenapex.widgets.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/alerts"
         android:textColor="@color/red"
         android:textSize="20sp" />
 
-    <com.acrobat.widgets.CustomSwipeRefreshLayout
+    <com.greenapex.widgets.CustomSwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout_Alerts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,6 +41,6 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:scrollbars="none" />
-    </com.acrobat.widgets.CustomSwipeRefreshLayout>
+    </com.greenapex.widgets.CustomSwipeRefreshLayout>
 
 </LinearLayout>

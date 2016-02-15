@@ -6,7 +6,7 @@
     android:background="@color/bg_color_splash"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.acrobat.mightyhomeplanz.MightyHomePlanz">
+    tools:context="com.greenapex.mightyhomeplanz.MightyHomePlanz">
 
     <ImageView
         android:layout_width="wrap_content"

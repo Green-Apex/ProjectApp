@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "mighthomeplanz.acrobat.com.mightyhomeplanz"
+        applicationId "com.greenapex"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

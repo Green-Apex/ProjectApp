@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <com.acrobat.widgets.CustomRoundedImageView
+    <com.greenapex.widgets.CustomRoundedImageView
         android:id="@+id/ivUserPic_rowChat"
         android:layout_width="@dimen/ac_height"
         android:layout_height="@dimen/ac_height"
@@ -20,7 +20,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <com.acrobat.widgets.CustomTextView
+        <com.greenapex.widgets.CustomTextView
             android:id="@+id/tvName_rowChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/purple" />
 
-        <com.acrobat.widgets.CustomTextView
+        <com.greenapex.widgets.CustomTextView
             android:id="@+id/tvMessage_rowChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             android:text="@string/lorem"
             android:textColor="@color/black_font" />
 
-        <com.acrobat.widgets.CustomTextView
+        <com.greenapex.widgets.CustomTextView
             android:id="@+id/tvTime_rowChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

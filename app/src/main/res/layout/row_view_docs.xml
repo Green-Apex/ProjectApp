@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-    <com.acrobat.widgets.CustomTextView
+    <com.greenapex.widgets.CustomTextView
         android:id="@+id/tvName_rowViewDocs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

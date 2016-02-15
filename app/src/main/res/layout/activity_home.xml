@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:id="@+id/tvTitle_Home"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -81,7 +81,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.acrobat.widgets.CustomTextView
+                <com.greenapex.widgets.CustomTextView
                     android:id="@+id/tvAlerts_Home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                     android:text="ALERTS:5"
                     android:textColor="@drawable/textselector_gray_purple" />
 
-                <com.acrobat.widgets.CustomTextView
+                <com.greenapex.widgets.CustomTextView
                     android:id="@+id/tvProjects_Home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                             android:layout_height="wrap_content"
                             android:visibility="visible">
 
-                            <com.acrobat.widgets.CustomRoundedImageView
+                            <com.greenapex.widgets.CustomRoundedImageView
                                 android:id="@+id/ivUserPic_SideMenu"
                                 android:layout_width="@dimen/profile_pic_hw"
                                 android:layout_height="@dimen/profile_pic_hw"

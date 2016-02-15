@@ -7,7 +7,7 @@
     android:background="@color/bg_color_all"
     android:orientation="vertical">
 
-    <com.acrobat.widgets.CustomSwipeRefreshLayout
+    <com.greenapex.widgets.CustomSwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout_fragViewDocs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +24,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:scrollbars="none" />
-    </com.acrobat.widgets.CustomSwipeRefreshLayout>
+    </com.greenapex.widgets.CustomSwipeRefreshLayout>
 
     <ImageButton
         android:id="@+id/btnAddDoc_fragViewDocs"

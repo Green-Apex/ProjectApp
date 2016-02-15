@@ -16,14 +16,14 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <com.acrobat.widgets.CustomTextView
+        <com.greenapex.widgets.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/update_profile"
             android:textColor="@color/white"
             android:textSize="22sp" />
 
-        <com.acrobat.widgets.CustomRoundedImageView
+        <com.greenapex.widgets.CustomRoundedImageView
             android:id="@+id/ivUserPic_SideMenu"
             android:layout_width="@dimen/profile_pic_hw"
             android:layout_height="@dimen/profile_pic_hw"
@@ -37,14 +37,14 @@
             android:layout_marginTop="5dp"
             android:gravity="center">
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:id="@+id/tvChangePicture_EditProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/change_picture"
                 android:textColor="@color/white" />
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:id="@+id/tvRemovePicture_EditProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <com.acrobat.widgets.CustomCardView
+            <com.greenapex.widgets.CustomCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -77,7 +77,7 @@
                 card_view:cardElevation="1dp"
                 card_view:cardUseCompatPadding="true">
 
-                <com.acrobat.widgets.CustomEditText
+                <com.greenapex.widgets.CustomEditText
                     android:id="@+id/etUsername_EditProfile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -91,9 +91,9 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-            </com.acrobat.widgets.CustomCardView>
+            </com.greenapex.widgets.CustomCardView>
 
-            <com.acrobat.widgets.CustomCardView
+            <com.greenapex.widgets.CustomCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -102,7 +102,7 @@
                 card_view:cardElevation="1dp"
                 card_view:cardUseCompatPadding="true">
 
-                <com.acrobat.widgets.CustomEditText
+                <com.greenapex.widgets.CustomEditText
                     android:id="@+id/etFirstname_EditProfile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -117,9 +117,9 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-            </com.acrobat.widgets.CustomCardView>
+            </com.greenapex.widgets.CustomCardView>
 
-            <com.acrobat.widgets.CustomCardView
+            <com.greenapex.widgets.CustomCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -128,7 +128,7 @@
                 card_view:cardElevation="1dp"
                 card_view:cardUseCompatPadding="true">
 
-                <com.acrobat.widgets.CustomEditText
+                <com.greenapex.widgets.CustomEditText
                     android:id="@+id/etLastname_EditProfile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -143,9 +143,9 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-            </com.acrobat.widgets.CustomCardView>
+            </com.greenapex.widgets.CustomCardView>
 
-            <com.acrobat.widgets.CustomCardView
+            <com.greenapex.widgets.CustomCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -154,7 +154,7 @@
                 card_view:cardElevation="1dp"
                 card_view:cardUseCompatPadding="true">
 
-                <com.acrobat.widgets.CustomEditText
+                <com.greenapex.widgets.CustomEditText
                     android:id="@+id/etEmail_EditProfile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -169,9 +169,9 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-            </com.acrobat.widgets.CustomCardView>
+            </com.greenapex.widgets.CustomCardView>
 
-            <com.acrobat.widgets.CustomCardView
+            <com.greenapex.widgets.CustomCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -180,7 +180,7 @@
                 card_view:cardElevation="1dp"
                 card_view:cardUseCompatPadding="true">
 
-                <com.acrobat.widgets.CustomEditText
+                <com.greenapex.widgets.CustomEditText
                     android:id="@+id/etStreetname_EditProfile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -195,7 +195,7 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-            </com.acrobat.widgets.CustomCardView>
+            </com.greenapex.widgets.CustomCardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -204,7 +204,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.acrobat.widgets.CustomCardView
+                <com.greenapex.widgets.CustomCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -213,7 +213,7 @@
                     card_view:cardElevation="1dp"
                     card_view:cardUseCompatPadding="true">
 
-                    <com.acrobat.widgets.CustomEditText
+                    <com.greenapex.widgets.CustomEditText
                         android:id="@+id/etCity_EditProfile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -226,9 +226,9 @@
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-                </com.acrobat.widgets.CustomCardView>
+                </com.greenapex.widgets.CustomCardView>
 
-                <com.acrobat.widgets.CustomCardView
+                <com.greenapex.widgets.CustomCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -237,7 +237,7 @@
                     card_view:cardElevation="1dp"
                     card_view:cardUseCompatPadding="true">
 
-                    <com.acrobat.widgets.CustomEditText
+                    <com.greenapex.widgets.CustomEditText
                         android:id="@+id/etState_EditProfile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -250,9 +250,9 @@
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-                </com.acrobat.widgets.CustomCardView>
+                </com.greenapex.widgets.CustomCardView>
 
-                <com.acrobat.widgets.CustomCardView
+                <com.greenapex.widgets.CustomCardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -261,7 +261,7 @@
                     card_view:cardElevation="1dp"
                     card_view:cardUseCompatPadding="true">
 
-                    <com.acrobat.widgets.CustomEditText
+                    <com.greenapex.widgets.CustomEditText
                         android:id="@+id/etZipCode_EditProfile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -274,10 +274,10 @@
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
-                </com.acrobat.widgets.CustomCardView>
+                </com.greenapex.widgets.CustomCardView>
             </LinearLayout>
 
-            <com.acrobat.widgets.CustomCardView
+            <com.greenapex.widgets.CustomCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -286,7 +286,7 @@
                 card_view:cardElevation="1dp"
                 card_view:cardUseCompatPadding="true">
 
-                <com.acrobat.widgets.CustomEditText
+                <com.greenapex.widgets.CustomEditText
                     android:id="@+id/etContact_EditProfile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -301,9 +301,9 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-            </com.acrobat.widgets.CustomCardView>
+            </com.greenapex.widgets.CustomCardView>
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:id="@+id/tvSave_EditProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

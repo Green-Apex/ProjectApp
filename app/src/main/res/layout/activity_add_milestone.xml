@@ -19,7 +19,7 @@
         android:background="@null"
         android:src="@drawable/close_btn" />
 
-    <com.acrobat.widgets.CustomTextView
+    <com.greenapex.widgets.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_milestone"
@@ -40,14 +40,14 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="@string/milestone_title"
                 android:textColor="@color/black_font" />
 
-            <com.acrobat.widgets.CustomEditText
+            <com.greenapex.widgets.CustomEditText
                 android:id="@+id/etMilestoneTitle_AddMilestone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                 android:padding="7dp"
                 android:singleLine="true" />
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -64,7 +64,7 @@
                 android:text="@string/milestone_description"
                 android:textColor="@color/black_font" />
 
-            <com.acrobat.widgets.CustomEditText
+            <com.greenapex.widgets.CustomEditText
                 android:id="@+id/etMilestoneDesc_AddMilestone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                 android:maxLines="4"
                 android:padding="7dp" />
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -84,7 +84,7 @@
                 android:text="@string/amount"
                 android:textColor="@color/black_font" />
 
-            <com.acrobat.widgets.CustomEditText
+            <com.greenapex.widgets.CustomEditText
                 android:id="@+id/etAmount_AddMilestone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                 android:padding="7dp"
                 android:singleLine="true" />
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -119,7 +119,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center">
 
-                <com.acrobat.widgets.CustomTextView
+                <com.greenapex.widgets.CustomTextView
                     android:id="@+id/tvSubmit_AddMilestone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
                     android:text="@string/submit"
                     android:textColor="@color/white" />
 
-                <com.acrobat.widgets.CustomTextView
+                <com.greenapex.widgets.CustomTextView
                     android:id="@+id/tvClear_AddMilestone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

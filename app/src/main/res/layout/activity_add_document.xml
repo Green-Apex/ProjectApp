@@ -19,7 +19,7 @@
         android:background="@null"
         android:src="@drawable/close_btn" />
 
-    <com.acrobat.widgets.CustomTextView
+    <com.greenapex.widgets.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_document"
@@ -36,14 +36,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="@string/title"
                 android:textColor="@color/black_font" />
 
-            <com.acrobat.widgets.CustomEditText
+            <com.greenapex.widgets.CustomEditText
                 android:id="@+id/etTitle_AddDocument"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -59,14 +59,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="@string/browse"
                 android:textColor="@color/black_font" />
 
-            <com.acrobat.widgets.CustomTextView
+            <com.greenapex.widgets.CustomTextView
                 android:id="@+id/tvBrowse_AddDocument"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center">
 
-        <com.acrobat.widgets.CustomTextView
+        <com.greenapex.widgets.CustomTextView
             android:id="@+id/tvSubmit_AddDocument"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
             android:text="@string/submit"
             android:textColor="@color/white" />
 
-        <com.acrobat.widgets.CustomTextView
+        <com.greenapex.widgets.CustomTextView
             android:id="@+id/tvClear_AddDocument"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
