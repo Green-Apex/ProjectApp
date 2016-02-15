@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- HDPI -->
+
+    <dimen name="ac_height">72px</dimen>
+    <!-- <dimen name="profile_pic_hw">114px</dimen> -->
+    <dimen name="profile_pic_hw">150px</dimen>
+    <dimen name="appbar_height">277px</dimen>
+
+    <dimen name="ratingbar_height">40px</dimen>
+
+</resources>

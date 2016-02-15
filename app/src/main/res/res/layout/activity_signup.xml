@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/bg_color_all"
+    android:gravity="center" android:orientation="vertical">
+
+    <ScrollView android:id="@+id/scrollView1" android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+            android:gravity="center" android:orientation="vertical" android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" android:src="@drawable/create_account" />
+
+            <com.acrobat.widgets.CustomCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="20dp"
+                card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                <com.acrobat.widgets.CustomEditText android:id="@+id/etUsername_Signup"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@null" android:drawableLeft="@drawable/user_icon"
+                    android:drawablePadding="17dp" android:gravity="center_vertical"
+                    android:hint="@string/hint_username" android:padding="5dp"
+                    android:singleLine="true" android:textColor="@color/black"
+                    android:textSize="14sp" android:textStyle="bold" />
+            </com.acrobat.widgets.CustomCardView>
+
+            <com.acrobat.widgets.CustomCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                <com.acrobat.widgets.CustomEditText android:id="@+id/etPassword_Signup"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@null" android:drawableLeft="@drawable/password_icon"
+                    android:drawablePadding="17dp" android:gravity="center_vertical"
+                    android:hint="@string/hint_password" android:inputType="textPassword"
+                    android:padding="5dp" android:singleLine="true" android:textColor="@color/black"
+                    android:textSize="14sp" android:textStyle="bold" />
+            </com.acrobat.widgets.CustomCardView>
+
+            <com.acrobat.widgets.CustomCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                <com.acrobat.widgets.CustomEditText android:id="@+id/etConfirmPassword_Signup"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@null" android:drawableLeft="@drawable/password_icon"
+                    android:drawablePadding="17dp" android:gravity="center_vertical"
+                    android:hint="@string/hint_confirm_password" android:inputType="textPassword"
+                    android:padding="5dp" android:singleLine="true" android:textColor="@color/black"
+                    android:textSize="14sp" android:textStyle="bold" />
+            </com.acrobat.widgets.CustomCardView>
+
+            <com.acrobat.widgets.CustomCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                <com.acrobat.widgets.CustomEditText android:id="@+id/etFirstname_Signup"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@null" android:drawableLeft="@drawable/hand_icon"
+                    android:drawablePadding="10dp" android:gravity="center_vertical"
+                    android:hint="@string/hint_firstname" android:inputType="text"
+                    android:padding="5dp" android:singleLine="true" android:textColor="@color/black"
+                    android:textSize="14sp" android:textStyle="bold" />
+            </com.acrobat.widgets.CustomCardView>
+
+            <com.acrobat.widgets.CustomCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                <com.acrobat.widgets.CustomEditText android:id="@+id/etLastname_Signup"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@null" android:drawableLeft="@drawable/hand_icon"
+                    android:drawablePadding="10dp" android:gravity="center_vertical"
+                    android:hint="@string/hint_lastname" android:inputType="text"
+                    android:padding="5dp" android:singleLine="true" android:textColor="@color/black"
+                    android:textSize="14sp" android:textStyle="bold" />
+            </com.acrobat.widgets.CustomCardView>
+
+            <com.acrobat.widgets.CustomCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                <com.acrobat.widgets.CustomEditText android:id="@+id/etEmail_Signup"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@null" android:drawableLeft="@drawable/email_icon"
+                    android:drawablePadding="10dp" android:gravity="center_vertical"
+                    android:hint="@string/hint_email" android:inputType="textEmailAddress"
+                    android:padding="5dp" android:singleLine="true" android:textColor="@color/black"
+                    android:textSize="14sp" android:textStyle="bold" />
+            </com.acrobat.widgets.CustomCardView>
+
+            <com.acrobat.widgets.CustomCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                <com.acrobat.widgets.CustomEditText android:id="@+id/etStreetname_Signup"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@null" android:drawableLeft="@drawable/street_icon"
+                    android:drawablePadding="10dp" android:gravity="center_vertical"
+                    android:hint="@string/hint_streetname" android:inputType="text"
+                    android:padding="5dp" android:singleLine="true" android:textColor="@color/black"
+                    android:textSize="14sp" android:textStyle="bold" />
+            </com.acrobat.widgets.CustomCardView>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.acrobat.widgets.CustomCardView android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                    <com.acrobat.widgets.CustomEditText android:id="@+id/etCity_Signup"
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:background="@null" android:gravity="center_vertical"
+                        android:hint="@string/hint_city" android:inputType="text"
+                        android:padding="5dp" android:singleLine="true"
+                        android:textColor="@color/black" android:textSize="14sp"
+                        android:textStyle="bold" />
+                </com.acrobat.widgets.CustomCardView>
+
+                <com.acrobat.widgets.CustomCardView android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                    <com.acrobat.widgets.CustomEditText android:id="@+id/etState_Signup"
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:background="@null" android:gravity="center_vertical"
+                        android:hint="@string/hint_state" android:inputType="text"
+                        android:padding="5dp" android:singleLine="true"
+                        android:textColor="@color/black" android:textSize="14sp"
+                        android:textStyle="bold" />
+                </com.acrobat.widgets.CustomCardView>
+
+                <com.acrobat.widgets.CustomCardView android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                    <com.acrobat.widgets.CustomEditText android:id="@+id/etZipCode_Signup"
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:background="@null" android:gravity="center_vertical"
+                        android:hint="@string/hint_zip_code" android:inputType="number"
+                        android:padding="5dp" android:singleLine="true"
+                        android:textColor="@color/black" android:textSize="14sp"
+                        android:textStyle="bold" />
+                </com.acrobat.widgets.CustomCardView>
+            </LinearLayout>
+
+            <com.acrobat.widgets.CustomCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                <com.acrobat.widgets.CustomEditText android:id="@+id/etContact_Signup"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@null" android:drawableLeft="@drawable/phone_icon"
+                    android:drawablePadding="10dp" android:gravity="center_vertical"
+                    android:hint="@string/hint_contact" android:inputType="phone"
+                    android:padding="5dp" android:singleLine="true" android:textColor="@color/black"
+                    android:textSize="14sp" android:textStyle="bold" />
+            </com.acrobat.widgets.CustomCardView>
+
+            <com.acrobat.widgets.CustomCardView android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white" card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp" card_view:cardUseCompatPadding="true">
+
+                <com.acrobat.widgets.CustomEditText
+                    android:id="@+id/etCommunicationPreference_Signup"
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:background="@null" android:drawableLeft="@drawable/phone_icon"
+                    android:drawablePadding="10dp" android:gravity="center_vertical"
+                    android:hint="@string/hint_communication_preference" android:inputType="phone"
+                    android:padding="5dp" android:singleLine="true" android:textColor="@color/black"
+                    android:textSize="14sp" android:textStyle="bold" />
+            </com.acrobat.widgets.CustomCardView>
+
+            <com.acrobat.widgets.CustomTextView android:id="@+id/tvRegister_Signup"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:background="@drawable/btn_green" android:gravity="center"
+                android:text="@string/register" android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

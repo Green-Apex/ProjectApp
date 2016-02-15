@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res/com.acrobat.mightyhomeplanz"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_color_all" android:gravity="center_horizontal"
+    android:orientation="vertical" android:paddingLeft="10dp" android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <ImageButton android:id="@+id/btnClose_AddNewProject" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_gravity="left"
+        android:background="@null" android:src="@drawable/close_btn" />
+
+    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="@string/add_new_project"
+        android:textColor="@color/red" android:textSize="20sp" />
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:overScrollMode="never" android:scrollbars="none">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical" android:paddingBottom="10dp" android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginTop="20dp"
+                android:text="@string/project_name" android:textColor="@color/black_font" />
+
+            <com.acrobat.widgets.CustomEditText android:id="@+id/etProjectName_AddNewProject"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/view_round_corner_black" android:padding="7dp"
+                android:singleLine="true" />
+
+            <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginTop="10dp"
+                android:singleLine="true" android:text="@string/project_desc"
+                android:textColor="@color/black_font" />
+
+            <com.acrobat.widgets.CustomEditText android:id="@+id/etProjectDesc_AddNewProject"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/view_round_corner_black" android:gravity="top"
+                android:inputType="textMultiLine" android:lines="4" android:maxLines="4"
+                android:padding="7dp" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <ImageButton android:id="@+id/imageButton1" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:background="@null"
+                    android:src="@drawable/gallery_icon" />
+
+                <ImageButton android:id="@+id/imageButton2" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginLeft="10dp"
+                    android:background="@null" android:src="@drawable/plus_icon" />
+            </LinearLayout>
+
+            <TableLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content">
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:gravity="right"
+                        android:text="@string/street_address"
+                        android:textColor="@color/black_font" />
+
+                    <com.acrobat.widgets.CustomEditText
+                        android:id="@+id/etStreetAddress_AddNewProject" android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/view_round_corner_black" android:padding="7dp"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:gravity="right"
+                        android:text="@string/city" android:textColor="@color/black_font" />
+
+                    <com.acrobat.widgets.CustomEditText android:id="@+id/etCity_AddNewProject"
+                        android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp" android:layout_weight="1"
+                        android:background="@drawable/view_round_corner_black" android:padding="7dp"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:gravity="right"
+                        android:text="@string/state" android:textColor="@color/black_font" />
+
+                    <com.acrobat.widgets.CustomEditText android:id="@+id/etState_AddNewProject"
+                        android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp" android:layout_weight="1"
+                        android:background="@drawable/view_round_corner_black" android:padding="7dp"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:gravity="right"
+                        android:text="@string/zip_code" android:textColor="@color/black_font" />
+
+                    <com.acrobat.widgets.CustomEditText android:id="@+id/etZip_AddNewProject"
+                        android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp" android:layout_weight="1"
+                        android:background="@drawable/view_round_corner_black" android:padding="7dp"
+                        android:singleLine="true" />
+                </TableRow>
+
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:gravity="right"
+                        android:text="@string/save_address" android:textColor="@color/black_font" />
+
+                    <com.acrobat.widgets.CustomCheckBox
+                        android:id="@+id/cbSaveAddress_AddNewProject" android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:layout_marginLeft="10dp"
+                        android:layout_weight="1" />
+                </TableRow>
+
+                <TableRow android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:gravity="right"
+                        android:text="@string/urgency_of_request"
+                        android:textColor="@color/black_font" />
+
+                    <Spinner android:id="@+id/spUrgencyOfRequest_AddNewProject"
+                        android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp" android:layout_weight="1"
+                        android:entries="@array/arr_urgency_of_request" />
+                </TableRow>
+            </TableLayout>
+
+            <com.acrobat.widgets.CustomTextView android:id="@+id/tvSubmit_AddNewProject"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="right" android:layout_marginTop="10dp"
+                android:background="@color/red" android:padding="5dp" android:text="@string/submit"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

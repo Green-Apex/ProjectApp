@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:gravity="center"
+    android:background="@color/bg_color_all" android:orientation="vertical">
+
+    <com.acrobat.widgets.CustomSwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout_fragViewDocs" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
+
+        <ListView android:id="@+id/lv_fragViewDocs" android:layout_width="match_parent"
+            android:layout_height="match_parent" android:divider="@color/gray_font"
+            android:dividerHeight="1px" android:overScrollMode="never" android:paddingLeft="10dp"
+            android:paddingRight="10dp" android:scrollbars="none" />
+    </com.acrobat.widgets.CustomSwipeRefreshLayout>
+
+    <ImageButton android:id="@+id/btnAddDoc_fragViewDocs" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" android:background="@null" android:padding="10dp"
+        android:src="@drawable/add_doc_icon" />
+
+</RelativeLayout>

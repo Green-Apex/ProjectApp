@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar android:id="@+id/toolbar" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:background="@color/white">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="@dimen/ac_height"
+            android:gravity="center_vertical" android:orientation="horizontal">
+
+            <ImageButton android:id="@+id/btnAdd_Home" android:layout_width="wrap_content"
+                android:layout_height="match_parent" android:layout_marginLeft="5dp"
+                android:background="@null" android:src="@drawable/add_icon" />
+
+            <View android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.acrobat.widgets.CustomTextView android:id="@+id/tvTitle_Home"
+                android:layout_width="wrap_content" android:layout_height="match_parent"
+                android:layout_marginLeft="5dp" android:gravity="center_vertical"
+                android:text="Home Services" android:textColor="@color/purple"
+                android:textSize="18sp" />
+
+            <View android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton android:id="@+id/btnMenu_Home" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginRight="10dp"
+                android:background="@null" android:src="@drawable/ic_menu" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.DrawerLayout android:id="@+id/drawerLayout"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+            android:gravity="center" android:orientation="vertical">
+
+            <FrameLayout android:id="@+id/containerView" android:layout_width="match_parent"
+                android:layout_height="0dp" android:layout_weight="1"
+                android:orientation="vertical"></FrameLayout>
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="@dimen/ac_height" android:background="@color/white"
+                android:gravity="center" android:orientation="horizontal">
+
+                <com.acrobat.widgets.CustomTextView android:id="@+id/tvAlerts_Home"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginRight="7dp" android:clickable="true"
+                    android:drawableLeft="@drawable/alert_disable" android:drawablePadding="10dp"
+                    android:onClick="gotoAlertsFromHome" android:text="ALERTS:5"
+                    android:textColor="@drawable/textselector_gray_purple" />
+
+                <com.acrobat.widgets.CustomTextView android:id="@+id/tvProjects_Home"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp" android:clickable="true"
+                    android:drawableLeft="@drawable/project_enable" android:drawablePadding="10dp"
+                    android:text="PROJECTS:15"
+                    android:textColor="@drawable/textselector_gray_purple" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.NavigationView android:id="@+id/navigationview_home"
+            android:layout_width="wrap_content" android:layout_height="match_parent"
+            android:layout_gravity="end" android:background="@color/purple"
+            app:itemTextColor="@color/black">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:background="@color/purple" android:gravity="center"
+                android:orientation="vertical">
+
+                <RelativeLayout android:id="@+id/rlUser_SideMenu"
+                    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+                    <LinearLayout android:id="@+id/llUser_SideMenu"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:clickable="true" android:focusableInTouchMode="true"
+                        android:gravity="center" android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <RelativeLayout android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:visibility="visible">
+
+                            <com.acrobat.widgets.CustomRoundedImageView
+                                android:id="@+id/ivUserPic_SideMenu"
+                                android:layout_width="@dimen/profile_pic_hw"
+                                android:layout_height="@dimen/profile_pic_hw"
+                                android:src="@drawable/demo_user_image" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <ListView android:id="@+id/lvMenu" android:layout_width="match_parent"
+                    android:layout_height="0dp" android:layout_weight="1" android:divider="@null"
+                    android:scrollbars="none"></ListView>
+            </LinearLayout>
+        </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>

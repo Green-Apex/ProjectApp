@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res/com.acrobat.mightyhomeplanz"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/bg_color_all" android:gravity="center_horizontal"
+    android:orientation="vertical" android:paddingLeft="10dp" android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <ImageButton android:id="@+id/btnClose_Alerts" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_gravity="left"
+        android:background="@null" android:src="@drawable/close_btn" />
+
+    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="@string/alerts"
+        android:textColor="@color/red" android:textSize="20sp" />
+
+    <com.acrobat.widgets.CustomSwipeRefreshLayout android:id="@+id/swipe_refresh_layout_Alerts"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_marginTop="5dp">
+
+        <ListView android:id="@+id/lv_Alerts" android:layout_width="match_parent"
+            android:layout_height="match_parent" android:divider="@android:color/transparent"
+            android:overScrollMode="never" android:paddingLeft="10dp" android:paddingRight="10dp"
+            android:scrollbars="none" />
+    </com.acrobat.widgets.CustomSwipeRefreshLayout>
+
+</LinearLayout>

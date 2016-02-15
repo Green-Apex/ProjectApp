@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:background="@color/bg_color_all"
+    android:orientation="vertical">
+
+    <ScrollView android:id="@+id/scrollView1" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical" android:paddingLeft="10dp" android:paddingRight="10dp">
+
+            <RelativeLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v4.view.ViewPager android:id="@+id/pager_fragProjectHome"
+                    android:layout_width="match_parent" android:layout_height="@dimen/appbar_height"
+                    android:layout_marginTop="10dp"></android.support.v4.view.ViewPager>
+
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/pagerIndicator_fragProjectHome"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp" android:padding="10dip"
+                    app:fillColor="@color/black" app:radius="3dp" app:strokeColor="@color/white"
+                    app:strokeWidth="1.5px" />
+            </RelativeLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1px"
+                android:layout_marginTop="10dp" android:background="@color/black_font" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" android:gravity="top">
+
+                <com.acrobat.widgets.CustomTextView android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="Start Date: TBD"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black_font" />
+
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:orientation="horizontal">
+
+                        <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" android:text="Status: "
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/black_font" />
+
+                        <com.acrobat.widgets.CustomTextView
+                            android:id="@+id/tvStatus_fragProjectHome"
+                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp" android:text="Active"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/purple" />
+                    </LinearLayout>
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="Cost: TBD"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black_font" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginTop="10dp"
+                android:text="@string/project_decription"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black_font" />
+
+            <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                android:text="@string/lorem" android:textColor="@color/black_font" />
+
+            <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_gravity="right"
+                android:layout_marginTop="5dp" android:text="@string/edit"
+                android:textColor="@color/blue" />
+
+            <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginTop="10dp"
+                android:text="@string/milestone"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black_font" />
+
+            <TableLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:text="#1"
+                        android:textColor="@color/black_font" />
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="0dp"
+                        android:layout_height="wrap_content" android:layout_marginLeft="5dp"
+                        android:layout_weight="1" android:text="Milestone name"
+                        android:textColor="@color/black_font" />
+
+                    <com.acrobat.widgets.CustomTextView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_marginLeft="5dp"
+                        android:text="Paid" android:textColor="@color/blue" />
+                </TableRow>
+            </TableLayout>
+
+            <ImageButton android:id="@+id/btnAddMilestone_fragProjectHome"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" android:layout_alignParentRight="true"
+                android:layout_gravity="right" android:layout_marginTop="5dp"
+                android:background="@null" android:padding="10dp"
+                android:src="@drawable/add_doc_icon" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp" android:layout_marginTop="10dp"
+                android:gravity="center">
+
+                <com.acrobat.widgets.CustomTextView android:id="@+id/tvMakePayment_fragProjectHome"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:background="@drawable/view_round_corner_blue_fill"
+                    android:padding="10dp" android:text="@string/make_payment"
+                    android:textColor="@color/white" />
+
+                <com.acrobat.widgets.CustomTextView android:id="@+id/tvReview_fragProjectHome"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/view_round_corner_yellow_fill"
+                    android:padding="10dp" android:text="@string/review"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

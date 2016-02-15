@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- MDPI -->
+
+    <dimen name="ac_height">48px</dimen>
+    <dimen name="profile_pic_hw">76px</dimen>
+    <dimen name="appbar_height">184px</dimen>
+    <dimen name="ratingbar_height">26px</dimen>
+
+</resources>

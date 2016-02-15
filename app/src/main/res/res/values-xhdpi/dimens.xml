@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- XHDPI -->
+
+    <dimen name="ac_height">96px</dimen>
+    <dimen name="profile_pic_hw">152px</dimen>
+    <dimen name="appbar_height">369px</dimen>
+    <dimen name="ratingbar_height">53px</dimen>
+
+</resources>

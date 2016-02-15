@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="app_color">#cbcbcb</color>
+    <color name="bg_color_splash">#cbcbcb</color>
+    <color name="bg_color_all">#e9ece5</color>
+    <color name="green">#18b1a7</color>
+    <color name="blue">#0457a7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_transparent">#F9FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="black_overlay">#AA000000</color>
+    <color name="purple">#663399</color>
+    <color name="dark_purple">#666699</color>
+    <color name="light_blue">#6699ff</color>
+    <color name="gray_font">#666666</color>
+    <color name="black_font">#333339</color>
+    <color name="red">#ff0000</color>
+    <color name="yellow">#ff9900</color>
+    <color name="chat_bottom_bg">#ebebeb</color>
+
+</resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <com.acrobat.widgets.CustomRoundedImageView
+        android:id="@+id/ivUserPic_rowChat"
+        android:layout_width="@dimen/ac_height"
+        android:layout_height="@dimen/ac_height"
+        android:src="@drawable/demo_user_image"
+        app:border_width="0dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.acrobat.widgets.CustomTextView
+            android:id="@+id/tvName_rowChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADMINISTRATOR"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/purple" />
+
+        <com.acrobat.widgets.CustomTextView
+            android:id="@+id/tvMessage_rowChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/lorem"
+            android:textColor="@color/black_font" />
+
+        <com.acrobat.widgets.CustomTextView
+            android:id="@+id/tvTime_rowChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Jan 30, 2016 9:14 AM"
+            android:textColor="@color/blue" />
+    </LinearLayout>
+
+</LinearLayout>
