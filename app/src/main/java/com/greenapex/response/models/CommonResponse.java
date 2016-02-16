@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 /**
- * @author mitulnakum
+ * @author Arpit
  */
 public class CommonResponse {
 
@@ -17,55 +17,61 @@ public class CommonResponse {
     public static final String key_message = "message";
     public static final String key_data = "data";
 
-    private boolean result;
+    public static final String case_Success = "0";
+    public static final String case_Wrong_Credentials = "1";
+    public static final String case_Login_Success = "2";
+    public static final String case_MandatoryField = "5003";
+    public static final String case_notFound = "10";
+
+
+    //    private boolean result;
     private String message;
+    private String clientCode;
+    //    private String data;
     private JsonElement data;
 
-    /**
-     * @return the data
-     */
-    public JsonElement getData() {
-        return data;
+    public CommonResponse() {
+        this.message = "";
+        this.clientCode = "";
+
     }
 
-    /**
-     * @param data the data to set
-     */
-    public void setData(JsonElement data) {
-        this.data = data;
+    public String getClientCode() {
+        return clientCode;
     }
 
-    /**
-     * @return the message
-     */
+    public void setClientCode(String clientCode) {
+        this.clientCode = clientCode;
+    }
+
     public String getMessage() {
         return message;
     }
 
-    /**
-     * @param message the message to set
-     */
     public void setMessage(String message) {
         this.message = message;
     }
 
-    /**
-     * @return the result
-     */
-    public boolean isResult() {
-        return result;
+    public JsonElement getData() {
+        return data;
     }
 
-    /**
-     * @param result the result to set
-     */
-    public void setResult(boolean result) {
-        this.result = result;
+    public void setData(JsonElement data) {
+        this.data = data;
     }
+
+//    public boolean isResult() {
+//        return result;
+//    }
+//
+//    public void setResult(boolean result) {
+//        this.result = result;
+//    }
 
     @Override
     public String toString() {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
+
 }

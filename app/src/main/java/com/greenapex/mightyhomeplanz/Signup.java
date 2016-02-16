@@ -2,7 +2,9 @@ package com.greenapex.mightyhomeplanz;
 
 import com.greenapex.Request.models.AddressRequest;
 import com.greenapex.Request.models.RegisterRequest;
+import com.greenapex.Utils.Constants;
 import com.greenapex.Utils.Utils;
+import com.greenapex.response.models.UserResponse;
 import com.greenapex.webservice.RegisterWebservice;
 import com.greenapex.widgets.CustomEditText;
 import com.greenapex.widgets.CustomTextView;
@@ -12,7 +14,10 @@ import com.greenapex.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +49,8 @@ public class Signup extends Activity implements OnClickListener, RegisterWebserv
     private CustomTextView tvRegisterSignup;
     private Gson gson;
     private RegisterRequest registerRequest;
+    private SharedPreferences sharedPreferences;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,7 @@ public class Signup extends Activity implements OnClickListener, RegisterWebserv
 
 //        activity = Signup.this;
         gson = new GsonBuilder().create();
+        progressDialog = new ProgressDialog(this);
         init();
     }
 
@@ -81,7 +89,6 @@ public class Signup extends Activity implements OnClickListener, RegisterWebserv
         switch (v.getId()) {
             case R.id.tvRegister_Signup:
 
-//                startActivity(new Intent(activity, Signup.class));
                 if (validateData()) {
                     String strParams = getGson().toJson(getRegisterRequest());
                     RegisterWebservice registerWebservice = new RegisterWebservice(this, this.getApplicationContext());
@@ -95,8 +102,6 @@ public class Signup extends Activity implements OnClickListener, RegisterWebserv
                     }
                 }
 
-//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                finish();
                 break;
 
         }
@@ -182,18 +187,43 @@ public class Signup extends Activity implements OnClickListener, RegisterWebserv
     @Override
     public void registerWebserviceStart() {
 //        Toast.makeText(this, "Start", Toast.LENGTH_SHORT).show();
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
     }
 
     @Override
     public void registerWebserviceSucessful(String response, String message) {
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
         Log.d("SignUp", response);
+        progressDialog.dismiss();
+        if (response.length() > 0) {
+            UserResponse userResponse = gson.fromJson(response, UserResponse.class);
+            sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
+            try {
+                if (userResponse.toString() != null) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(Constants.UserData, userResponse.toString());
+                    editor.commit();
+
+                    startActivity(new Intent(this.getApplicationContext(), Home.class));
+                    overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+                    finish();
+                } else {
+                    Log.d("SignUp", "Error saving user response data to Shared Preference");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error saving user data in preferences", Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 
     @Override
     public void registerWebserviceFailedWithMessage(String message) {
         Toast.makeText(this, "Fail:" + message, Toast.LENGTH_SHORT).show();
         Log.d("SignUp", message);
+        progressDialog.dismiss();
     }
 
     protected Gson getGson() {

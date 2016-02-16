@@ -54,6 +54,12 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
         tvCreateAccount.setOnClickListener(this);
         tvForgotPassword.setOnClickListener(this);
         tvSignin.setOnClickListener(this);
+
+        /*
+        pre-loading data for testing
+         */
+        etUsername_Signin.setText("nilay.khandhar@green-apex.com");
+        etPassword_Signin.setText("nilay");
     }
 
 
@@ -80,7 +86,8 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
                     LoginRequest loginRequest = new LoginRequest();
                     loginRequest.setEmail(etUsername_Signin.getText().toString());
 //                    loginRequest.setEmail("nilay.khandhar@green-apex.com");
-                    loginRequest.setPassword(Utils.stringToMd5(etPassword_Signin.getText().toString()));
+//                    loginRequest.setPassword(Utils.stringToMd5(etPassword_Signin.getText().toString()));
+                    loginRequest.setPassword(etPassword_Signin.getText().toString());
                     loginRequest.setRole("owner");
 
                     String strParams = getGson().toJson(loginRequest);
@@ -134,6 +141,9 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
     @Override
     public void loginWebserviceSucessful(String response, String message) {
         Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(activity, Home.class));
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        finish();
     }
 
     @Override

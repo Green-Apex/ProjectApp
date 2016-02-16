@@ -58,7 +58,7 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
     @Override
     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
         if (statusCode != 200)
-        webserviceFailedWithMessage("Unable to process please check your internet and try again...");
+            webserviceFailedWithMessage("Unable to process please check your internet and try again...");
     }
 
     @Override
@@ -157,21 +157,23 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
             CommonResponse commonResponse = gson.fromJson(response, CommonResponse.class);
 
 
-            if (commonResponse.isResult()) {
-                if (commonResponse.getData() != null) {
+            if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Success)) {
 
-                    if (commonResponse.getData().isJsonObject()) {
-                        webserviceSucessful(commonResponse.getData().getAsJsonObject().toString(), commonResponse.getMessage());
-                    } else {
-                        webserviceSucessful(commonResponse.getData().getAsJsonArray().toString(), commonResponse.getMessage());
-                    }
-
+                if (commonResponse.getData().isJsonObject()) {
+                    webserviceSucessful(commonResponse.getData().getAsJsonObject().toString(), commonResponse.getMessage());
+                } else if (commonResponse.getData().isJsonArray()) {
+                    webserviceSucessful(commonResponse.getData().getAsJsonArray().toString(), commonResponse.getMessage());
                 } else {
-                    if (commonResponse.getMessage() != null)
-                        webserviceFailedWithMessage("Unable to process please check your internet and try again...");
+                    webserviceSucessful(commonResponse.getData().toString(), commonResponse.getMessage());
                 }
-            } else {
-                webserviceFailedWithMessage("Unable to process please try again...");
+            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_notFound)) {
+                webserviceFailedWithMessage(commonResponse.getMessage());
+            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_MandatoryField)) {
+                webserviceFailedWithMessage(commonResponse.getMessage());
+            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Wrong_Credentials)) {
+                webserviceFailedWithMessage(commonResponse.getMessage());
+            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Login_Success)) {
+                webserviceSucessful("Success", commonResponse.getMessage());
             }
         } catch (Exception e) {
             webserviceFailedWithMessage("Unable to process please try again...");
