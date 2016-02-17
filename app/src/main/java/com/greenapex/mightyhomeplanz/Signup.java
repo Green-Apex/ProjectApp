@@ -193,7 +193,7 @@ public class Signup extends Activity implements OnClickListener, RegisterWebserv
 
     @Override
     public void registerWebserviceSucessful(String response, String message) {
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
         Log.d("SignUp", response);
         progressDialog.dismiss();
         if (response.length() > 0) {
@@ -227,6 +227,7 @@ public class Signup extends Activity implements OnClickListener, RegisterWebserv
     }
 
     protected Gson getGson() {
+
         return gson;
     }
 }

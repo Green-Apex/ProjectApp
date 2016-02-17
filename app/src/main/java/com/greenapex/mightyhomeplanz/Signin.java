@@ -3,6 +3,7 @@ package com.greenapex.mightyhomeplanz;
 import com.greenapex.Request.models.LoginRequest;
 import com.greenapex.Utils.Constants;
 import com.greenapex.Utils.Utils;
+import com.greenapex.response.models.UserResponse;
 import com.greenapex.webservice.LoginWebservice;
 import com.greenapex.widgets.CustomEditText;
 import com.greenapex.widgets.CustomTextView;
@@ -12,8 +13,12 @@ import com.greenapex.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -31,6 +36,7 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
     private CustomEditText etUsername_Signin;
     private CustomEditText etPassword_Signin;
     private Gson gson;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,7 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
         setContentView(R.layout.activity_signin);
 
         activity = Signin.this;
+        progressDialog = new ProgressDialog(this);
         gson = new GsonBuilder().create();
         init();
 
@@ -58,8 +65,10 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
         /*
         pre-loading data for testing
          */
-        etUsername_Signin.setText("nilay.khandhar@green-apex.com");
-        etPassword_Signin.setText("nilay");
+//        etUsername_Signin.setText("nilay.khandhar@green-apex.com");
+//        etPassword_Signin.setText("nilay");
+        etUsername_Signin.setText("akkianadakat@gmail.com");
+        etPassword_Signin.setText("arpit");
     }
 
 
@@ -136,19 +145,40 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
     @Override
     public void loginWebserviceStart() {
 //        Toast.makeText(this, "Start", Toast.LENGTH_SHORT).show();
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
     }
 
     @Override
     public void loginWebserviceSucessful(String response, String message) {
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(activity, Home.class));
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        finish();
+//        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+        progressDialog.show();
+        if (response.length() > 0) {
+            UserResponse userResponse = gson.fromJson(response, UserResponse.class);
+            SharedPreferences sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
+            try {
+                if (userResponse.toString() != null) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(Constants.UserData, userResponse.toString());
+                    editor.commit();
+
+                    startActivity(new Intent(this.getApplicationContext(), Home.class));
+                    overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+                    finish();
+                } else {
+                    Log.d("SignUp", "Error saving user response data to Shared Preference");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("SignUp", "Error saving user data in preferences");
+            }
+        }
     }
 
     @Override
     public void loginWebserviceFailedWithMessage(String message) {
         Toast.makeText(this, "Fail:" + message, Toast.LENGTH_SHORT).show();
+        progressDialog.hide();
     }
 
 

@@ -116,7 +116,7 @@ public class ForgotPassword extends Activity implements OnClickListener, ForgotP
 
     @Override
     public void ForgotPasswordWebserviceSucessful(String response, String message) {
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "" + message, Toast.LENGTH_SHORT).show();
 
     }
 

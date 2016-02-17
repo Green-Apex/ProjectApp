@@ -20,17 +20,28 @@ public class ForgotPasswordWebservice extends WebserviceBase {
 
     private Context context = null;
 
-    public void callService(@NonNull final JSONObject params) throws UnsupportedEncodingException {
+    public void callService(@NonNull final JSONObject params, int method_type) throws UnsupportedEncodingException {
 
         try {
             String email = params.getString("email");
             String url = Constants.forgotPasswordWebservice + "email=" + email;
-            callService(url, params);
+            callService(url, params, method_type);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
+    }
+
+    @Override
+    public void callService(@NonNull JSONObject params) throws UnsupportedEncodingException, JSONException {
+        try {
+            String email = params.getString("email");
+            String url = Constants.forgotPasswordWebservice + "email=" + email;
+            callService(url, params, Constants.METHOD_POST);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 

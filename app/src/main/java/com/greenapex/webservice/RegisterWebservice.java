@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.greenapex.Utils.Constants;
 import com.greenapex.WebserviceBase;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -20,10 +21,15 @@ public class RegisterWebservice extends WebserviceBase {
 
     private Context context = null;
 
-    public void callService(@NonNull final JSONObject params) throws UnsupportedEncodingException {
+    public void callService(@NonNull final JSONObject params, int method_type) throws UnsupportedEncodingException {
 
-        callService(Constants.registerWebservice, params);
+        super.callService(Constants.registerWebservice, params, method_type);
 
+    }
+
+    @Override
+    public void callService(@NonNull JSONObject params) throws UnsupportedEncodingException, JSONException {
+        super.callService(Constants.registerWebservice, params, Constants.METHOD_POST);
     }
 
 

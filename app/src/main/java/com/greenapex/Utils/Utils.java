@@ -3,8 +3,11 @@ package com.greenapex.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.os.Environment;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -83,5 +86,27 @@ public class Utils {
         if (this.activity != null)
             Toast.makeText(this.activity, msg, Toast.LENGTH_SHORT).show();
     }
+
+    public File createImageFile() throws IOException {
+        // Create an image file name
+        String tmpImageDirectory = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES) + "/Mighty";
+
+
+        File storageDir = new File(tmpImageDirectory);
+        if (!storageDir.exists()) {
+            storageDir.mkdirs();
+        }
+        File image = File.createTempFile(
+                System.currentTimeMillis() + "_mighty",  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+//        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
 
 }

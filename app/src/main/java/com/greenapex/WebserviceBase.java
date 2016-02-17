@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import com.greenapex.Utils.Constants;
 import com.greenapex.Utils.Utils;
 import com.greenapex.response.models.CommonResponse;
 import com.google.gson.Gson;
@@ -84,6 +85,7 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
 ////CharBuffer implements CharSequence interface, which StringBuilder fully support in it's methods
 ////
 //        String response = new String(responseBody, Charset.defaultCharset());
+
         ByteArrayInputStream bis = new ByteArrayInputStream(responseBody);
         BufferedReader r = new BufferedReader(new InputStreamReader(bis));
         StringBuilder total = new StringBuilder();
@@ -92,7 +94,7 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
             while ((line = r.readLine()) != null) {
                 total.append(line);
             }
-            parseResponse(total.toString());
+            parseResponse(total.toString(), statusCode);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,7 +124,34 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
         client.setLoggingLevel(Log.ERROR);
     }
 
+    public abstract void callService(@NonNull final JSONObject params, int method_type) throws UnsupportedEncodingException, JSONException;
+
     public abstract void callService(@NonNull final JSONObject params) throws UnsupportedEncodingException, JSONException;
+
+    protected void callService(String url, final JSONObject params, int method_type) throws UnsupportedEncodingException {
+        if (Utils.isNetworkConnected(context)) {
+
+            switch (method_type) {
+                case Constants.METHOD_POST: {
+                    StringEntity entity = new StringEntity(params.toString());
+//            AsyncHttpClient client = new AsyncHttpClient();
+                    client.post(context, url, entity, "application/json", this);
+
+                    webserviceStart();
+                    break;
+                }
+                case Constants.METHOD_GET: {
+                    callService(url);
+                    break;
+                }
+            }
+
+        } else {
+            webserviceFailedWithMessage("Oops!!! Please check your internet.");
+        }
+
+
+    }
 
     protected void callService(String url, final JSONObject params) throws UnsupportedEncodingException {
         if (Utils.isNetworkConnected(context)) {
@@ -132,6 +161,7 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
             client.post(context, url, entity, "application/json", this);
 
             webserviceStart();
+
         } else {
             webserviceFailedWithMessage("Oops!!! Please check your internet.");
         }
@@ -139,7 +169,7 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
 
     }
 
-    protected void callService(String url) {
+    private void callService(String url) {
         if (Utils.isNetworkConnected(context)) {
             client.get(context, url, this);
             webserviceStart();
@@ -150,15 +180,12 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
 
     }
 
-    protected void parseResponse(String response) {
+    protected void parseResponse(String response, int statusCode) {
 
         try {
             Gson gson = new GsonBuilder().create();
             CommonResponse commonResponse = gson.fromJson(response, CommonResponse.class);
-
-
-            if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Success)) {
-
+            if (statusCode == 200) {
                 if (commonResponse.getData().isJsonObject()) {
                     webserviceSucessful(commonResponse.getData().getAsJsonObject().toString(), commonResponse.getMessage());
                 } else if (commonResponse.getData().isJsonArray()) {
@@ -166,15 +193,28 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
                 } else {
                     webserviceSucessful(commonResponse.getData().toString(), commonResponse.getMessage());
                 }
-            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_notFound)) {
+            } else {
                 webserviceFailedWithMessage(commonResponse.getMessage());
-            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_MandatoryField)) {
-                webserviceFailedWithMessage(commonResponse.getMessage());
-            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Wrong_Credentials)) {
-                webserviceFailedWithMessage(commonResponse.getMessage());
-            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Login_Success)) {
-                webserviceSucessful("Success", commonResponse.getMessage());
             }
+
+//            if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Success)) {
+//
+//                if (commonResponse.getData().isJsonObject()) {
+//                    webserviceSucessful(commonResponse.getData().getAsJsonObject().toString(), commonResponse.getMessage());
+//                } else if (commonResponse.getData().isJsonArray()) {
+//                    webserviceSucessful(commonResponse.getData().getAsJsonArray().toString(), commonResponse.getMessage());
+//                } else {
+//                    webserviceSucessful(commonResponse.getData().toString(), commonResponse.getMessage());
+//                }
+//            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_notFound)) {
+//                webserviceFailedWithMessage(commonResponse.getMessage());
+//            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_MandatoryField)) {
+//                webserviceFailedWithMessage(commonResponse.getMessage());
+//            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Wrong_Credentials)) {
+//                webserviceFailedWithMessage(commonResponse.getMessage());
+//            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Login_Success)) {
+//                webserviceSucessful("Success", commonResponse.getMessage());
+//            }
         } catch (Exception e) {
             webserviceFailedWithMessage("Unable to process please try again...");
             e.printStackTrace();
