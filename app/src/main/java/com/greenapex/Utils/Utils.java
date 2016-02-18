@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.File;
@@ -108,5 +109,11 @@ public class Utils {
         return image;
     }
 
+    public static void showLog(String TAG, String message) {
+        if (message == null)
+            message = "looks like something went wrong please try again...";
+        if (Constants.DEBUG)
+            Log.d(TAG, message);
+    }
 
 }
