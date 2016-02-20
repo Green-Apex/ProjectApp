@@ -28,6 +28,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".mightyhomeplanz.AddSow"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".mightyhomeplanz.Signin"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

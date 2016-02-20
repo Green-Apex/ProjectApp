@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color_all"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <ImageButton
+        android:id="@+id/btnClose_AddMilestone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="@null"
+        android:src="@drawable/close_btn" />
+
+    <com.greenapex.widgets.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add SOW"
+        android:textColor="@color/red"
+        android:textSize="20sp" />
+
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:overScrollMode="never"-->
+    <!--android:scrollbars="none">-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.greenapex.widgets.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Title"
+                android:textColor="@color/black_font" />
+
+            <com.greenapex.widgets.CustomEditText
+                android:id="@+id/etMilestoneTitle_AddMilestone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/view_round_corner_black"
+                android:padding="7dp"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSelectDocument"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayoutTitle"
+            android:orientation="vertical">
+
+            <com.greenapex.widgets.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:padding="7dp"
+                android:text="@string/browse"
+                android:textColor="@color/black_font" />
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/tvBrowse_AddDocument"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/view_round_corner_black_gray"
+                android:gravity="center"
+                android:hint="@string/select_file"
+                android:padding="7dp"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listMileStone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/LinearLayoutSubmit"
+            android:layout_below="@+id/linearLayoutSelectDocument"
+            android:layout_marginTop="5dp"
+            android:padding="7dp">
+
+        </ListView>
+
+        <ImageButton
+            android:id="@+id/btn_AddMilestone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/linearLayoutSelectDocument"
+            android:layout_gravity="left"
+            android:layout_marginTop="15dp"
+            android:background="@null"
+            android:src="@drawable/add_icon" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:padding="7dp">
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/tvSubmit_AddDocument"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/blue"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/submit"
+                android:textColor="@color/white" />
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/tvClear_AddDocument"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@color/yellow"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:text="@string/clear"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </RelativeLayout>
+    <!--  </ScrollView>-->
+</LinearLayout>

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.greenapex.R;
+import com.greenapex.Utils.Constants;
 
 public class ProjectDetailFragment extends Fragment {
 
@@ -34,7 +35,8 @@ public class ProjectDetailFragment extends Fragment {
         /**
          * Set an Adapter for the View Pager
          */
-        viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
+        String selectedJob = getArguments().getString(Constants.JOBID, "0");
+        viewPager.setAdapter(new MyAdapter(getChildFragmentManager(), selectedJob));
 
         /**
          * Now , this is a workaround , The setupWithViewPager dose't works
@@ -53,9 +55,11 @@ public class ProjectDetailFragment extends Fragment {
     }
 
     class MyAdapter extends FragmentPagerAdapter {
+        String selectedJob;
 
-        public MyAdapter(FragmentManager fm) {
+        public MyAdapter(FragmentManager fm, String selectedJob) {
             super(fm);
+            this.selectedJob = selectedJob;
         }
 
         /**
@@ -65,7 +69,7 @@ public class ProjectDetailFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             if (position == 0)
-                return ProjectHomeFragment.newInstance();
+                return ProjectHomeFragment.newInstance(selectedJob);
             else if (position == 1)
                 return ViewDocsFragment.newInstance();
             else if (position == 2)

@@ -167,11 +167,16 @@ public class ProjectsFragment extends BaseFragment {
         lv.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                JobModel selectedJobItem = (JobModel) parent.getItemAtPosition(position);
+                Bundle params = new Bundle();
+                params.putString(Constants.JOBID, selectedJobItem.getJobID());
+                Fragment projectFragment = new ProjectDetailFragment();
+                projectFragment.setArguments(params);
                 FragmentManager mFragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction mFragmentTransaction;
 
                 mFragmentTransaction = mFragmentManager.beginTransaction();
-                mFragmentTransaction.replace(R.id.containerView, new ProjectDetailFragment()).addToBackStack("SS")
+                mFragmentTransaction.replace(R.id.containerView, projectFragment).addToBackStack("SS")
                         .commit();
             }
         });

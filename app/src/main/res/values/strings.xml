@@ -108,8 +108,9 @@
     <string name="status">Status</string>
 
     <string-array name="arr_status_milestone">
-        <item>Unpaid</item>
-        <item>Paid</item>
+        <item>InProgress</item>
+        <item>InPreview</item>
+        <item>Completed</item>
     </string-array>
 
 </resources>
