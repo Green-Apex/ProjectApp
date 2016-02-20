@@ -7,24 +7,28 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.bumptech.glide.RequestManager;
 import com.greenapex.R;
 import com.greenapex.Utils.Constants;
 import com.greenapex.mightyhomeplanz.entities.JobModel;
+import com.greenapex.widgets.CustomRoundedImageView;
 import com.greenapex.widgets.CustomTextView;
 
 import java.util.ArrayList;
 
 public class ProjectsAdapter extends BaseAdapter implements OnClickListener {
 
+    private final RequestManager imageLoader;
     Context context;
 
     static ArrayList<JobModel> list;
 
 
-    public ProjectsAdapter(Context context, ArrayList<JobModel> list) {
+    public ProjectsAdapter(Context context, ArrayList<JobModel> list, RequestManager imageLoader) {
         super();
         this.context = context;
         ProjectsAdapter.list = list;
+        this.imageLoader = imageLoader;
     }
 
     @Override
@@ -56,13 +60,23 @@ public class ProjectsAdapter extends BaseAdapter implements OnClickListener {
             convertView = layoutInflator.inflate(R.layout.row_home, null);
             holder = new ViewHolder();
 
-            holder.tvStatus = (CustomTextView) convertView.findViewById(R.id.tvStatus_rowHome);
+            holder.tvStatus = (CustomTextView) convertView.findViewById(R.id.tvStatus);
+            holder.customTxtJobName = (CustomTextView) convertView.findViewById(R.id.customTxtJobName);
+            holder.customTxtStartDate = (CustomTextView) convertView.findViewById(R.id.customTxtStartDate);
+            holder.customRoundedImageView = (CustomRoundedImageView) convertView.findViewById(R.id.customRoundedImageView);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        loadData(holder, data);
+
+
+        return convertView;
+    }
+
+    private void loadData(ViewHolder holder, JobModel data) {
         if (data.getJobStatus().isNew())
             holder.tvStatus.setText(Constants.NEW);
         else if (data.getJobStatus().isAssigned())
@@ -78,12 +92,18 @@ public class ProjectsAdapter extends BaseAdapter implements OnClickListener {
         else if (data.getJobStatus().isRequestedForPayment())
             holder.tvStatus.setText(Constants.REQUESTED_FOR_PAYMENT);
 
-
-        return convertView;
+        holder.customTxtJobName.setText(data.getJobTitle());
+        holder.customTxtStartDate.setText(data.getJobCreationDate());
+        if (data.getImages().size() > 0) {
+            imageLoader.load(data.getImages().get(0)).asBitmap().centerCrop().into(holder.customRoundedImageView);
+        }
     }
 
     static class ViewHolder {
         CustomTextView tvStatus;
+        CustomRoundedImageView customRoundedImageView;
+        CustomTextView customTxtJobName;
+        CustomTextView customTxtStartDate;
     }
 
     @Override

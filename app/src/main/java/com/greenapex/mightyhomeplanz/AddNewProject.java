@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,8 +19,12 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.greenapex.Adaptors.ImageViewPagerAdapter;
+import com.greenapex.CustomViews.SquareImageView;
 import com.greenapex.R;
 import com.greenapex.Request.models.AddJobRequest;
 import com.greenapex.Request.models.JobAddressRequest;
@@ -46,7 +51,7 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
     private CustomEditText etProjectNameAddNewProject;
     private CustomEditText etProjectDescAddNewProject;
     private ImageButton imageButton1;
-    private ImageButton imageButton2;
+    private ImageButton imgBtnAddImage;
     private CustomEditText etStreetAddressAddNewProject;
     private CustomEditText etCityAddNewProject;
     private CustomEditText etStateAddNewProject;
@@ -60,7 +65,12 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
     private Utils utils;
     private Uri cropped_Image;
     private String urgencyOfWork_string = "";
-
+    private ImageButton imgBtnDeleteImage;
+    private ArrayList<String> arrImages = new ArrayList<>();
+    private ViewPager viewPagerImages;
+    private RequestManager imageLoader;
+    private ImageViewPagerAdapter imageViewPagerAdapter;
+    private SquareImageView imgNoImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +79,7 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
         setContentView(R.layout.activity_add_project);
 
         utils = new Utils(this);
+        imageLoader = Glide.with(this);
 //        activity = AddNewProject.this;
         gson = new GsonBuilder().create();
         progressDialog = new ProgressDialog(this);
@@ -81,7 +92,7 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
         etProjectNameAddNewProject = (CustomEditText) findViewById(R.id.etProjectName_AddNewProject);
         etProjectDescAddNewProject = (CustomEditText) findViewById(R.id.etProjectDesc_AddNewProject);
         imageButton1 = (ImageButton) findViewById(R.id.imageButton1);
-        imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
+        imgBtnAddImage = (ImageButton) findViewById(R.id.imgBtnAddImage);
         etStreetAddressAddNewProject = (CustomEditText) findViewById(R.id.etStreetAddress_AddNewProject);
         etCityAddNewProject = (CustomEditText) findViewById(R.id.etCity_AddNewProject);
         etStateAddNewProject = (CustomEditText) findViewById(R.id.etState_AddNewProject);
@@ -89,9 +100,17 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
         cbSaveAddressAddNewProject = (CustomCheckBox) findViewById(R.id.cbSaveAddress_AddNewProject);
         spUrgencyOfRequestAddNewProject = (Spinner) findViewById(R.id.spUrgencyOfRequest_AddNewProject);
         tvSubmitAddNewProject = (CustomTextView) findViewById(R.id.tvSubmit_AddNewProject);
-
+        imgBtnDeleteImage = (ImageButton) findViewById(R.id.imgBtnDeleteImage);
+        imgNoImage = (SquareImageView) findViewById(R.id.imgNoImage);
+        imgBtnDeleteImage.setOnClickListener(this);
+        imgBtnAddImage.setOnClickListener(this);
         btnCloseAddNewProject.setOnClickListener(this);
         tvSubmitAddNewProject.setOnClickListener(this);
+
+        viewPagerImages = (ViewPager) findViewById(R.id.viewPagerImages);
+        imageViewPagerAdapter = new ImageViewPagerAdapter(this, arrImages, imageLoader);
+        viewPagerImages.setAdapter(imageViewPagerAdapter);
+
         spUrgencyOfRequestAddNewProject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -104,6 +123,11 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
 
             }
         });
+        if (arrImages.size() <= 0) {
+            imgBtnDeleteImage.setVisibility(View.GONE);
+            imgNoImage.setVisibility(View.VISIBLE);
+        }
+
 
     }
 
@@ -113,6 +137,8 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             cropIntent.setDataAndType(picUri, "image/*");
             cropIntent.putExtra("crop", "true");
+            cropIntent.putExtra("aspectX", 1);
+            cropIntent.putExtra("aspectY", 1);
             tmpCropFile = utils.createImageFile();
             cropped_Image = Uri.fromFile(tmpCropFile);
             cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, cropped_Image);
@@ -148,7 +174,19 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
             case Constants.CROP_PIC_REQUEST_CODE:
                 if (resultCode == Activity.RESULT_OK) {
 
-
+                    if (cropped_Image != null) {
+                        File imageFile = new File(cropped_Image.getPath());
+                        arrImages.add(imageFile.getAbsolutePath());
+                        imageViewPagerAdapter = new ImageViewPagerAdapter(this, arrImages, imageLoader);
+                        viewPagerImages.setAdapter(imageViewPagerAdapter);
+                        if (arrImages.size() > 0) {
+                            imgBtnDeleteImage.setVisibility(View.VISIBLE);
+                            imgNoImage.setVisibility(View.GONE);
+                        } else {
+                            imgBtnDeleteImage.setVisibility(View.GONE);
+                            imgNoImage.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
                 break;
         }
@@ -159,7 +197,7 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
     public void onClick(View v) {
         // TODO onClick
         switch (v.getId()) {
-            case R.id.imageButton2: {
+            case R.id.imgBtnAddImage: {
                 new android.support.v7.app.AlertDialog.Builder(AddNewProject.this)
                         .setTitle("Select Image")
                         .setMessage("Where would you like to select the image from ?")
@@ -203,6 +241,19 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
                 finish();
                 overridePendingTransition(R.anim.nothing, R.anim.slide_out_left);
                 break;
+            case R.id.imgBtnDeleteImage:
+                //TODO://delete image from array.
+                int itemPosition = viewPagerImages.getCurrentItem();
+                arrImages.remove(itemPosition);
+                imageViewPagerAdapter = new ImageViewPagerAdapter(this, arrImages, imageLoader);
+                viewPagerImages.setAdapter(imageViewPagerAdapter);
+                if (arrImages.size() > 0) {
+                    imgBtnDeleteImage.setVisibility(View.VISIBLE);
+                } else {
+                    imgBtnDeleteImage.setVisibility(View.GONE);
+                    imgNoImage.setVisibility(View.VISIBLE);
+                }
+                break;
 
             case R.id.tvSubmit_AddNewProject:
 
@@ -214,12 +265,7 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
                 /**
                  * temp code logic for multiple images pending.
                  */
-                ArrayList<String> arrImages = new ArrayList<>();
 
-                if (cropped_Image != null) {
-                    File imageFile = new File(cropped_Image.getPath());
-                    arrImages.add(imageFile.getAbsolutePath());
-                }
                 addJobRequest.setImages(arrImages);
 
                 JobAddressRequest jobAddressRequest = new JobAddressRequest();
@@ -230,15 +276,14 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
                 jobAddressRequest.setPincode(Long.parseLong(etZipAddNewProject.getText().toString()));
 
                 addJobRequest.setAddress(jobAddressRequest);
-
+                SharedPreferences sp = getSharedPreferences(Constants.mightyHomePlanz, MODE_PRIVATE);
+                String userGson = sp.getString(Constants.UserData, "");
+                UserResponse userResponse = gson.fromJson(userGson, UserResponse.class);
+                addJobRequest.setOwnerID(userResponse.getOwnerID());
                 String strParams = getGson().toJson(addJobRequest);
                 AddJobWebservice addJobWebservice = new AddJobWebservice(this, this.getApplicationContext());
                 try {
                     JSONObject params = new JSONObject(strParams);
-                    SharedPreferences sp = getSharedPreferences(Constants.mightyHomePlanz, MODE_PRIVATE);
-                    String userGson = sp.getString(Constants.UserData, "");
-                    UserResponse userResponse = gson.fromJson(userGson, UserResponse.class);
-                    String ownerID = userResponse.getOwnerID();
 
                     //Constants.AddJobWebservice = "http://104.236.239.37:8080/v1/job/createjob?ownerID=" + ownerID;
                     addJobWebservice.callService(params);

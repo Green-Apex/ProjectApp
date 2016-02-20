@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.inputmethod.InputMethodManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.greenapex.Utils.Constants;
@@ -22,6 +24,7 @@ public class BaseFragment extends Fragment {
     private SharedPreferences sharedpreferences;
     private Gson gson;
     private UserResponse userGson;
+    private RequestManager imageLoader;
 
     @Override
     public void onAttach(Context context) {
@@ -30,6 +33,7 @@ public class BaseFragment extends Fragment {
         sharedpreferences = getActivity().getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
         userGson = gson.fromJson(getUserPreference(), UserResponse.class);
         utils = new Utils(getActivity());
+        imageLoader = Glide.with(this);
     }
 
 
@@ -60,4 +64,7 @@ public class BaseFragment extends Fragment {
         return gson;
     }
 
+    protected RequestManager getImageLoader() {
+        return this.imageLoader;
+    }
 }

@@ -162,7 +162,7 @@ public class ProjectsFragment extends BaseFragment {
 
     private void showlistView() {
         lv.setAdapter(null);
-        adapter = new ProjectsAdapter(activity, list);
+        adapter = new ProjectsAdapter(activity, list,getImageLoader());
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new OnItemClickListener() {
             @Override

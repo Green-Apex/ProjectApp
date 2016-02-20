@@ -76,26 +76,51 @@
                 android:maxLines="4"
                 android:padding="7dp" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="260dp"
                 android:layout_marginTop="10dp">
 
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPagerImages"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_centerInParent="true">
+
+                </android.support.v4.view.ViewPager>
+
+                <com.greenapex.CustomViews.SquareImageView
+                    android:id="@+id/imgNoImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/gallery_icon" />
+
+                <ImageButton
+                    android:id="@+id/imgBtnDeleteImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@null"
+                    android:src="@drawable/delete_icon" />
                 <ImageButton
                     android:id="@+id/imageButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:src="@drawable/gallery_icon" />
+                    android:src="@drawable/gallery_icon"
+                    android:visibility="gone" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/imgBtnAddImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:background="@null"
                     android:src="@drawable/plus_icon" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <TableLayout
                 android:layout_width="match_parent"

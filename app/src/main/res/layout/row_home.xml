@@ -13,10 +13,11 @@
         android:paddingTop="10dp">
 
         <com.greenapex.widgets.CustomRoundedImageView
-            android:id="@+id/customRoundedImageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/customRoundedImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/demo_image"
+            android:scaleType="center"
             app:corner_radius="0dp" />
 
         <LinearLayout
@@ -27,7 +28,7 @@
             android:paddingLeft="10dp">
 
             <com.greenapex.widgets.CustomTextView
-                android:id="@+id/customTextView1"
+                android:id="@+id/customTxtJobName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FALSE CEILING IN RESIDENCE"
@@ -46,6 +47,7 @@
                     android:textColor="@color/gray_font" />
 
                 <com.greenapex.widgets.CustomTextView
+                    android:id="@+id/customTxtStartDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -66,7 +68,7 @@
                     android:textColor="@color/gray_font" />
 
                 <com.greenapex.widgets.CustomTextView
-                    android:id="@+id/tvStatus_rowHome"
+                    android:id="@+id/tvStatus"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

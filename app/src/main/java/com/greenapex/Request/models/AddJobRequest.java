@@ -14,7 +14,7 @@ public class AddJobRequest {
     private ArrayList<String> images;
     private String urgencyOfWork;
     private JobAddressRequest address;
-
+    private String ownerID = "";
 
     public String getJobTitle() {
         return jobTitle;
@@ -61,5 +61,13 @@ public class AddJobRequest {
     public String toString() {
         Gson gson = new Gson();
         return gson.toJson(this);
+    }
+
+    public String getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
     }
 }

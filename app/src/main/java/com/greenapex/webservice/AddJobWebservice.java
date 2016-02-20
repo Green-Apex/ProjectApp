@@ -1,12 +1,10 @@
 package com.greenapex.webservice;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.greenapex.Utils.Constants;
 import com.greenapex.WebserviceBase;
-import com.greenapex.response.models.UserResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +35,8 @@ public class AddJobWebservice extends WebserviceBase {
 
     @Override
     public void callService(@NonNull JSONObject params) throws UnsupportedEncodingException, JSONException {
-        super.callService(Constants.AddJobWebservice, params, Constants.METHOD_POST);
+        String ownerId = params.getString("ownerID");
+        super.callService(Constants.AddJobWebservice+ownerId, params, Constants.METHOD_POST);
     }
 
 

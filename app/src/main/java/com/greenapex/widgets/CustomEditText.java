@@ -29,11 +29,13 @@ public class CustomEditText extends EditText {
     }
 
     private void setCustomFont(Context ctx, AttributeSet attrs) {
+        if (!isInEditMode()) {
         TypedArray a = ctx.obtainStyledAttributes(attrs,
                 R.styleable.app);
         String customFont = a.getString(R.styleable.app_customFont);
         setCustomFont(ctx, customFont);
         a.recycle();
+        }
     }
 
     private boolean setCustomFont(Context ctx, String asset) {

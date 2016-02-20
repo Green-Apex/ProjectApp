@@ -2,6 +2,8 @@ package com.greenapex.mightyhomeplanz.entities;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
 /**
  * Created by admin on 20-Feb-16.by ${COMPUTERNAME}
  */
@@ -24,10 +26,12 @@ public class JobModel {
     private String jobTitle;
     private AddressModel address;
     private JobStatusModel jobStatus;
+    private ArrayList<String> images;
 
     //TODO: Images Model Pending will do after I recieve the response
 
     public JobModel() {
+        this.setImages(new ArrayList<String>());
         setAddress(new AddressModel());
         setJobStatus(new JobStatusModel());
         this.id = "";
@@ -128,5 +132,13 @@ public class JobModel {
 
     public void setAddress(AddressModel address) {
         this.address = address;
+    }
+
+    public ArrayList<String> getImages() {
+        return images;
+    }
+
+    public void setImages(ArrayList<String> images) {
+        this.images = images;
     }
 }
