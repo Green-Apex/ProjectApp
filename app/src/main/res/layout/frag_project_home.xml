@@ -245,7 +245,7 @@
                         android:layout_marginLeft="15dp"
                         android:background="@drawable/view_round_corner_yellow_fill"
                         android:padding="10dp"
-                        android:text="@string/review"
+                        android:text="Add Sow"
                         android:textColor="@color/white"
                         android:visibility="gone" />
                 </LinearLayout>

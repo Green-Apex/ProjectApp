@@ -18,12 +18,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.greenapex.R;
+import com.greenapex.Request.models.AssignJobRequest;
 import com.greenapex.Utils.Constants;
 import com.greenapex.mightyhomeplanz.AddMilestone;
 import com.greenapex.mightyhomeplanz.AddSow;
 import com.greenapex.mightyhomeplanz.ChangeStatus;
 import com.greenapex.response.models.JobDetailResponse;
 import com.greenapex.response.models.MMListResponse;
+import com.greenapex.webservice.AssignjobToMMWebservice;
 import com.greenapex.webservice.GetJobDetailByJobIdWebservice;
 import com.greenapex.webservice.GetMMListWebservice;
 import com.greenapex.widgets.CustomTextView;
@@ -308,42 +310,42 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
     }
 
     private void AssignJobToMM(String mmID) {
-        customTxtAssignJob.setVisibility(View.GONE);
-        tvReview.setVisibility(View.VISIBLE);
-        return;
-//        AssignjobToMMWebservice assignjobToMMWebservice = new AssignjobToMMWebservice(new AssignjobToMMWebservice.AssignjobToMMWebserviceHandler() {
-//            @Override
-//            public void assignjobToMMWebserviceStart() {
-//
-//            }
-//
-//            @Override
-//            public void assignjobToMMWebserviceSucessful(String response, String message) {
-//                showLog(response);
-//                customTxtAssignJob.setVisibility(View.GONE);
-//                tvReview.setVisibility(View.VISIBLE);
-//                showToast(message);
-//            }
-//
-//            @Override
-//            public void assignjobToMMWebserviceFailedWithMessage(String message) {
-//                showToast(message);
-//            }
-//        }, getActivity());
-//
-//        try {
-//            AssignJobRequest assignJobRequest = new AssignJobRequest();
-//            assignJobRequest.setMmID(mmID);
-//            assignJobRequest.setRole(getUserGson().getRole());
-//            assignJobRequest.setJobID(selectJobID);
-//            assignJobRequest.setPmID(getUserGson().getPmID());
-//            JSONObject params = new JSONObject(assignJobRequest.toString());
-//            assignjobToMMWebservice.callService(params, Constants.METHOD_POST);
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+//        customTxtAssignJob.setVisibility(View.GONE);
+//        tvReview.setVisibility(View.VISIBLE);
+//        return;
+        AssignjobToMMWebservice assignjobToMMWebservice = new AssignjobToMMWebservice(new AssignjobToMMWebservice.AssignjobToMMWebserviceHandler() {
+            @Override
+            public void assignjobToMMWebserviceStart() {
+
+            }
+
+            @Override
+            public void assignjobToMMWebserviceSucessful(String response, String message) {
+                showLog(response);
+                customTxtAssignJob.setVisibility(View.GONE);
+                tvReview.setVisibility(View.VISIBLE);
+                showToast(message);
+            }
+
+            @Override
+            public void assignjobToMMWebserviceFailedWithMessage(String message) {
+                showToast(message);
+            }
+        }, getActivity());
+
+        try {
+            AssignJobRequest assignJobRequest = new AssignJobRequest();
+            assignJobRequest.setMmID(mmID);
+            assignJobRequest.setRole(getUserGson().getRole());
+            assignJobRequest.setJobID(selectJobID);
+            assignJobRequest.setPmID(getUserGson().getPmID());
+            JSONObject params = new JSONObject(assignJobRequest.toString());
+            assignjobToMMWebservice.callService(params, Constants.METHOD_POST);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public static class ImageFragmentPagerAdapter extends FragmentPagerAdapter {
