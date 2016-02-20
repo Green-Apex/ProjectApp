@@ -1,41 +1,19 @@
 package com.greenapex.mightyhomeplanz.fragments;
 
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.greenapex.R;
-import com.greenapex.Request.models.OwnerIdRequest;
-import com.greenapex.Utils.Constants;
 import com.greenapex.Utils.Utils;
-import com.greenapex.mightyhomeplanz.entities.ProjectModel;
-import com.greenapex.response.models.UserResponse;
-import com.greenapex.webservice.GetActiveJobWebservice;
-import com.greenapex.webservice.GetCompletedJobWebservice;
-import com.greenapex.webservice.GetNewJobWebservice;
-import com.greenapex.webservice.GetTotalJobWebservice;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -44,6 +22,9 @@ public class HomeFragment extends Fragment {
     public static int int_items = 3;
     private MyAdapter pagerAdapter;
     private Utils utils;
+    private Fragment newJobFragment;
+    private Fragment completedJobFragment;
+    private Fragment activeJobFragment;
 
 
     @Nullable
@@ -59,7 +40,7 @@ public class HomeFragment extends Fragment {
         /**
          * Set an Adapter for the View Pager
          */
-        pagerAdapter = new MyAdapter(getActivity().getSupportFragmentManager(), 0);
+        pagerAdapter = new MyAdapter(getActivity().getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 
         /**
@@ -74,17 +55,74 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            int scrollstate;
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                // utils.showToast("" + position);
+
+                if (scrollstate == ViewPager.SCROLL_STATE_IDLE) {
+                    switch (position) {
+                        case 0: {
+                            if (newJobFragment != null)
+                                if (newJobFragment instanceof ProjectsFragment) {
+                                    ((ProjectsFragment) newJobFragment).setSelectedPosition(0);
+                                    newJobFragment.onResume();
+                                }
+                            break;
+                        }
+                        case 1: {
+                            if (activeJobFragment != null) {
+                                if (activeJobFragment instanceof ProjectsFragment) {
+                                    ((ProjectsFragment) activeJobFragment).setSelectedPosition(1);
+                                    activeJobFragment.onResume();
+                                }
+                            }
+
+                            break;
+                        }
+                        case 2: {
+                            if (completedJobFragment != null) {
+                                if (completedJobFragment instanceof ProjectsFragment) {
+                                    ((ProjectsFragment) completedJobFragment).setSelectedPosition(2);
+                                    completedJobFragment.onResume();
+                                }
+                            }
+
+                            break;
+                        }
+
+                    }
+                }
+
+//                pagerAdapter = new MyAdapter(getActivity().getSupportFragmentManager(), position);
+//                viewPager.setAdapter(pagerAdapter);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+                if (state == ViewPager.SCROLL_STATE_IDLE)
+                    scrollstate = state;
+            }
+        });
         return x;
 
     }
 
 
     class MyAdapter extends FragmentPagerAdapter {
-        int mPosition;
 
-        public MyAdapter(FragmentManager fm, int position) {
+
+        public MyAdapter(FragmentManager fm) {
             super(fm);
-            mPosition = position;
         }
 
         /**
@@ -94,7 +132,22 @@ public class HomeFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
 
-            return ProjectsFragment.newInstance(position);
+            switch (position) {
+                case 0: {
+                    return newJobFragment = ProjectsFragment.newInstance(position);
+                }
+                case 1: {
+                    return activeJobFragment = ProjectsFragment.newInstance(position);
+
+                }
+                case 2: {
+                    return completedJobFragment = ProjectsFragment.newInstance(position);
+
+                }
+                default:
+                    return null;
+            }
+//            return ProjectsFragment.newInstance(position);
         }
 
         @Override

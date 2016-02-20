@@ -42,7 +42,7 @@ public class MightyHomePlanz extends Activity {
                         @SuppressLint("NewApi")
                         public void run() {
                             // check if user is logged in or not
-                            String userData = sharedPreferences.getString(Constants.mightyHomePlanz, "");
+                            String userData = sharedPreferences.getString(Constants.UserData, "");
                             if (userData.length() > 0) {
                                 UserResponse userResponse = gson.fromJson(userData, UserResponse.class);
                                 if (userResponse.getEmail().length() > 0) {

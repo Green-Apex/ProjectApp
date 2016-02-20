@@ -8,6 +8,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.greenapex.Utils.Constants;
+import com.greenapex.Utils.Utils;
+import com.greenapex.response.models.CommonResponse;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.ResponseHandlerInterface;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,15 +25,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-
-import com.greenapex.Utils.Constants;
-import com.greenapex.Utils.Utils;
-import com.greenapex.response.models.CommonResponse;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.ResponseHandlerInterface;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -65,27 +65,6 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
     @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-
-//        try {
-//            //Whatever charset your bytes are endoded in
-//            Charset charset = Charset.forName("UTF-8");
-//            CharsetDecoder decoder = charset.newDecoder();
-//
-////ByteBuffer.wrap simply wraps the byte array, it does not allocate new memory for it
-//            ByteBuffer srcBuffer = ByteBuffer.wrap(responseBody);
-////Now, we decode our srcBuffer into a new CharBuffer (yes, new memory allocated here, no can do)
-//            CharBuffer resBuffer = null;
-//            resBuffer = decoder.decode(srcBuffer);
-//            StringBuilder yourStringBuilder = new StringBuilder(resBuffer);
-//            parseResponse(yourStringBuilder.toString());
-//        } catch (CharacterCodingException e) {
-//            e.printStackTrace();
-//        }
-//
-////CharBuffer implements CharSequence interface, which StringBuilder fully support in it's methods
-////
-//        String response = new String(responseBody, Charset.defaultCharset());
-
         ByteArrayInputStream bis = new ByteArrayInputStream(responseBody);
         BufferedReader r = new BufferedReader(new InputStreamReader(bis));
         StringBuilder total = new StringBuilder();
@@ -98,12 +77,9 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        String response = new String(responseBody, Charset.defaultCharset());
-//        parseResponse(response);
+
     }
 
-
-    // private final WebserviceHandler handler;
     private Context context;
 
 
@@ -117,7 +93,6 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
 
 
     public WebserviceBase(Context mContext) {
-//        this.handler =handler aHandler;
         context = mContext;
         client = new AsyncHttpClient();
         client.setResponseTimeout(9999999);
@@ -134,7 +109,6 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
             switch (method_type) {
                 case Constants.METHOD_POST: {
                     StringEntity entity = new StringEntity(params.toString());
-//            AsyncHttpClient client = new AsyncHttpClient();
                     client.post(context, url, entity, "application/json", this);
 
                     webserviceStart();
@@ -157,7 +131,6 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
         if (Utils.isNetworkConnected(context)) {
 
             StringEntity entity = new StringEntity(params.toString());
-//            AsyncHttpClient client = new AsyncHttpClient();
             client.post(context, url, entity, "application/json", this);
 
             webserviceStart();
@@ -197,24 +170,6 @@ public abstract class WebserviceBase extends AsyncHttpResponseHandler {
                 webserviceFailedWithMessage(commonResponse.getMessage());
             }
 
-//            if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Success)) {
-//
-//                if (commonResponse.getData().isJsonObject()) {
-//                    webserviceSucessful(commonResponse.getData().getAsJsonObject().toString(), commonResponse.getMessage());
-//                } else if (commonResponse.getData().isJsonArray()) {
-//                    webserviceSucessful(commonResponse.getData().getAsJsonArray().toString(), commonResponse.getMessage());
-//                } else {
-//                    webserviceSucessful(commonResponse.getData().toString(), commonResponse.getMessage());
-//                }
-//            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_notFound)) {
-//                webserviceFailedWithMessage(commonResponse.getMessage());
-//            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_MandatoryField)) {
-//                webserviceFailedWithMessage(commonResponse.getMessage());
-//            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Wrong_Credentials)) {
-//                webserviceFailedWithMessage(commonResponse.getMessage());
-//            } else if (commonResponse.getClientCode().equalsIgnoreCase(CommonResponse.case_Login_Success)) {
-//                webserviceSucessful("Success", commonResponse.getMessage());
-//            }
         } catch (Exception e) {
             webserviceFailedWithMessage("Unable to process please try again...");
             e.printStackTrace();

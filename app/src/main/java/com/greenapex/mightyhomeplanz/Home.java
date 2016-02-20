@@ -1,15 +1,9 @@
 package com.greenapex.mightyhomeplanz;
 
-import com.greenapex.R;
-import com.greenapex.mightyhomeplanz.adapters.Menu_Custom_Adapter;
-import com.greenapex.mightyhomeplanz.fragments.HomeFragment;
-import com.greenapex.widgets.CustomRoundedImageView;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -23,7 +17,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-public class Home extends FragmentActivity implements OnClickListener {
+import com.greenapex.R;
+import com.greenapex.Utils.Constants;
+import com.greenapex.mightyhomeplanz.adapters.Menu_Custom_Adapter;
+import com.greenapex.mightyhomeplanz.fragments.HomeFragment;
+import com.greenapex.widgets.CustomRoundedImageView;
+
+public class Home extends BaseFragmentActivity implements OnClickListener {
     Activity activity;
     DrawerLayout mDrawerLayout;
     FragmentManager mFragmentManager;
@@ -43,7 +43,6 @@ public class Home extends FragmentActivity implements OnClickListener {
         setContentView(R.layout.activity_home);
 
         activity = Home.this;
-
         /**
          * Setup the DrawerLayout and NavigationView
          */
@@ -63,7 +62,13 @@ public class Home extends FragmentActivity implements OnClickListener {
 
     public void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.findViewById(R.id.btnAdd_Home).setOnClickListener(this);
+        if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER)) {
+            toolbar.findViewById(R.id.btnAdd_Home).setVisibility(View.VISIBLE);
+            toolbar.findViewById(R.id.btnAdd_Home).setOnClickListener(this);
+        } else {
+            toolbar.findViewById(R.id.btnAdd_Home).setVisibility(View.GONE);
+        }
+
         toolbar.findViewById(R.id.btnMenu_Home).setOnClickListener(this);
 
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
@@ -144,4 +149,6 @@ public class Home extends FragmentActivity implements OnClickListener {
         else
             super.onBackPressed();
     }
+
+
 }

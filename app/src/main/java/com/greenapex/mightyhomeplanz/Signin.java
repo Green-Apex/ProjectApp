@@ -1,16 +1,5 @@
 package com.greenapex.mightyhomeplanz;
 
-import com.greenapex.Request.models.LoginRequest;
-import com.greenapex.Utils.Constants;
-import com.greenapex.Utils.Utils;
-import com.greenapex.response.models.UserResponse;
-import com.greenapex.webservice.LoginWebservice;
-import com.greenapex.widgets.CustomEditText;
-import com.greenapex.widgets.CustomTextView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.greenapex.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -23,6 +12,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.greenapex.R;
+import com.greenapex.Request.models.LoginRequest;
+import com.greenapex.Utils.Constants;
+import com.greenapex.response.models.UserResponse;
+import com.greenapex.webservice.LoginWebservice;
+import com.greenapex.widgets.CustomEditText;
+import com.greenapex.widgets.CustomTextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,7 +66,7 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
          */
 //        etUsername_Signin.setText("nilay.khandhar@green-apex.com");
 //        etPassword_Signin.setText("nilay");
-        etUsername_Signin.setText("akkianadakat@gmail.com");
+        etUsername_Signin.setText("arpit.thakkar@green-apex.com");
         etPassword_Signin.setText("arpit");
     }
 
@@ -97,7 +96,13 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
 //                    loginRequest.setEmail("nilay.khandhar@green-apex.com");
 //                    loginRequest.setPassword(Utils.stringToMd5(etPassword_Signin.getText().toString()));
                     loginRequest.setPassword(etPassword_Signin.getText().toString());
-                    loginRequest.setRole("owner");
+                    if (etUsername_Signin.getText().toString().equalsIgnoreCase("arpit.thakkar@green-apex.com"))
+                        loginRequest.setRole(Constants.OWNER);
+                    else if (etUsername_Signin.getText().toString().equalsIgnoreCase("niraj.darji@green-apex.com"))
+                        loginRequest.setRole(Constants.PM);
+                    else if (etUsername_Signin.getText().toString().equalsIgnoreCase("nilay.khandhar@green-apex.com"))
+                        loginRequest.setRole(Constants.MM);
+
 
                     String strParams = getGson().toJson(loginRequest);
                     LoginWebservice loginWebservice = new LoginWebservice(this, this);
