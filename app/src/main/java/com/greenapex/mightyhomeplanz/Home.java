@@ -111,9 +111,11 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
                         mFragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
                         break;
                     case 4:
+                        if (setUserPreference("")) {
                         startActivity(new Intent(activity, Signin.class));
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
+                            finish();
+                        }
                         break;
                 }
             }

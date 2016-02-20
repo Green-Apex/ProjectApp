@@ -2,8 +2,6 @@ package com.greenapex.mightyhomeplanz.fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,14 +18,20 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.greenapex.R;
+import com.greenapex.Request.models.MMIdRequest;
 import com.greenapex.Request.models.OwnerIdRequest;
 import com.greenapex.Utils.Constants;
 import com.greenapex.Utils.Utils;
 import com.greenapex.mightyhomeplanz.adapters.ProjectsAdapter;
 import com.greenapex.mightyhomeplanz.entities.JobModel;
-import com.greenapex.response.models.UserResponse;
+import com.greenapex.webservice.GetActiveJobForMMIDWebservice;
+import com.greenapex.webservice.GetActiveJobForPMWebservice;
 import com.greenapex.webservice.GetActiveJobWebservice;
+import com.greenapex.webservice.GetCompletedJobForMMIDWebservice;
+import com.greenapex.webservice.GetCompletedJobForPMWebservice;
 import com.greenapex.webservice.GetCompletedJobWebservice;
+import com.greenapex.webservice.GetNewJobForMMIDWebservice;
+import com.greenapex.webservice.GetNewJobForPMWebservice;
 import com.greenapex.webservice.GetNewJobWebservice;
 import com.greenapex.widgets.CustomSwipeRefreshLayout;
 import com.greenapex.widgets.CustomSwipeRefreshLayout.OnChildScrollUpListener;
@@ -116,31 +120,37 @@ public class ProjectsFragment extends BaseFragment {
 
     private void getJobs() {
 
-        SharedPreferences sp = getActivity().getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
-        String userGson = sp.getString(Constants.UserData, "");
-        String ownerID = "";
-        if (userGson.length() > 0) {
-            UserResponse userResponse = gson.fromJson(userGson, UserResponse.class);
-            ownerID = userResponse.getOwnerID();
-        }
-        if (!ownerID.equalsIgnoreCase("")) {
 
-            switch (getSelectedPosition()) {
+        switch (getSelectedPosition()) {
                 case 0: {
-
-                    Getnewjoblistbyownerid(ownerID);
+                    if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER))
+                        getnewjoblistbyownerid(getUserGson().getOwnerID());
+                    else if (getUserGson().getRole().equalsIgnoreCase(Constants.PM))
+                        getNewJobListforPM();
+                    else if (getUserGson().getRole().equalsIgnoreCase(Constants.MM))
+                        getnewjoblistbyMMID();
 
 
 
                     break;
                 }
                 case 1: {
-                    Getactivejoblistbyowner(ownerID);
+                    if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER))
+                        getactivejoblistbyowner(getUserGson().getOwnerID());
+                    else if (getUserGson().getRole().equalsIgnoreCase(Constants.PM))
+                        getActiveJobListforPM();
+                    else if (getUserGson().getRole().equalsIgnoreCase(Constants.MM))
+                        getactivejoblistbyMMID();
 
                     break;
                 }
                 case 2: {
-                    Getcompletedjoblistbyowner(ownerID);
+                    if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER))
+                        getcompletedjoblistbyowner(getUserGson().getOwnerID());
+                    else if (getUserGson().getRole().equalsIgnoreCase(Constants.PM))
+                        getCompletedJobListforPM();
+                    else if (getUserGson().getRole().equalsIgnoreCase(Constants.PM))
+                        getcompletedjoblistbyMMID();
 
                     break;
                 }
@@ -148,7 +158,7 @@ public class ProjectsFragment extends BaseFragment {
 
 
         }
-    }
+
 
     private void showlistView() {
         lv.setAdapter(null);
@@ -166,43 +176,18 @@ public class ProjectsFragment extends BaseFragment {
             }
         });
     }
-    private void Getcompletedjoblistbyowner(String ownerID) {
+
+    private void getcompletedjoblistbyowner(String ownerID) {
         try {
             GetCompletedJobWebservice getCompletedJobWebservice = new GetCompletedJobWebservice(new GetCompletedJobWebservice.GetCompletedJobWebserviceHandler() {
                 @Override
                 public void GetCompletedJobWebserviceStart() {
-//                    if (list.size() <= 0) {
-//                        mProgressDialog.setMessage("loading...");
-//                        if (!mProgressDialog.isShowing()) mProgressDialog.show();
-//                    }
+
                 }
 
                 @Override
                 public void GetCompletedJobWebserviceSucessful(String response, String message) {
-//                    if (mProgressDialog != null)
-//                        mProgressDialog.dismiss();
-                    Log.d("Success", message);
-                    if (response != null && response.length() > 0) {
-                        try {
-                            JSONArray mResponse = new JSONArray(response);
-                            list.clear();
-                            if (mResponse != null && mResponse.length() > 0) {
-                                for (int i = 0; i < mResponse.length(); i++) {
-                                    JobModel jobitem = getGson().fromJson(mResponse.get(i).toString(), JobModel.class);
-                                    list.add(jobitem);
-                                }
-                                showlistView();
-                            } else {
-                                utils.showToast(message);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            showToast(message);
-                        }
-                    }
-
-
+                    parseJobList(response, message);
                 }
 
                 @Override
@@ -224,7 +209,7 @@ public class ProjectsFragment extends BaseFragment {
         }
     }
 
-    private void Getactivejoblistbyowner(String ownerID) {
+    private void getactivejoblistbyowner(String ownerID) {
         try {
             GetActiveJobWebservice getActiveJobWebservice = new GetActiveJobWebservice(new GetActiveJobWebservice.GetActiveJobWebserviceHandler() {
                 @Override
@@ -234,28 +219,7 @@ public class ProjectsFragment extends BaseFragment {
 
                 @Override
                 public void GetActiveJobWebserviceSucessful(String response, String message) {
-                    if (mProgressDialog != null)
-                        mProgressDialog.dismiss();
-                    Log.d("Success", message);
-                    if (response != null && response.length() > 0) {
-                        try {
-                            JSONArray mResponse = new JSONArray(response);
-                            list.clear();
-                            if (mResponse != null && mResponse.length() > 0) {
-                                for (int i = 0; i < mResponse.length(); i++) {
-                                    JobModel jobitem = getGson().fromJson(mResponse.get(i).toString(), JobModel.class);
-                                    list.add(jobitem);
-                                }
-                                showlistView();
-                            } else {
-                                utils.showToast(message);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            showToast(message);
-                        }
-                    }
+                    parseJobList(response, message);
 
                 }
 
@@ -280,7 +244,7 @@ public class ProjectsFragment extends BaseFragment {
 
     }
 
-    private void Getnewjoblistbyownerid(String ownerID) {
+    private void getnewjoblistbyownerid(String ownerID) {
         try {
             GetNewJobWebservice getNewJobWebservice = new GetNewJobWebservice(new GetNewJobWebservice.GetNewJobWebserviceHandler() {
                 @Override
@@ -291,28 +255,7 @@ public class ProjectsFragment extends BaseFragment {
 
                 @Override
                 public void GetNewJobWebserviceSucessful(String response, String message) {
-                    if (mProgressDialog != null)
-                        mProgressDialog.dismiss();
-                    Log.d("Success", message);
-                    if (response != null && response.length() > 0) {
-                        try {
-                            JSONArray mResponse = new JSONArray(response);
-                            list.clear();
-                            if (mResponse != null && mResponse.length() > 0) {
-                                for (int i = 0; i < mResponse.length(); i++) {
-                                    JobModel jobitem = getGson().fromJson(mResponse.get(i).toString(), JobModel.class);
-                                    list.add(jobitem);
-                                }
-                                showlistView();
-                            } else {
-                                utils.showToast(message);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            showToast(message);
-                        }
-                    }
+                    parseJobList(response, message);
 
                 }
 
@@ -335,6 +278,206 @@ public class ProjectsFragment extends BaseFragment {
         }
 
 
+    }
+
+    private void getNewJobListforPM() {
+        GetNewJobForPMWebservice getNewJobForPMWebservice = new GetNewJobForPMWebservice(new GetNewJobForPMWebservice.GetNewJobForPMWebserviceHandler() {
+            @Override
+            public void getNewJobForPMWebserviceStart() {
+
+            }
+
+            @Override
+            public void getNewJobForPMWebserviceSucessful(String response, String message) {
+                parseJobList(response, message);
+            }
+
+            @Override
+            public void getNewJobForPMWebserviceFailedWithMessage(String message) {
+                showToast(message);
+            }
+        }, getActivity());
+
+        try {
+            JSONObject params = new JSONObject();
+            getNewJobForPMWebservice.callService(params, Constants.METHOD_GET);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getActiveJobListforPM() {
+        GetActiveJobForPMWebservice getActiveJobForPMWebservice = new GetActiveJobForPMWebservice(new GetActiveJobForPMWebservice.GetActiveJobForPMWebserviceHandler() {
+            @Override
+            public void getActiveJobForPMWebserviceStart() {
+
+            }
+
+            @Override
+            public void getActiveJobForPMWebserviceSucessful(String response, String message) {
+                parseJobList(response, message);
+            }
+
+            @Override
+            public void getActiveJobForPMWebserviceFailedWithMessage(String message) {
+                showToast(message);
+            }
+        }, getActivity());
+        try {
+            JSONObject params = new JSONObject();
+            getActiveJobForPMWebservice.callService(params, Constants.METHOD_GET);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getCompletedJobListforPM() {
+        GetCompletedJobForPMWebservice getCompletedJobForPMWebservice = new GetCompletedJobForPMWebservice(new GetCompletedJobForPMWebservice.GetCompletedJobForPMWebserviceHandler() {
+            @Override
+            public void getCompletedJobForPMWebserviceStart() {
+
+            }
+
+            @Override
+            public void getCompletedJobForPMWebserviceSucessful(String response, String message) {
+                parseJobList(response, message);
+            }
+
+            @Override
+            public void getCompletedJobForPMWebserviceFailedWithMessage(String message) {
+                showToast(message);
+            }
+        }, getActivity());
+
+        try {
+            JSONObject params = new JSONObject();
+            getCompletedJobForPMWebservice.callService(params, Constants.METHOD_GET);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getcompletedjoblistbyMMID() {
+        try {
+            GetCompletedJobForMMIDWebservice getCompletedJobForMMIDWebservice = new GetCompletedJobForMMIDWebservice(new GetCompletedJobForMMIDWebservice.GetCompletedJobForMMIDWebserviceHandler() {
+                @Override
+                public void getCompletedJobForMMIDWebserviceStart() {
+
+                }
+
+                @Override
+                public void getCompletedJobForMMIDWebserviceSucessful(String response, String message) {
+                    parseJobList(response, message);
+                }
+
+                @Override
+                public void getCompletedJobForMMIDWebserviceFailedWithMessage(String message) {
+                    showToast(message);
+                }
+            }, getActivity());
+
+
+            MMIdRequest mmIdRequest = new MMIdRequest();
+            mmIdRequest.setMmID(getUserGson().getMmID());
+            JSONObject params = new JSONObject(mmIdRequest.toString());
+            getCompletedJobForMMIDWebservice.callService(params, Constants.METHOD_GET);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getactivejoblistbyMMID() {
+        try {
+            GetActiveJobForMMIDWebservice getActiveJobForMMIDWebservice = new GetActiveJobForMMIDWebservice(new GetActiveJobForMMIDWebservice.GetActiveJobForMMIDWebserviceHandler() {
+                @Override
+                public void getActiveJobForMMIDWebserviceStart() {
+
+                }
+
+                @Override
+                public void getActiveJobForMMIDWebserviceSucessful(String response, String message) {
+                    parseJobList(response, message);
+                }
+
+                @Override
+                public void getActiveJobForMMIDWebserviceFailedWithMessage(String message) {
+                    showToast(message);
+                }
+            }, getActivity());
+
+
+            MMIdRequest mmIdRequest = new MMIdRequest();
+            mmIdRequest.setMmID(getUserGson().getMmID());
+            JSONObject params = new JSONObject(mmIdRequest.toString());
+
+            getActiveJobForMMIDWebservice.callService(params, Constants.METHOD_GET);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void getnewjoblistbyMMID() {
+        try {
+            GetNewJobForMMIDWebservice getNewJobForMMIDWebservice = new GetNewJobForMMIDWebservice(new GetNewJobForMMIDWebservice.GetNewJobForMMIDWebserviceHandler() {
+                @Override
+                public void getNewJobForMMIDWebserviceStart() {
+
+                }
+
+                @Override
+                public void getNewJobForMMIDWebserviceSucessful(String response, String message) {
+                    parseJobList(response, message);
+                }
+
+                @Override
+                public void getNewJobForMMIDWebserviceFailedWithMessage(String message) {
+                    showToast(message);
+                }
+            }, getActivity());
+
+            MMIdRequest mmIdRequest = new MMIdRequest();
+            mmIdRequest.setMmID(getUserGson().getMmID());
+            JSONObject params = new JSONObject(mmIdRequest.toString());
+
+            getNewJobForMMIDWebservice.callService(params, Constants.METHOD_GET);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void parseJobList(String response, String message) {
+        if (mProgressDialog != null)
+            mProgressDialog.dismiss();
+        Log.d("Success", message);
+        if (response != null && response.length() > 0) {
+            try {
+                JSONArray mResponse = new JSONArray(response);
+                list.clear();
+                if (mResponse != null && mResponse.length() > 0) {
+                    for (int i = 0; i < mResponse.length(); i++) {
+                        JobModel jobitem = getGson().fromJson(mResponse.get(i).toString(), JobModel.class);
+                        list.add(jobitem);
+                    }
+                    showlistView();
+                } else {
+                    utils.showToast(message);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                showToast(message);
+            }
+        }
     }
 
     @Override

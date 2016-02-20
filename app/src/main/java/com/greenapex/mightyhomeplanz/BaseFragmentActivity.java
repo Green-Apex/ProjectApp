@@ -45,6 +45,30 @@ public class BaseFragmentActivity extends FragmentActivity {
         return sharedpreferences.getString(Constants.UserData, "");
 
     }
+
+    protected boolean setUserPreference(String data) {
+        boolean isSuccess = false;
+
+
+        if (data.equalsIgnoreCase("")) {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(Constants.UserData, data);
+            editor.commit();
+            isSuccess = true;
+            userGson = gson.fromJson(getUserPreference(), UserResponse.class);
+        } else {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString(Constants.UserData, data);
+            editor.commit();
+            isSuccess = true;
+            userGson = gson.fromJson(getUserPreference(), UserResponse.class);
+        }
+
+
+        return isSuccess;
+
+
+    }
     protected UserResponse getUserGson() {
         return userGson;
     }

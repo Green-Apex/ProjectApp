@@ -14,36 +14,35 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by admin on 15-Oct-15.
  */
-public class GetNewJobWebservice extends WebserviceBase {
+public class GetCompletedJobForMMIDWebservice extends WebserviceBase {
 
-    private final GetNewJobWebserviceHandler handler;
+    private final GetCompletedJobForMMIDWebserviceHandler handler;
 
     private Context context = null;
 
     public void callService(@NonNull final JSONObject params, int method_type) throws UnsupportedEncodingException {
 
-        String ownerID = null;
+        String mmID = null;
         try {
-            ownerID = params.getString("ownerID");
-            String url = Constants.GetNewJobWebservice + ownerID;
+            mmID = params.getString("mmID");
+            String url = Constants.GetCompletedJobForMMIDWebservice + mmID;
             super.callService(url, params, Constants.METHOD_GET);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-
     }
 
     @Override
     public void callService(@NonNull JSONObject params) throws UnsupportedEncodingException, JSONException {
-        super.callService(Constants.GetNewJobWebservice, params, Constants.METHOD_POST);
+        super.callService(Constants.GetCompletedJobForMMIDWebservice, params, Constants.METHOD_POST);
     }
 
 
     @Override
     public void webserviceStart() {
 
-        handler.GetNewJobWebserviceStart();
+        handler.getCompletedJobForMMIDWebserviceStart();
     }
 
     @Override
@@ -53,26 +52,26 @@ public class GetNewJobWebservice extends WebserviceBase {
 
     @Override
     public void webserviceSucessful(String response, String message) {
-        handler.GetNewJobWebserviceSucessful(response, message);
+        handler.getCompletedJobForMMIDWebserviceSucessful(response, message);
     }
 
     @Override
     public void webserviceFailedWithMessage(String message) {
-        handler.GetNewJobWebserviceFailedWithMessage(message);
+        handler.getCompletedJobForMMIDWebserviceFailedWithMessage(message);
     }
 
-    public GetNewJobWebservice(GetNewJobWebserviceHandler aHandler, Context mContext) {
+    public GetCompletedJobForMMIDWebservice(GetCompletedJobForMMIDWebserviceHandler aHandler, Context mContext) {
         super(mContext);
         handler = aHandler;
         context = mContext;
 
     }
 
-    public interface GetNewJobWebserviceHandler {
-        void GetNewJobWebserviceStart();
+    public interface GetCompletedJobForMMIDWebserviceHandler {
+        void getCompletedJobForMMIDWebserviceStart();
 
-        void GetNewJobWebserviceSucessful(String response, String message);
+        void getCompletedJobForMMIDWebserviceSucessful(String response, String message);
 
-        void GetNewJobWebserviceFailedWithMessage(String message);
+        void getCompletedJobForMMIDWebserviceFailedWithMessage(String message);
     }
 }

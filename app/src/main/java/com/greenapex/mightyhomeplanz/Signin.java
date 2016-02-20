@@ -157,7 +157,7 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
     @Override
     public void loginWebserviceSucessful(String response, String message) {
 //        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
-        progressDialog.show();
+        progressDialog.dismiss();
         if (response.length() > 0) {
             UserResponse userResponse = gson.fromJson(response, UserResponse.class);
             SharedPreferences sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);

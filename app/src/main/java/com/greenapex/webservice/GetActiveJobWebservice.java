@@ -25,7 +25,7 @@ public class GetActiveJobWebservice extends WebserviceBase {
         String ownerID = null;
         try {
             ownerID = params.getString("ownerID");
-            String url = Constants.getActiveJobWebservice + ownerID;
+            String url = Constants.GetActiveJobWebservice + ownerID;
             super.callService(url, params, Constants.METHOD_GET);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class GetActiveJobWebservice extends WebserviceBase {
 
     @Override
     public void callService(@NonNull JSONObject params) throws UnsupportedEncodingException, JSONException {
-        super.callService(Constants.getActiveJobWebservice, params, Constants.METHOD_POST);
+        super.callService(Constants.GetActiveJobWebservice, params, Constants.METHOD_POST);
     }
 
 

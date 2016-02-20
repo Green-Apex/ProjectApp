@@ -16,6 +16,8 @@ public class UserResponse {
     private AddressResponse address;
     private String role;
     private String ownerID;
+    private String pmID;
+    private String mmID;
     private String authToken;
     private boolean emailVerified;
     private String registrationTime;
@@ -29,6 +31,8 @@ public class UserResponse {
         this.pwd = "";
         this.role = "";
         this.ownerID = "";
+        this.setPmID("");
+        this.setMmID("");
         this.authToken = "";
         this.registrationTime = "";
     }
@@ -133,5 +137,21 @@ public class UserResponse {
     public String toString() {
         Gson gson = new Gson();
         return gson.toJson(this);
+    }
+
+    public String getPmID() {
+        return pmID;
+    }
+
+    public void setPmID(String pmID) {
+        this.pmID = pmID;
+    }
+
+    public String getMmID() {
+        return mmID;
+    }
+
+    public void setMmID(String mmID) {
+        this.mmID = mmID;
     }
 }

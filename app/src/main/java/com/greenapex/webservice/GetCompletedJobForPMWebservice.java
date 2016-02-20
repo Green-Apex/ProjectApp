@@ -14,36 +14,29 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by admin on 15-Oct-15.
  */
-public class GetNewJobWebservice extends WebserviceBase {
+public class GetCompletedJobForPMWebservice extends WebserviceBase {
 
-    private final GetNewJobWebserviceHandler handler;
+    private final GetCompletedJobForPMWebserviceHandler handler;
 
     private Context context = null;
 
     public void callService(@NonNull final JSONObject params, int method_type) throws UnsupportedEncodingException {
 
-        String ownerID = null;
-        try {
-            ownerID = params.getString("ownerID");
-            String url = Constants.GetNewJobWebservice + ownerID;
-            super.callService(url, params, Constants.METHOD_GET);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        super.callService(Constants.GetCompletedJobForPMWebservice, params, Constants.METHOD_GET);
 
 
     }
 
     @Override
     public void callService(@NonNull JSONObject params) throws UnsupportedEncodingException, JSONException {
-        super.callService(Constants.GetNewJobWebservice, params, Constants.METHOD_POST);
+        super.callService(Constants.GetCompletedJobForPMWebservice, params, Constants.METHOD_POST);
     }
 
 
     @Override
     public void webserviceStart() {
 
-        handler.GetNewJobWebserviceStart();
+        handler.getCompletedJobForPMWebserviceStart();
     }
 
     @Override
@@ -53,26 +46,26 @@ public class GetNewJobWebservice extends WebserviceBase {
 
     @Override
     public void webserviceSucessful(String response, String message) {
-        handler.GetNewJobWebserviceSucessful(response, message);
+        handler.getCompletedJobForPMWebserviceSucessful(response, message);
     }
 
     @Override
     public void webserviceFailedWithMessage(String message) {
-        handler.GetNewJobWebserviceFailedWithMessage(message);
+        handler.getCompletedJobForPMWebserviceFailedWithMessage(message);
     }
 
-    public GetNewJobWebservice(GetNewJobWebserviceHandler aHandler, Context mContext) {
+    public GetCompletedJobForPMWebservice(GetCompletedJobForPMWebserviceHandler aHandler, Context mContext) {
         super(mContext);
         handler = aHandler;
         context = mContext;
 
     }
 
-    public interface GetNewJobWebserviceHandler {
-        void GetNewJobWebserviceStart();
+    public interface GetCompletedJobForPMWebserviceHandler {
+        void getCompletedJobForPMWebserviceStart();
 
-        void GetNewJobWebserviceSucessful(String response, String message);
+        void getCompletedJobForPMWebserviceSucessful(String response, String message);
 
-        void GetNewJobWebserviceFailedWithMessage(String message);
+        void getCompletedJobForPMWebserviceFailedWithMessage(String message);
     }
 }

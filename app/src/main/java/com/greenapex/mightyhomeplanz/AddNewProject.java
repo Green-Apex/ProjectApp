@@ -2,7 +2,6 @@ package com.greenapex.mightyhomeplanz;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -241,7 +240,7 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
                     UserResponse userResponse = gson.fromJson(userGson, UserResponse.class);
                     String ownerID = userResponse.getOwnerID();
 
-                    Constants.AddJobWebservice = "http://104.236.239.37:8080/v1/job/createjob?ownerID=" + ownerID;
+                    //Constants.AddJobWebservice = "http://104.236.239.37:8080/v1/job/createjob?ownerID=" + ownerID;
                     addJobWebservice.callService(params);
                 } catch (JSONException e) {
                     e.printStackTrace();
