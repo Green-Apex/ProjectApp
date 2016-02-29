@@ -155,11 +155,11 @@ public class AddSow extends BaseActivity implements OnClickListener {
                     JobDOCModel jobDOCModel = new JobDOCModel();
                     jobDOCModel.setDocPath(selectedfilePath.getAbsolutePath());
                     jobDOCModel.setDocTitle(selectedfilePath.getName());
-                    jobDOCModel.setUploadedUserID(getUserGson().getPmID());
+                    jobDOCModel.setUploadedUserID(getUserGson().getUserID());
                     addSowRequest.setJobDOC(jobDOCModel);
                     addSowRequest.setJobId(selectedJobId);
                     addSowRequest.setRole(getUserGson().getRole());
-                    addSowRequest.setUserID(getUserGson().getPmID());
+                    addSowRequest.setUserID(getUserGson().getUserID());
                     JSONObject params = new JSONObject(addSowRequest.toString());
                     addSowWebservice.callService(params, Constants.METHOD_POST);
                 } catch (UnsupportedEncodingException e) {

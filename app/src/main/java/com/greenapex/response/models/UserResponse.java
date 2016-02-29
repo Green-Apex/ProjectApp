@@ -12,12 +12,9 @@ public class UserResponse {
     private String fname;
     private String lname;
     private String contactNo;
-    private String pwd;
     private AddressResponse address;
     private String role;
-    private String ownerID;
-    private String pmID;
-    private String mmID;
+    private String userID;
     private String authToken;
     private boolean emailVerified;
     private String registrationTime;
@@ -28,11 +25,8 @@ public class UserResponse {
         this.fname = "";
         this.lname = "";
         this.contactNo = "";
-        this.pwd = "";
         this.role = "";
-        this.ownerID = "";
-        this.setPmID("");
-        this.setMmID("");
+        this.setUserID("");
         this.authToken = "";
         this.registrationTime = "";
     }
@@ -77,13 +71,6 @@ public class UserResponse {
         this.contactNo = contactNo;
     }
 
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
 
     public AddressResponse getAddress() {
         return address;
@@ -101,13 +88,6 @@ public class UserResponse {
         this.role = role;
     }
 
-    public String getOwnerID() {
-        return ownerID;
-    }
-
-    public void setOwnerID(String ownerID) {
-        this.ownerID = ownerID;
-    }
 
     public String getAuthToken() {
         return authToken;
@@ -139,19 +119,11 @@ public class UserResponse {
         return gson.toJson(this);
     }
 
-    public String getPmID() {
-        return pmID;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setPmID(String pmID) {
-        this.pmID = pmID;
-    }
-
-    public String getMmID() {
-        return mmID;
-    }
-
-    public void setMmID(String mmID) {
-        this.mmID = mmID;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }

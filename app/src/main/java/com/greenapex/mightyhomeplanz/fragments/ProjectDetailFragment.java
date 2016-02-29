@@ -15,12 +15,18 @@ import android.view.ViewGroup;
 
 import com.greenapex.R;
 import com.greenapex.Utils.Constants;
+import com.greenapex.Utils.Utils;
 
 public class ProjectDetailFragment extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 3;
+    private Fragment projectHomeFragment;
+    private Fragment viewDocsFragment;
+    private Fragment chatFragment;
+    private MyAdapter pagerAdapter;
+    private Utils utils;
 
     @Nullable
     @Override
@@ -30,8 +36,11 @@ public class ProjectDetailFragment extends Fragment {
          */
         View x = inflater.inflate(R.layout.frag_home, null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
+        tabLayout.addTab(tabLayout.newTab().setText("HOME"));
+        tabLayout.addTab(tabLayout.newTab().setText("VIEW DOCS"));
+        tabLayout.addTab(tabLayout.newTab().setText("CHAT"));
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
-
+        utils = new Utils(getActivity());
         /**
          * Set an Adapter for the View Pager
          */
@@ -42,13 +51,32 @@ public class ProjectDetailFragment extends Fragment {
          * Now , this is a workaround , The setupWithViewPager dose't works
          * without the runnable . Maybe a Support Library Bug .
          */
-
-        tabLayout.post(new Runnable() {
+        pagerAdapter = new MyAdapter(getActivity().getSupportFragmentManager(),selectedJob);
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void run() {
-                tabLayout.setupWithViewPager(viewPager);
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                pagerAdapter.getItem(tab.getPosition()).setUserVisibleHint(true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
+//        tabLayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                tabLayout.setupWithViewPager(viewPager);
+//            }
+//        });
 
         return x;
 
@@ -68,14 +96,22 @@ public class ProjectDetailFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0)
-                return ProjectHomeFragment.newInstance(selectedJob);
-            else if (position == 1)
-                return ViewDocsFragment.newInstance();
-            else if (position == 2)
-                return ChatFragment.newInstance();
+            switch (position) {
+                case 0: {
+                    return projectHomeFragment = ProjectHomeFragment.newInstance(selectedJob);
+                }
+                case 1: {
+                    return viewDocsFragment = ViewDocsFragment.newInstance(selectedJob);
 
-            return null;
+                }
+                case 2: {
+                    return chatFragment = ChatFragment.newInstance(selectedJob);
+
+                }
+                default:
+                    return null;
+            }
+
         }
 
         @Override

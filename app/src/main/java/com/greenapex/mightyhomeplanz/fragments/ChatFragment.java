@@ -33,7 +33,7 @@ public class ChatFragment extends Fragment implements OnClickListener {
     ArrayList<ProjectModel> list = new ArrayList<ProjectModel>();
     ChatAdapter adapter;
 
-    public static Fragment newInstance() {
+    public static Fragment newInstance(String jobID) {
         ChatFragment f = new ChatFragment();
         return f;
     }

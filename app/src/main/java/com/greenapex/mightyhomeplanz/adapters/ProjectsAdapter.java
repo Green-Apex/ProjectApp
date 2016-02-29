@@ -77,19 +77,19 @@ public class ProjectsAdapter extends BaseAdapter implements OnClickListener {
     }
 
     private void loadData(ViewHolder holder, JobModel data) {
-        if (data.getJobStatus().isNew())
+        if (data.getJobStatus().equalsIgnoreCase(Constants.NEW))
             holder.tvStatus.setText(Constants.NEW);
-        else if (data.getJobStatus().isAssigned())
+        else if (data.getJobStatus().equalsIgnoreCase(Constants.ASSIGNED))
             holder.tvStatus.setText(Constants.ASSIGNED);
-        else if (data.getJobStatus().isCompleted())
+        else if (data.getJobStatus().equalsIgnoreCase(Constants.COMPLETED))
             holder.tvStatus.setText(Constants.COMPLETED);
-        else if (data.getJobStatus().isInProgress())
+        else if (data.getJobStatus().equalsIgnoreCase(Constants.INPROGRESS))
             holder.tvStatus.setText(Constants.INPROGRESS);
-        else if (data.getJobStatus().isRejected())
+        else if (data.getJobStatus().equalsIgnoreCase(Constants.REJECTED))
             holder.tvStatus.setText(Constants.REJECTED);
-        else if (data.getJobStatus().isUnderEstimation())
+        else if (data.getJobStatus().equalsIgnoreCase(Constants.UNDERESTIMATION))
             holder.tvStatus.setText(Constants.UNDERESTIMATION);
-        else if (data.getJobStatus().isRequestedForPayment())
+        else if (data.getJobStatus().equalsIgnoreCase(Constants.REQUESTED_FOR_PAYMENT))
             holder.tvStatus.setText(Constants.REQUESTED_FOR_PAYMENT);
 
         holder.customTxtJobName.setText(data.getJobTitle());

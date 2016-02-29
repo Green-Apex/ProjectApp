@@ -14,18 +14,18 @@ public class JobModel {
     private static final String KEY_SAMEADDRESS = "sameAddress";
     private static final String KEY_URGENCYOFWORK = "urgencyOfWork";
     private static final String KEY_JOBCREATIONDATE = "jobCreationDate";
-    private static final String KEY_OWNERID = "ownerID";
+    private static final String KEY_USERID = "userID";
     private static final String KEY_JOBTITLE = "jobTitle";
     private String id;
-    private String jobID;
     private String jobDescription;
-    private String sameAddress;
+    private boolean sameAddress;
     private String urgencyOfWork;
     private String jobCreationDate;
-    private String ownerID;
+    private ArrayList<String> userID;
+    private String jobID;
     private String jobTitle;
     private AddressModel address;
-    private JobStatusModel jobStatus;
+    private String jobStatus;
     private ArrayList<String> images;
 
     //TODO: Images Model Pending will do after I recieve the response
@@ -33,15 +33,15 @@ public class JobModel {
     public JobModel() {
         this.setImages(new ArrayList<String>());
         setAddress(new AddressModel());
-        setJobStatus(new JobStatusModel());
+        setJobStatus("");
         this.id = "";
-        this.jobID = "";
+        this.setJobID("");
         this.jobDescription = "";
-        this.sameAddress = "";
         this.urgencyOfWork = "";
         this.jobCreationDate = "";
-        this.ownerID = "";
+        this.setUserID(new ArrayList<String>());
         this.jobTitle = "";
+        this.setJobID("");
     }
 
     @Override
@@ -75,11 +75,11 @@ public class JobModel {
         this.jobDescription = jobDescription;
     }
 
-    public String getSameAddress() {
+    public boolean getSameAddress() {
         return sameAddress;
     }
 
-    public void setSameAddress(String sameAddress) {
+    public void setSameAddress(boolean sameAddress) {
         this.sameAddress = sameAddress;
     }
 
@@ -99,13 +99,6 @@ public class JobModel {
         this.jobCreationDate = jobCreationDate;
     }
 
-    public String getOwnerID() {
-        return ownerID;
-    }
-
-    public void setOwnerID(String ownerID) {
-        this.ownerID = ownerID;
-    }
 
     public String getJobTitle() {
         return jobTitle;
@@ -116,13 +109,11 @@ public class JobModel {
     }
 
 
-
-
-    public JobStatusModel getJobStatus() {
+    public String getJobStatus() {
         return jobStatus;
     }
 
-    public void setJobStatus(JobStatusModel jobStatus) {
+    public void setJobStatus(String jobStatus) {
         this.jobStatus = jobStatus;
     }
 
@@ -140,5 +131,13 @@ public class JobModel {
 
     public void setImages(ArrayList<String> images) {
         this.images = images;
+    }
+
+    public ArrayList<String> getUserID() {
+        return userID;
+    }
+
+    public void setUserID(ArrayList<String> userID) {
+        this.userID = userID;
     }
 }

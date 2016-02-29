@@ -279,7 +279,7 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
                 SharedPreferences sp = getSharedPreferences(Constants.mightyHomePlanz, MODE_PRIVATE);
                 String userGson = sp.getString(Constants.UserData, "");
                 UserResponse userResponse = gson.fromJson(userGson, UserResponse.class);
-                addJobRequest.setOwnerID(userResponse.getOwnerID());
+                addJobRequest.setUserID(userResponse.getUserID());
                 String strParams = getGson().toJson(addJobRequest);
                 AddJobWebservice addJobWebservice = new AddJobWebservice(this, this.getApplicationContext());
                 try {

@@ -2,22 +2,20 @@ package com.greenapex.Request.models;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-
 /**
  * Created by Arpit Thakkar on 17/2/16.
  */
 public class OwnerIdRequest {
 
-    private String ownerID;
+    private String userID;
 
 
-    public String getOwnerID() {
-        return ownerID;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setOwnerID(String ownerID) {
-        this.ownerID = ownerID;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
 

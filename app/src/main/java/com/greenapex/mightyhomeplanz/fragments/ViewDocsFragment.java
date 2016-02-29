@@ -1,14 +1,5 @@
 package com.greenapex.mightyhomeplanz.fragments;
 
-import java.util.ArrayList;
-
-import com.greenapex.mightyhomeplanz.AddDocument;
-import com.greenapex.mightyhomeplanz.adapters.ViewDocsAdapter;
-import com.greenapex.mightyhomeplanz.entities.ProjectModel;
-import com.greenapex.widgets.CustomSwipeRefreshLayout;
-import com.greenapex.widgets.CustomSwipeRefreshLayout.OnChildScrollUpListener;
-import com.greenapex.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,12 +8,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
+
+import com.greenapex.R;
+import com.greenapex.mightyhomeplanz.AddDocument;
+import com.greenapex.mightyhomeplanz.adapters.ViewDocsAdapter;
+import com.greenapex.mightyhomeplanz.entities.ProjectModel;
+import com.greenapex.widgets.CustomSwipeRefreshLayout;
+import com.greenapex.widgets.CustomSwipeRefreshLayout.OnChildScrollUpListener;
+
+import java.util.ArrayList;
 
 public class ViewDocsFragment extends Fragment implements OnClickListener {
     View view;
@@ -35,7 +35,7 @@ public class ViewDocsFragment extends Fragment implements OnClickListener {
     ArrayList<ProjectModel> list = new ArrayList<ProjectModel>();
     ViewDocsAdapter adapter;
 
-    public static Fragment newInstance() {
+    public static Fragment newInstance(String jobID) {
         ViewDocsFragment f = new ViewDocsFragment();
         return f;
     }

@@ -22,10 +22,11 @@ public class GetActiveJobWebservice extends WebserviceBase {
 
     public void callService(@NonNull final JSONObject params, int method_type) throws UnsupportedEncodingException {
 
-        String ownerID = null;
+        String userID = null;
         try {
-            ownerID = params.getString("ownerID");
-            String url = Constants.GetActiveJobWebservice + ownerID;
+            userID = params.getString("userID");
+            String url = Constants.GetActiveJobWebservice + userID;
+            params.remove("userID");
             super.callService(url, params, Constants.METHOD_GET);
         } catch (JSONException e) {
             e.printStackTrace();

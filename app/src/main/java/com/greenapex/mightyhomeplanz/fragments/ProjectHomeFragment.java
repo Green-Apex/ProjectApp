@@ -69,11 +69,28 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         view = inflater.inflate(R.layout.frag_project_home, container, false);
         selectJobID = getArguments().getString(Constants.JOBID, "");
         activity = getActivity();
-        getJobDetail(selectJobID);
+        init();
 
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isResumed()) {
+            //Only manually call onResume if fragment is already visible
+            //Otherwise allow natural fragment lifecycle to call onResume
+            onResume();
+        }
+
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getUserVisibleHint())
+            getJobDetail(selectJobID);
+    }
     private void getJobDetail(String selectJobID) {
         GetJobDetailByJobIdWebservice getJobDetailByJobIdWebservice = new GetJobDetailByJobIdWebservice(new GetJobDetailByJobIdWebservice.GetJobDetailByJobIdWebserviceHandler() {
             @Override
@@ -87,7 +104,8 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
                     jobDetailResponse = getGson().fromJson(response, JobDetailResponse.class);
                 }
                 showLog(response);
-                init();
+                loadData();
+               // init();
             }
 
             @Override
@@ -134,7 +152,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         tvMakePayment_fragProjectHome.setOnClickListener(this);
 
 
-        loadData();
+       // loadData();
     }
 
     private void loadData() {
@@ -338,7 +356,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             assignJobRequest.setMmID(mmID);
             assignJobRequest.setRole(getUserGson().getRole());
             assignJobRequest.setJobID(selectJobID);
-            assignJobRequest.setPmID(getUserGson().getPmID());
+            assignJobRequest.setPmID(getUserGson().getUserID());
             JSONObject params = new JSONObject(assignJobRequest.toString());
             assignjobToMMWebservice.callService(params, Constants.METHOD_POST);
         } catch (UnsupportedEncodingException e) {

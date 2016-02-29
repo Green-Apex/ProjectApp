@@ -35,6 +35,9 @@ public class HomeFragment extends Fragment {
          */
         View x = inflater.inflate(R.layout.frag_home, null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
+        tabLayout.addTab(tabLayout.newTab().setText("New"));
+        tabLayout.addTab(tabLayout.newTab().setText("Active"));
+        tabLayout.addTab(tabLayout.newTab().setText("Completed"));
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
         utils = new Utils(getActivity());
         /**
@@ -42,77 +45,25 @@ public class HomeFragment extends Fragment {
          */
         pagerAdapter = new MyAdapter(getActivity().getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
-
-        /**
-         * Now , this is a workaround , The setupWithViewPager dose't works
-         * without the runnable . Maybe a Support Library Bug .
-         */
-
-        tabLayout.post(new Runnable() {
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void run() {
-                tabLayout.setupWithViewPager(viewPager);
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                pagerAdapter.getItem(tab.getPosition()).setUserVisibleHint(true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            int scrollstate;
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                // utils.showToast("" + position);
-
-                if (scrollstate == ViewPager.SCROLL_STATE_IDLE) {
-                    switch (position) {
-                        case 0: {
-                            if (newJobFragment != null)
-                                if (newJobFragment instanceof ProjectsFragment) {
-                                    ((ProjectsFragment) newJobFragment).setSelectedPosition(0);
-                                    newJobFragment.onResume();
-                                }
-                            break;
-                        }
-                        case 1: {
-                            if (activeJobFragment != null) {
-                                if (activeJobFragment instanceof ProjectsFragment) {
-                                    ((ProjectsFragment) activeJobFragment).setSelectedPosition(1);
-                                    activeJobFragment.onResume();
-                                }
-                            }
-
-                            break;
-                        }
-                        case 2: {
-                            if (completedJobFragment != null) {
-                                if (completedJobFragment instanceof ProjectsFragment) {
-                                    ((ProjectsFragment) completedJobFragment).setSelectedPosition(2);
-                                    completedJobFragment.onResume();
-                                }
-                            }
-
-                            break;
-                        }
-
-                    }
-                }
-
-//                pagerAdapter = new MyAdapter(getActivity().getSupportFragmentManager(), position);
-//                viewPager.setAdapter(pagerAdapter);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-                if (state == ViewPager.SCROLL_STATE_IDLE)
-                    scrollstate = state;
-            }
-        });
         return x;
 
     }
@@ -134,20 +85,20 @@ public class HomeFragment extends Fragment {
 
             switch (position) {
                 case 0: {
-                    return newJobFragment = ProjectsFragment.newInstance(position);
+                    return newJobFragment = ProjectsNewFragment.newInstance(position);
                 }
                 case 1: {
-                    return activeJobFragment = ProjectsFragment.newInstance(position);
+                    return activeJobFragment = ProjectsActiveFragment.newInstance(position);
 
                 }
                 case 2: {
-                    return completedJobFragment = ProjectsFragment.newInstance(position);
+                    return completedJobFragment = ProjectsCompletedFragment.newInstance(position);
 
                 }
                 default:
                     return null;
             }
-//            return ProjectsFragment.newInstance(position);
+
         }
 
         @Override

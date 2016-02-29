@@ -35,8 +35,9 @@ public class AddJobWebservice extends WebserviceBase {
 
     @Override
     public void callService(@NonNull JSONObject params) throws UnsupportedEncodingException, JSONException {
-        String ownerId = params.getString("ownerID");
-        super.callService(Constants.AddJobWebservice+ownerId, params, Constants.METHOD_POST);
+        String userID = params.getString("userID");
+        params.remove("userID");
+        super.callService(Constants.AddJobWebservice + userID, params, Constants.METHOD_POST);
     }
 
 
