@@ -22,10 +22,10 @@ public class GetMMListWebservice extends WebserviceBase {
 
     public void callService(@NonNull final JSONObject params, int method_type) throws UnsupportedEncodingException {
 
-        String role = null;
+        String userID = null;
         try {
-            role = params.getString("role");
-            String url = Constants.GetMMListWebservice + role;
+            userID = params.getString(Constants.USERID);
+            String url = Constants.GetMMListWebservice + userID;
             super.callService(url, params, Constants.METHOD_GET);
         } catch (JSONException e) {
             e.printStackTrace();

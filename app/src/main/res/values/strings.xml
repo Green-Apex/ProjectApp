@@ -88,13 +88,10 @@
 
     <string-array name="arr_status">
         <item>Select status</item>
-        <item>New</item>
-        <item>Assigned</item>
         <item>Under Estimation</item>
-        <item>Owner Review</item>
-        <item>Down Payment</item>
-        <item>Active</item>
-        <item>Inprogress</item>
+        <item>InProgress</item>
+        <item>Completed</item>
+        <item>Cancel</item>
     </string-array>
 
     <!-- Review -->

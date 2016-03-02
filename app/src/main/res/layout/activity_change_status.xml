@@ -73,7 +73,7 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:paddingTop="10dp"
-            android:text="@string/clear"
+            android:text="@string/cancel"
             android:textColor="@color/white" />
     </LinearLayout>
 

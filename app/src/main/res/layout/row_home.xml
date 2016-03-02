@@ -16,9 +16,9 @@
             android:id="@+id/customRoundedImageView"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/demo_image"
-            android:scaleType="center"
-            app:corner_radius="0dp" />
+            android:src="@drawable/noimage"
+            android:scaleType="centerCrop"
+            app:corner_radius="0dp"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -31,7 +31,6 @@
                 android:id="@+id/customTxtJobName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FALSE CEILING IN RESIDENCE"
                 android:textColor="@color/dark_purple" />
 
             <LinearLayout
@@ -51,7 +50,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TBD"
+                    android:text="loading..."
                     android:textColor="@color/black_font" />
             </LinearLayout>
 
@@ -72,7 +71,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Active"
+                    android:text="loading..."
                     android:textColor="@color/light_blue" />
             </LinearLayout>
         </LinearLayout>

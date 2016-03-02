@@ -3,10 +3,8 @@ package com.greenapex.webservice;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-
 import com.greenapex.Utils.Constants;
 import com.greenapex.WebserviceBase;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,8 +42,8 @@ public class LoginWebservice extends WebserviceBase {
         try {
             String email = params.getString("email");
             String password = params.getString("password");
-            String role = params.getString("role");
-            String url = Constants.loginWebservice + "email=" + email + "&password=" + password + "&role=" + role;
+            //String role = params.getString("role");
+            String url = Constants.loginWebservice + "email=" + email + "&password=" + password /*+ "&role=" + role*/;
 
             callService(url, params, Constants.METHOD_POST);
         } catch (JSONException e) {

@@ -1,8 +1,5 @@
 package com.greenapex.mightyhomeplanz;
 
-import com.greenapex.R;
-import com.greenapex.widgets.CustomTextView;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,6 +8,9 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+
+import com.greenapex.R;
+import com.greenapex.widgets.CustomTextView;
 
 public class ChangeStatus extends Activity implements OnClickListener {
     Activity activity;
@@ -49,6 +49,7 @@ public class ChangeStatus extends Activity implements OnClickListener {
                 break;
 
             case R.id.tvSubmit_ChangeStatus:
+
                 finish();
                 overridePendingTransition(R.anim.nothing, R.anim.effect_box_back);
                 break;

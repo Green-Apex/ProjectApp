@@ -15,6 +15,8 @@ public class Constants {
     public static final String forgotPasswordWebservice = "http://104.236.239.37:8080/v1/user/forgetpassword?";
     public static final String AddJobWebservice = "http://104.236.239.37:8080/v1/job/createjob?userID=";
     public static final String AssignjobToMMWebservice = "http://104.236.239.37:8080/v1/job/assignjob?mmID=";
+    public static final String UpdateJobDescriptionWebservice = "http://104.236.239.37:8080/v1/job/updatejobdesc?jobID=";
+    public static final String ChangeJobStatusWebservice = "http://104.236.239.37:8080/v1/job/changestatus?jobID=";
     public static final String AddSowWebservice = "http://104.236.239.37:8080/v1/job/addsow?jobID=";
 
     public static final String GetNewJobWebservice = "http://104.236.239.37:8080/v1/job/getnewjoblistbyid?userID=";
@@ -31,11 +33,12 @@ public class Constants {
 
     public static final String GetJobDetailByJobIdWebservice = "http://104.236.239.37:8080/v1/job/getjobdetailbyjobid?jobID=";
 
-    public static final String GetMMListWebservice = "http://104.236.239.37:8080/v1/user/getmmlist?role=";
+    public static final String GetMMListWebservice = "http://104.236.239.37:8080/v1/user/getmmlist?userID=";
 
     public static final String getTotalJobWebservice = "http://104.236.239.37:8080/v1/job/gettotaljobsbyowner?userID=";
 
     public static final String updateJobDescriptionWebservice = "http://104.236.239.37:8080/v1/job/updatejobdesc?userID=OW5017&jobID=JOB50016";
+
 
 
 //    public static String AddJobWebservice_Temp = "http://104.236.239.37:8080/v1/job/createjob?userID=";
@@ -56,6 +59,7 @@ public class Constants {
     public static final String REJECTED = "Rejected";
     public static final String INPROGRESS = "Inprogress";
     public static final String COMPLETED = "Completed";
+    public static final String CANCEL = "Cancel";
     public static final String OWNER = "JO";
     public static final String PM = "PM";
     public static final String MM = "MM";
@@ -64,6 +68,7 @@ public class Constants {
     public static final String MMID = "mmID";
     public static final String USERID = "userID";
     public static final String ROLE = "role";
+    public static final String JOBSTATUS = "status";
 
     public static final int ADDMILESTONE = 1111;
     public static final int ADDSOW = 2222;

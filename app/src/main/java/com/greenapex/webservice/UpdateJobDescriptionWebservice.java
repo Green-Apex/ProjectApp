@@ -14,9 +14,9 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by admin on 15-Oct-15.
  */
-public class AssignjobToMMWebservice extends WebserviceBase {
+public class UpdateJobDescriptionWebservice extends WebserviceBase {
 
-    private final AssignjobToMMWebserviceHandler handler;
+    private final UpdateJobDescriptionWebserviceHandler handler;
 
     private Context context = null;
 
@@ -24,10 +24,11 @@ public class AssignjobToMMWebservice extends WebserviceBase {
 
 
         try {
-            String mmID = params.getString(Constants.MMID);
-            String jobID = "&jobID=" + params.getString("jobID");
-            String pmID = "&pmID=" + params.getString("pmID");
-            String url = Constants.AssignjobToMMWebservice + mmID + jobID + pmID;
+            String jobID = params.getString(Constants.JOBID);
+            String userID = "&userID=" + params.getString(Constants.USERID);
+            String url = Constants.UpdateJobDescriptionWebservice + jobID + userID;
+            params.remove(Constants.JOBID);
+            params.remove(Constants.USERID);
             super.callService(url, params, Constants.METHOD_POST);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -38,14 +39,14 @@ public class AssignjobToMMWebservice extends WebserviceBase {
     @Override
     public void callService(@NonNull JSONObject params) throws UnsupportedEncodingException, JSONException {
         String ownerId = params.getString("ownerID");
-        super.callService(Constants.AssignjobToMMWebservice + ownerId, params, Constants.METHOD_POST);
+        super.callService(Constants.UpdateJobDescriptionWebservice + ownerId, params, Constants.METHOD_POST);
     }
 
 
     @Override
     public void webserviceStart() {
 
-        handler.assignjobToMMWebserviceStart();
+        handler.updateJobDescriptionWebserviceStart();
     }
 
     @Override
@@ -55,26 +56,26 @@ public class AssignjobToMMWebservice extends WebserviceBase {
 
     @Override
     public void webserviceSucessful(String response, String message) {
-        handler.assignjobToMMWebserviceSucessful(response, message);
+        handler.updateJobDescriptionWebserviceSucessful(response, message);
     }
 
     @Override
     public void webserviceFailedWithMessage(String message) {
-        handler.assignjobToMMWebserviceFailedWithMessage(message);
+        handler.updateJobDescriptionWebserviceFailedWithMessage(message);
     }
 
-    public AssignjobToMMWebservice(AssignjobToMMWebserviceHandler aHandler, Context mContext) {
+    public UpdateJobDescriptionWebservice(UpdateJobDescriptionWebserviceHandler aHandler, Context mContext) {
         super(mContext);
         handler = aHandler;
         context = mContext;
 
     }
 
-    public interface AssignjobToMMWebserviceHandler {
-        void assignjobToMMWebserviceStart();
+    public interface UpdateJobDescriptionWebserviceHandler {
+        void updateJobDescriptionWebserviceStart();
 
-        void assignjobToMMWebserviceSucessful(String response, String message);
+        void updateJobDescriptionWebserviceSucessful(String response, String message);
 
-        void assignjobToMMWebserviceFailedWithMessage(String message);
+        void updateJobDescriptionWebserviceFailedWithMessage(String message);
     }
 }

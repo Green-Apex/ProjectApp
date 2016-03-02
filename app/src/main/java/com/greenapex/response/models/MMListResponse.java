@@ -16,7 +16,7 @@ public class MMListResponse {
     private String authToken;
     private String emailVerified;
     private String registrationTime;
-    private String mmID;
+    private String userID;
 
     public MMListResponse() {
         this.setId("");
@@ -29,7 +29,7 @@ public class MMListResponse {
         this.setAuthToken("");
         this.setEmailVerified("");
         this.setRegistrationTime("");
-        this.setMmID("");
+        this.setUserID("");
     }
 
     @Override
@@ -118,11 +118,11 @@ public class MMListResponse {
         this.registrationTime = registrationTime;
     }
 
-    public String getMmID() {
-        return mmID;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setMmID(String mmID) {
-        this.mmID = mmID;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }

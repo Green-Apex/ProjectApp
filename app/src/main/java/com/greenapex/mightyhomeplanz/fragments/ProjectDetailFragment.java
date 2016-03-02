@@ -51,32 +51,32 @@ public class ProjectDetailFragment extends Fragment {
          * Now , this is a workaround , The setupWithViewPager dose't works
          * without the runnable . Maybe a Support Library Bug .
          */
-        pagerAdapter = new MyAdapter(getActivity().getSupportFragmentManager(),selectedJob);
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                pagerAdapter.getItem(tab.getPosition()).setUserVisibleHint(true);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-//        tabLayout.post(new Runnable() {
+//        pagerAdapter = new MyAdapter(getActivity().getSupportFragmentManager(),selectedJob);
+//        viewPager.setAdapter(pagerAdapter);
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 //            @Override
-//            public void run() {
-//                tabLayout.setupWithViewPager(viewPager);
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                viewPager.setCurrentItem(tab.getPosition());
+//                pagerAdapter.getItem(tab.getPosition()).setUserVisibleHint(true);
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
 //            }
 //        });
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                tabLayout.setupWithViewPager(viewPager);
+            }
+        });
 
         return x;
 

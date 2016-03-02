@@ -2,7 +2,6 @@ package com.greenapex.response.models;
 
 import com.google.gson.Gson;
 import com.greenapex.mightyhomeplanz.entities.AddressModel;
-import com.greenapex.mightyhomeplanz.entities.JobStatusModel;
 
 import java.util.ArrayList;
 
@@ -18,9 +17,11 @@ public class JobDetailResponse {
     private String urgencyOfWork;
     private String jobCreationDate;
     private String ownerID;
-    private JobStatusModel jobStatus;
+    private String jobStatus;
     private String jobTitle;
     private ArrayList<String> images;
+    private ArrayList<String> userID;
+    private String totalJobCost;
 
     public JobDetailResponse() {
         this.id = "";
@@ -30,9 +31,12 @@ public class JobDetailResponse {
         this.urgencyOfWork = "";
         this.jobCreationDate = "";
         this.ownerID = "";
-        this.setJobStatus(new JobStatusModel());
+        this.setJobStatus("");
         this.jobTitle = "";
         this.setImages(new ArrayList<String>());
+        this.setTotalJobCost("");
+        this.setUserID(new ArrayList<String>());
+
     }
 
     @Override
@@ -105,11 +109,11 @@ public class JobDetailResponse {
         this.ownerID = ownerID;
     }
 
-    public JobStatusModel getJobStatus() {
+    public String getJobStatus() {
         return jobStatus;
     }
 
-    public void setJobStatus(JobStatusModel jobStatus) {
+    public void setJobStatus(String jobStatus) {
         this.jobStatus = jobStatus;
     }
 
@@ -127,5 +131,21 @@ public class JobDetailResponse {
 
     public void setImages(ArrayList<String> images) {
         this.images = images;
+    }
+
+    public ArrayList<String> getUserID() {
+        return userID;
+    }
+
+    public void setUserID(ArrayList<String> userID) {
+        this.userID = userID;
+    }
+
+    public String getTotalJobCost() {
+        return totalJobCost;
+    }
+
+    public void setTotalJobCost(String totalJobCost) {
+        this.totalJobCost = totalJobCost;
     }
 }

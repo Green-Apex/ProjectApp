@@ -211,107 +211,11 @@ public class ProjectsActiveFragment extends BaseFragment {
     }
 
 
-//    private void getcompletedjoblistbyMMID() {
-//        try {
-//            GetCompletedJobForMMIDWebservice getCompletedJobForMMIDWebservice = new GetCompletedJobForMMIDWebservice(new GetCompletedJobForMMIDWebservice.GetCompletedJobForMMIDWebserviceHandler() {
-//                @Override
-//                public void getCompletedJobForMMIDWebserviceStart() {
-//
-//                }
-//
-//                @Override
-//                public void getCompletedJobForMMIDWebserviceSucessful(String response, String message) {
-//                    parseJobList(response, message);
-//                }
-//
-//                @Override
-//                public void getCompletedJobForMMIDWebserviceFailedWithMessage(String message) {
-//                    showToast(message);
-//                }
-//            }, getActivity());
-//
-//
-//            MMIdRequest mmIdRequest = new MMIdRequest();
-//            mmIdRequest.setMmID(getUserGson().getMmID());
-//            JSONObject params = new JSONObject(mmIdRequest.toString());
-//            getCompletedJobForMMIDWebservice.callService(params, Constants.METHOD_GET);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private void getactivejoblistbyMMID() {
-//        try {
-//            GetActiveJobForMMIDWebservice getActiveJobForMMIDWebservice = new GetActiveJobForMMIDWebservice(new GetActiveJobForMMIDWebservice.GetActiveJobForMMIDWebserviceHandler() {
-//                @Override
-//                public void getActiveJobForMMIDWebserviceStart() {
-//
-//                }
-//
-//                @Override
-//                public void getActiveJobForMMIDWebserviceSucessful(String response, String message) {
-//                    parseJobList(response, message);
-//                }
-//
-//                @Override
-//                public void getActiveJobForMMIDWebserviceFailedWithMessage(String message) {
-//                    showToast(message);
-//                }
-//            }, getActivity());
-//
-//
-//            MMIdRequest mmIdRequest = new MMIdRequest();
-//            mmIdRequest.setMmID(getUserGson().getMmID());
-//            JSONObject params = new JSONObject(mmIdRequest.toString());
-//
-//            getActiveJobForMMIDWebservice.callService(params, Constants.METHOD_GET);
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//
-//    private void getnewjoblistbyMMID() {
-//        try {
-//            GetNewJobForMMIDWebservice getNewJobForMMIDWebservice = new GetNewJobForMMIDWebservice(new GetNewJobForMMIDWebservice.GetNewJobForMMIDWebserviceHandler() {
-//                @Override
-//                public void getNewJobForMMIDWebserviceStart() {
-//
-//                }
-//
-//                @Override
-//                public void getNewJobForMMIDWebserviceSucessful(String response, String message) {
-//                    parseJobList(response, message);
-//                }
-//
-//                @Override
-//                public void getNewJobForMMIDWebserviceFailedWithMessage(String message) {
-//                    showToast(message);
-//                }
-//            }, getActivity());
-//
-//            MMIdRequest mmIdRequest = new MMIdRequest();
-//            mmIdRequest.setMmID(getUserGson().getMmID());
-//            JSONObject params = new JSONObject(mmIdRequest.toString());
-//
-//            getNewJobForMMIDWebservice.callService(params, Constants.METHOD_GET);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
 
     private void parseJobList(String response, String message) {
         if (mProgressDialog != null)
             mProgressDialog.dismiss();
+        swipeRefresh.setRefreshing(false);
         Log.d("Success", message);
         if (response != null && response.length() > 0) {
             try {

@@ -20,7 +20,7 @@ public class HomeFragment extends Fragment {
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 3;
-    private MyAdapter pagerAdapter;
+    private ProjectHomeAdaptor pagerAdapter;
     private Utils utils;
     private Fragment newJobFragment;
     private Fragment completedJobFragment;
@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
         /**
          * Set an Adapter for the View Pager
          */
-        pagerAdapter = new MyAdapter(getActivity().getSupportFragmentManager());
+        pagerAdapter = new ProjectHomeAdaptor(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -69,10 +69,10 @@ public class HomeFragment extends Fragment {
     }
 
 
-    class MyAdapter extends FragmentPagerAdapter {
+    class ProjectHomeAdaptor extends FragmentPagerAdapter {
 
 
-        public MyAdapter(FragmentManager fm) {
+        public ProjectHomeAdaptor(FragmentManager fm) {
             super(fm);
         }
 
