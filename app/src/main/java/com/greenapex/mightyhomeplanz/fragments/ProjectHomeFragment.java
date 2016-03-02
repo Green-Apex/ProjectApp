@@ -40,6 +40,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+
 public class ProjectHomeFragment extends BaseFragment implements OnClickListener {
     View view;
     Activity activity;
@@ -165,11 +166,11 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
     }
 
     private void loadData() {
-//        IMAGE_NAME.clear();
-//        IMAGE_NAME.addAll(jobDetailResponse.getImages());
-//        imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getActivity().getSupportFragmentManager());
-//        viewPager.setAdapter(imageFragmentPagerAdapter);
-//        titleIndicator.setViewPager(viewPager);
+        IMAGE_NAME.clear();
+        IMAGE_NAME.addAll(jobDetailResponse.getImages());
+        imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getActivity().getSupportFragmentManager());
+        viewPager.setAdapter(imageFragmentPagerAdapter);
+        titleIndicator.setViewPager(viewPager);
 
         if (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.NEW)) {
             tvStatus.setText(Constants.NEW);
@@ -181,16 +182,18 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             tvStatus.setText(Constants.INPROGRESS);
         } else if (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.REJECTED)) {
             tvStatus.setText(Constants.REJECTED);
-        } else if (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.UNDERESTIMATION)) {
+        } else if (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.UNDER_ESTIMATION)) {
             tvStatus.setText(Constants.UNDERESTIMATION);
         } else if (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.REQUESTED_FOR_PAYMENT)) {
             tvStatus.setText(Constants.REQUESTED_FOR_PAYMENT);
+        }else if (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.OWNER_REVIEW)) {
+            tvStatus.setText(Constants.OWNERREVIEW);
         }
 
         customTxtJobDescription.setText(jobDetailResponse.getJobDescription());
         customTxtStartDate.setText("Start Date : " + jobDetailResponse.getJobCreationDate());
 
-        if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER) && jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.UNDERESTIMATION)) {
+        if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER) && jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.UNDER_ESTIMATION)) {
             tvMakePayment_fragProjectHome.setVisibility(View.VISIBLE);
             customTxtAssignJob.setVisibility(View.GONE);
             btnAddMilestone.setVisibility(View.GONE);
@@ -213,6 +216,10 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         }
         if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER) && (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.NEW) || jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.ASSIGNED))) {
             customTxtEditJobDescription.setVisibility(View.VISIBLE);
+        }
+        if (getUserGson().getRole().equalsIgnoreCase(Constants.MM) && jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.UNDER_ESTIMATION)) {
+            customTxtAssignJob.setVisibility(View.GONE);
+            tvReview.setVisibility(View.VISIBLE);
         }
     }
 
@@ -375,7 +382,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         }
 
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
-        builderSingle.setIcon(R.drawable.ic_launcher);
+        builderSingle.setIcon(R.mipmap.ic_launcher);
         builderSingle.setTitle("Please Select :");
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
@@ -509,8 +516,6 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             @Override
             public void assignjobToMMWebserviceSucessful(String response, String message) {
                 showLog(response);
-                customTxtAssignJob.setVisibility(View.GONE);
-                tvReview.setVisibility(View.VISIBLE);
                 showToast(message);
             }
 

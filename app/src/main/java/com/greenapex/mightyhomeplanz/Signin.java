@@ -159,9 +159,10 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
 //        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
         progressDialog.dismiss();
         if (response.length() > 0) {
-            UserResponse userResponse = gson.fromJson(response, UserResponse.class);
-            SharedPreferences sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
+
             try {
+                UserResponse userResponse = gson.fromJson(response, UserResponse.class);
+                SharedPreferences sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
                 if (userResponse.toString() != null) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString(Constants.UserData, userResponse.toString());

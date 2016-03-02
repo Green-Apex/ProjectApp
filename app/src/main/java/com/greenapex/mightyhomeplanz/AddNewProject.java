@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.greenapex.Adaptors.ImageViewPagerAdapter;
 import com.greenapex.CustomViews.SquareImageView;
 import com.greenapex.R;
@@ -30,19 +31,28 @@ import com.greenapex.Request.models.AddJobRequest;
 import com.greenapex.Request.models.JobAddressRequest;
 import com.greenapex.Utils.Constants;
 import com.greenapex.Utils.Utils;
+import com.greenapex.response.models.CommonResponse;
 import com.greenapex.response.models.UserResponse;
 import com.greenapex.webservice.AddJobWebservice;
 import com.greenapex.widgets.CustomCheckBox;
 import com.greenapex.widgets.CustomEditText;
 import com.greenapex.widgets.CustomTextView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class AddNewProject extends Activity implements OnClickListener, AddJobWebservice.AddJobWebserviceHandler {
 
@@ -175,8 +185,83 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
                 if (resultCode == Activity.RESULT_OK) {
 
                     if (cropped_Image != null) {
+
                         File imageFile = new File(cropped_Image.getPath());
-                        arrImages.add(imageFile.getAbsolutePath());
+                        UpdateImageToServer(imageFile);
+
+                    }
+                }
+                break;
+        }
+    }
+
+    private void UpdateImageToServer(File imageFile) {
+        try {
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(9999);
+            RequestParams params = new RequestParams();
+            params.put("file", imageFile.getAbsoluteFile());
+            client.post(Constants.UploadFileWebservice, params, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    progressDialog.dismiss();
+                    ByteArrayInputStream bis = new ByteArrayInputStream(responseBody);
+                    BufferedReader r = new BufferedReader(new InputStreamReader(bis));
+                    StringBuilder total = new StringBuilder();
+                    String line;
+                    try {
+                        while ((line = r.readLine()) != null) {
+                            total.append(line);
+                        }
+                        parseResponse(total.toString(), statusCode);
+                        //Toast.makeText(AddNewProject.this, "Response: " + total.toString(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onStart() {
+                    super.onStart();
+                    progressDialog.setMessage("Uploading Image...");
+                    progressDialog.show();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    progressDialog.dismiss();
+                    Log.e(getClass().getSimpleName(), "Error:" + error.getLocalizedMessage());
+                }
+
+                @Override
+                public void onProgress(long bytesWritten, long totalSize) {
+                    super.onProgress(bytesWritten, totalSize);
+                    progressDialog.setMessage(((int) ((100 * bytesWritten) / totalSize)) + "% uploaded");
+
+                }
+
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(getClass().getSimpleName(), "Error:" + e.getLocalizedMessage());
+        }
+
+    }
+
+    protected void parseResponse(String response, int statusCode) {
+
+        try {
+            Gson gson = new GsonBuilder().create();
+            CommonResponse commonResponse = gson.fromJson(response, CommonResponse.class);
+            if (statusCode == 200) {
+                if (commonResponse.getData().isJsonObject()) {
+
+
+                } else if (commonResponse.getData().isJsonArray()) {
+
+                    for (JsonElement item :
+                            commonResponse.getData().getAsJsonArray()) {
+                        arrImages.add(item.getAsString());
                         imageViewPagerAdapter = new ImageViewPagerAdapter(this, arrImages, imageLoader);
                         viewPagerImages.setAdapter(imageViewPagerAdapter);
                         if (arrImages.size() > 0) {
@@ -187,11 +272,16 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
                             imgNoImage.setVisibility(View.VISIBLE);
                         }
                     }
+
+                } else {
+
                 }
-                break;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
     @SuppressLint("NewApi")
     @Override
     public void onClick(View v) {
@@ -325,6 +415,7 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
 //        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
         Log.d("Add New Job", response);
         progressDialog.dismiss();
+        finish();
 
 
     }

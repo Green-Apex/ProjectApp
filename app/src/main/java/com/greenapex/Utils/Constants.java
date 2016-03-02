@@ -10,6 +10,8 @@ public class Constants {
     public static final int CROP_PIC_REQUEST_CODE = 7777;
     public static final boolean DEBUG = true;
 
+    public static final  String BaseImageDomain="http://104.236.239.37:8080/";
+
     public static final String registerWebservice = "http://104.236.239.37:8080/v1/user/register";
     public static final String loginWebservice = "http://104.236.239.37:8080/v1/user/auth?";
     public static final String forgotPasswordWebservice = "http://104.236.239.37:8080/v1/user/forgetpassword?";
@@ -17,6 +19,7 @@ public class Constants {
     public static final String AssignjobToMMWebservice = "http://104.236.239.37:8080/v1/job/assignjob?mmID=";
     public static final String UpdateJobDescriptionWebservice = "http://104.236.239.37:8080/v1/job/updatejobdesc?jobID=";
     public static final String ChangeJobStatusWebservice = "http://104.236.239.37:8080/v1/job/changestatus?jobID=";
+    public static final String UploadFileWebservice = "http://104.236.239.37:8080/v1/job/uploadfile";
     public static final String AddSowWebservice = "http://104.236.239.37:8080/v1/job/addsow?jobID=";
 
     public static final String GetNewJobWebservice = "http://104.236.239.37:8080/v1/job/getnewjoblistbyid?userID=";
@@ -38,7 +41,7 @@ public class Constants {
     public static final String getTotalJobWebservice = "http://104.236.239.37:8080/v1/job/gettotaljobsbyowner?userID=";
 
     public static final String updateJobDescriptionWebservice = "http://104.236.239.37:8080/v1/job/updatejobdesc?userID=OW5017&jobID=JOB50016";
-
+    public static final String SELECTFILE = "Selected_file";
 
 
 //    public static String AddJobWebservice_Temp = "http://104.236.239.37:8080/v1/job/createjob?userID=";
@@ -56,6 +59,7 @@ public class Constants {
     public static String ASSIGNED = "Assigned";
     public static final String REQUESTED_FOR_PAYMENT = "Requested For Payment";
     public static final String UNDERESTIMATION = "Under Estimation";
+    public static final String UNDER_ESTIMATION = "Under_Estimation";
     public static final String REJECTED = "Rejected";
     public static final String INPROGRESS = "Inprogress";
     public static final String COMPLETED = "Completed";
@@ -76,4 +80,6 @@ public class Constants {
     public static final String MILESTONE = "milestone";
     public static final String EDITMILESTONE = "editmilestone";
     public static final String EDITMILESTONEPOSITION = "editmilestoneposition";
+    public static String OWNER_REVIEW = "OWNER_REVIEW";
+    public static String OWNERREVIEW = "Owner Review";
 }

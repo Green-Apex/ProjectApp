@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.RequestManager;
 import com.greenapex.R;
+import com.greenapex.Utils.Constants;
 
 import java.util.ArrayList;
 
@@ -50,7 +51,7 @@ public class ImageViewPagerAdapter extends PagerAdapter {
         ImageView imgProfile = (ImageView) itemView.findViewById(R.id.imgSquareItem);
 
 
-        imageLoader.load(rowItem)
+        imageLoader.load(Constants.BaseImageDomain+rowItem)
                 .asBitmap().centerCrop()
                 .placeholder(R.drawable.gallery_icon)
                 .error(R.drawable.gallery_icon)

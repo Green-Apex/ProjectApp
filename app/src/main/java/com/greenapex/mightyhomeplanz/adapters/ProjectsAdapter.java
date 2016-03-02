@@ -87,15 +87,17 @@ public class ProjectsAdapter extends BaseAdapter implements OnClickListener {
             holder.tvStatus.setText(Constants.INPROGRESS);
         else if (data.getJobStatus().equalsIgnoreCase(Constants.REJECTED))
             holder.tvStatus.setText(Constants.REJECTED);
-        else if (data.getJobStatus().equalsIgnoreCase(Constants.UNDERESTIMATION))
+        else if (data.getJobStatus().equalsIgnoreCase(Constants.UNDER_ESTIMATION))
             holder.tvStatus.setText(Constants.UNDERESTIMATION);
         else if (data.getJobStatus().equalsIgnoreCase(Constants.REQUESTED_FOR_PAYMENT))
             holder.tvStatus.setText(Constants.REQUESTED_FOR_PAYMENT);
-
+        else if (data.getJobStatus().equalsIgnoreCase(Constants.OWNER_REVIEW)) {
+            holder.tvStatus.setText(Constants.OWNERREVIEW);
+        }
         holder.customTxtJobName.setText(data.getJobTitle());
         holder.customTxtStartDate.setText(data.getJobCreationDate());
         if (data.getImages().size() > 0) {
-            imageLoader.load(data.getImages().get(0)).asBitmap().centerCrop().into(holder.customRoundedImageView);
+            imageLoader.load(Constants.BaseImageDomain+data.getImages().get(0)).asBitmap().centerCrop().into(holder.customRoundedImageView);
         }
     }
 
