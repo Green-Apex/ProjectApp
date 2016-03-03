@@ -363,7 +363,12 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
                 jobAddressRequest.setStreetAddress(etStreetAddressAddNewProject.getText().toString());
                 jobAddressRequest.setCity(etCityAddNewProject.getText().toString());
                 jobAddressRequest.setState(etStateAddNewProject.getText().toString());
-                jobAddressRequest.setPincode(Long.parseLong(etZipAddNewProject.getText().toString()));
+                String pincode = etZipAddNewProject.getText().toString();
+                if(pincode.length()>0)
+                {
+                    jobAddressRequest.setPincode(Long.parseLong(etZipAddNewProject.getText().toString()));
+                }
+
 
                 addJobRequest.setAddress(jobAddressRequest);
                 SharedPreferences sp = getSharedPreferences(Constants.mightyHomePlanz, MODE_PRIVATE);

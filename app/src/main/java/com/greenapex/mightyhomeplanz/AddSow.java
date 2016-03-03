@@ -2,8 +2,10 @@ package com.greenapex.mightyhomeplanz;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -14,24 +16,34 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.greenapex.R;
 import com.greenapex.Request.models.AddSowRequest;
+import com.greenapex.Request.models.JobDOCModel;
 import com.greenapex.Utils.Constants;
 import com.greenapex.mightyhomeplanz.adapters.MileStoneAdapter;
-import com.greenapex.Request.models.JobDOCModel;
 import com.greenapex.mightyhomeplanz.entities.MileStoneModel;
 import com.greenapex.mightyhomeplanz.entities.MileStoneStatusModel;
+import com.greenapex.response.models.CommonResponse;
 import com.greenapex.webservice.AddSowWebservice;
 import com.greenapex.widgets.CustomEditText;
 import com.greenapex.widgets.CustomTextView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class AddSow extends BaseActivity implements OnClickListener {
     private Activity activity;
@@ -50,7 +62,11 @@ public class AddSow extends BaseActivity implements OnClickListener {
     private ArrayList<MileStoneModel> arrMileStones = new ArrayList<>();
     private MileStoneAdapter mileStoneAdapter;
     private File selectedfilePath;
+    private String selectedfilePathName;
     private String selectedJobId;
+    private ProgressDialog progressDialog;
+    private String uploadedFilePath;
+    private CustomTextView customSelectedfilepath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +74,7 @@ public class AddSow extends BaseActivity implements OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_addsow);
         activity = AddSow.this;
+        progressDialog = new ProgressDialog(this);
         Bundle params = getIntent().getExtras();
         if (params != null) {
             selectedJobId = params.getString(Constants.JOBID, "");
@@ -89,6 +106,7 @@ public class AddSow extends BaseActivity implements OnClickListener {
         LinearLayoutSubmit = (LinearLayout) findViewById(R.id.LinearLayoutSubmit);
         tvSubmitAddDocument = (CustomTextView) findViewById(R.id.tvSubmit_AddDocument);
         tvClearAddDocument = (CustomTextView) findViewById(R.id.tvClear_AddDocument);
+        customSelectedfilepath = (CustomTextView) findViewById(R.id.customSelectedfilepath);
 
         btnCloseAddMilestone.setOnClickListener(this);
         btnAddMilestone.setOnClickListener(this);
@@ -112,6 +130,22 @@ public class AddSow extends BaseActivity implements OnClickListener {
     private void loadData() {
         mileStoneAdapter = new MileStoneAdapter(this, arrMileStones, Glide.with(this));
         listMileStone.setAdapter(mileStoneAdapter);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("uploadedFilePath", uploadedFilePath);
+        if (selectedfilePath != null)
+            outState.putString("selectedfilepathname", selectedfilePath.getName());
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        uploadedFilePath= savedInstanceState.getString("uploadedFilePath");
+        selectedfilePathName = savedInstanceState.getString("selectedfilepathname");
     }
 
     @SuppressLint("NewApi")
@@ -153,8 +187,8 @@ public class AddSow extends BaseActivity implements OnClickListener {
                     AddSowRequest addSowRequest = new AddSowRequest();
                     addSowRequest.setMilestones(arrMileStones);
                     JobDOCModel jobDOCModel = new JobDOCModel();
-                    jobDOCModel.setDocPath(selectedfilePath.getAbsolutePath());
-                    jobDOCModel.setDocTitle(selectedfilePath.getName());
+                    jobDOCModel.setDocPath(uploadedFilePath);
+                    jobDOCModel.setDocTitle(selectedfilePathName);
                     jobDOCModel.setUploadedUserID(getUserGson().getUserID());
                     addSowRequest.setJobDOC(jobDOCModel);
                     addSowRequest.setJobId(selectedJobId);
@@ -162,9 +196,8 @@ public class AddSow extends BaseActivity implements OnClickListener {
                     addSowRequest.setUserID(getUserGson().getUserID());
                     JSONObject params = new JSONObject(addSowRequest.toString());
                     addSowWebservice.callService(params, Constants.METHOD_POST);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
@@ -176,6 +209,9 @@ public class AddSow extends BaseActivity implements OnClickListener {
                     public void fileSelected(final File file) {
                         // do something with the file
                         selectedfilePath = file;
+                        selectedfilePathName = selectedfilePath.getName();
+                        customSelectedfilepath.setText(selectedfilePathName);
+                        UpdateImageToServer(selectedfilePath);
                         // Toast.makeText(AddSow.this, "file select +" + file.getName(), Toast.LENGTH_SHORT).show();
                     }
                 }).showDialog();
@@ -184,6 +220,84 @@ public class AddSow extends BaseActivity implements OnClickListener {
         }
     }
 
+    private void UpdateImageToServer(File imageFile) {
+        try {
+            AsyncHttpClient client = new AsyncHttpClient();
+            client.setTimeout(9999);
+            RequestParams params = new RequestParams();
+            params.put("file", imageFile.getAbsoluteFile());
+            client.post(Constants.UploadFileWebservice, params, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    progressDialog.dismiss();
+                    ByteArrayInputStream bis = new ByteArrayInputStream(responseBody);
+                    BufferedReader r = new BufferedReader(new InputStreamReader(bis));
+                    StringBuilder total = new StringBuilder();
+                    String line;
+                    try {
+                        while ((line = r.readLine()) != null) {
+                            total.append(line);
+                        }
+                        parseResponse(total.toString(), statusCode);
+                        //Toast.makeText(AddNewProject.this, "Response: " + total.toString(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onStart() {
+                    super.onStart();
+                    progressDialog.setMessage("Uploading Image...");
+                    progressDialog.show();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    progressDialog.dismiss();
+                    Log.e(getClass().getSimpleName(), "Error:" + error.getLocalizedMessage());
+                }
+
+                @Override
+                public void onProgress(long bytesWritten, long totalSize) {
+                    super.onProgress(bytesWritten, totalSize);
+                    progressDialog.setMessage(((int) ((100 * bytesWritten) / totalSize)) + "% uploaded");
+
+                }
+
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(getClass().getSimpleName(), "Error:" + e.getLocalizedMessage());
+        }
+
+    }
+
+    protected void parseResponse(String response, int statusCode) {
+
+        try {
+            Gson gson = new GsonBuilder().create();
+            CommonResponse commonResponse = gson.fromJson(response, CommonResponse.class);
+            if (statusCode == 200) {
+                if (commonResponse.getData().isJsonObject()) {
+
+
+                } else if (commonResponse.getData().isJsonArray()) {
+
+                    for (JsonElement item :
+                            commonResponse.getData().getAsJsonArray()) {
+                        uploadedFilePath = item.getAsString();
+                    }
+
+                } else {
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onBackPressed() {
         findViewById(R.id.btnClose_AddMilestone).performClick();

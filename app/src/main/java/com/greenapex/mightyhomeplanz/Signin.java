@@ -161,19 +161,24 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
         if (response.length() > 0) {
 
             try {
-                UserResponse userResponse = gson.fromJson(response, UserResponse.class);
-                SharedPreferences sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
-                if (userResponse.toString() != null) {
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Constants.UserData, userResponse.toString());
-                    editor.commit();
+                if(!response.equalsIgnoreCase("\"\"")){
+                    UserResponse userResponse = gson.fromJson(response, UserResponse.class);
+                    SharedPreferences sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
+                    if (userResponse.toString() != null) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(Constants.UserData, userResponse.toString());
+                        editor.commit();
 
-                    startActivity(new Intent(this.getApplicationContext(), Home.class));
-                    overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
-                    finish();
-                } else {
-                    Log.d("SignUp", "Error saving user response data to Shared Preference");
+                        startActivity(new Intent(this.getApplicationContext(), Home.class));
+                        overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+                        finish();
+                    } else {
+                        Log.d("SignUp", "Error saving user response data to Shared Preference");
+                    }
+                }else{
+                    Toast.makeText(Signin.this, message, Toast.LENGTH_SHORT).show();
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.d("SignUp", "Error saving user data in preferences");

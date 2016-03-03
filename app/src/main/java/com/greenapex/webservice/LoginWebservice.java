@@ -46,7 +46,7 @@ public class LoginWebservice extends WebserviceBase {
             String url = Constants.loginWebservice + "email=" + email + "&password=" + password /*+ "&role=" + role*/;
 
             callService(url, params, Constants.METHOD_POST);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

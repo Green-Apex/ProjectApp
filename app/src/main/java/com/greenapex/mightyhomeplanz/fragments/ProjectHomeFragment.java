@@ -61,6 +61,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
     private CustomTextView customTxtStartDate;
     private CirclePageIndicator titleIndicator;
     private CustomTextView customTxtEditJobDescription;
+    private View imgChangestatus;
 
     public static Fragment newInstance(String jobID) {
 
@@ -74,6 +75,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.frag_project_home, container, false);
+
         selectJobID = getArguments().getString(Constants.JOBID, "");
         activity = getActivity();
 
@@ -160,17 +162,18 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         btnAddMilestone.setOnClickListener(this);
         tvMakePayment_fragProjectHome = (CustomTextView) view.findViewById(R.id.tvMakePayment_fragProjectHome);
         tvMakePayment_fragProjectHome.setOnClickListener(this);
-
+        imgChangestatus = view.findViewById(R.id.imgChangestatus);
+        imgChangestatus.setOnClickListener(this);
 
        // loadData();
     }
 
     private void loadData() {
-        IMAGE_NAME.clear();
-        IMAGE_NAME.addAll(jobDetailResponse.getImages());
-        imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getActivity().getSupportFragmentManager());
-        viewPager.setAdapter(imageFragmentPagerAdapter);
-        titleIndicator.setViewPager(viewPager);
+//        IMAGE_NAME.clear();
+//        IMAGE_NAME.addAll(jobDetailResponse.getImages());
+//        imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getActivity().getSupportFragmentManager());
+//        viewPager.setAdapter(imageFragmentPagerAdapter);
+//        titleIndicator.setViewPager(viewPager);
 
         if (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.NEW)) {
             tvStatus.setText(Constants.NEW);
@@ -206,7 +209,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         } else if (getUserGson().getRole().equalsIgnoreCase(Constants.MM) && jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.ASSIGNED)) {
             tvMakePayment_fragProjectHome.setVisibility(View.GONE);
             customTxtAssignJob.setVisibility(View.GONE);
-            btnAddMilestone.setVisibility(View.VISIBLE);
+           // btnAddMilestone.setVisibility(View.VISIBLE);
             customTxtEditJobDescription.setVisibility(View.GONE);
         } else {
             tvMakePayment_fragProjectHome.setVisibility(View.GONE);
@@ -221,58 +224,24 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             customTxtAssignJob.setVisibility(View.GONE);
             tvReview.setVisibility(View.VISIBLE);
         }
+        if(getUserGson().getRole().equalsIgnoreCase(Constants.MM))
+            imgChangestatus.setVisibility(View.VISIBLE);
+        else
+            imgChangestatus.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View v) {
         // TODO onClick
         switch (v.getId()) {
+            case R.id.imgChangestatus: {
+                if (getUserGson().getRole().equalsIgnoreCase(Constants.MM))
+                    showStatusList();
+                break;
+            }
             case R.id.customTxtAssignJob:
-                GetMMListWebservice getMMListWebservice = new GetMMListWebservice(new GetMMListWebservice.GetMMListWebserviceHandler() {
-                    @Override
-                    public void getMMListWebserviceStart() {
 
-                    }
-
-                    @Override
-                    public void getMMListWebserviceSucessful(String response, String message) {
-                        ArrayList<MMListResponse> arrMM = new ArrayList<>();
-                        if (response != null && response.length() > 0) {
-                            try {
-                                JSONArray mResponse = new JSONArray(response);
-                                if (mResponse != null && mResponse.length() > 0) {
-
-                                    for (int i = 0; i < mResponse.length(); i++) {
-                                        MMListResponse mmListResponse = new MMListResponse();
-                                        mmListResponse = getGson().fromJson(mResponse.get(i).toString(), MMListResponse.class);
-                                        arrMM.add(mmListResponse);
-
-                                    }
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        showLog(message);
-                        showMMList(arrMM);
-                    }
-
-                    @Override
-                    public void getMMListWebserviceFailedWithMessage(String message) {
-
-                    }
-                }, getActivity());
-
-                try {
-                    JSONObject params = new JSONObject();
-                    params.put(Constants.USERID, getUserGson().getUserID());
-                    getMMListWebservice.callService(params, Constants.METHOD_GET);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-
+                showMMList();
 
                 //if(PM) then Assign Job
                 //IF MM then Add Sow
@@ -303,6 +272,53 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
                 editJobDescription();
                 break;
             }
+        }
+    }
+
+    private void showMMList() {
+        GetMMListWebservice getMMListWebservice = new GetMMListWebservice(new GetMMListWebservice.GetMMListWebserviceHandler() {
+            @Override
+            public void getMMListWebserviceStart() {
+
+            }
+
+            @Override
+            public void getMMListWebserviceSucessful(String response, String message) {
+                ArrayList<MMListResponse> arrMM = new ArrayList<>();
+                if (response != null && response.length() > 0) {
+                    try {
+                        JSONArray mResponse = new JSONArray(response);
+                        if (mResponse != null && mResponse.length() > 0) {
+
+                            for (int i = 0; i < mResponse.length(); i++) {
+                                MMListResponse mmListResponse = new MMListResponse();
+                                mmListResponse = getGson().fromJson(mResponse.get(i).toString(), MMListResponse.class);
+                                arrMM.add(mmListResponse);
+
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                showLog(message);
+                showMMList(arrMM);
+            }
+
+            @Override
+            public void getMMListWebserviceFailedWithMessage(String message) {
+
+            }
+        }, getActivity());
+
+        try {
+            JSONObject params = new JSONObject();
+            params.put(Constants.USERID, getUserGson().getUserID());
+            getMMListWebservice.callService(params, Constants.METHOD_GET);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 
@@ -423,7 +439,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         arrNameList.add(Constants.CANCEL);
 
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
-        builderSingle.setIcon(R.drawable.ic_launcher);
+        builderSingle.setIcon(R.mipmap.ic_launcher);
         builderSingle.setTitle("Please Select :");
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
@@ -482,6 +498,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             @Override
             public void changeJobStatusWebserviceSucessful(String response, String message) {
                 showToast(response);
+                tvReview.setVisibility(View.VISIBLE);
             }
 
             @Override

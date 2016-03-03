@@ -68,14 +68,30 @@
             android:layout_below="@+id/linearLayoutTitle"
             android:orientation="vertical">
 
-            <com.greenapex.widgets.CustomTextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="right"
-                android:padding="7dp"
-                android:text="@string/browse"
-                android:textColor="@color/black_font" />
+                android:orientation="horizontal">
+
+                <com.greenapex.widgets.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="right"
+                    android:padding="7dp"
+                    android:text="@string/browse"
+                    android:textColor="@color/black_font" />
+                <com.greenapex.widgets.CustomTextView
+                    android:id="@+id/customSelectedfilepath"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="right"
+                    android:padding="7dp"
+                    android:text=""
+                    android:textColor="@color/black_font" />
+            </LinearLayout>
+
 
             <com.greenapex.widgets.CustomTextView
                 android:id="@+id/tvBrowse_AddDocument"

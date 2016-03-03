@@ -1,17 +1,5 @@
 package com.greenapex.mightyhomeplanz;
 
-import com.greenapex.Request.models.AddressRequest;
-import com.greenapex.Request.models.RegisterRequest;
-import com.greenapex.Utils.Constants;
-import com.greenapex.Utils.Utils;
-import com.greenapex.response.models.UserResponse;
-import com.greenapex.webservice.RegisterWebservice;
-import com.greenapex.widgets.CustomEditText;
-import com.greenapex.widgets.CustomTextView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.greenapex.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -25,6 +13,18 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ScrollView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.greenapex.R;
+import com.greenapex.Request.models.AddressRequest;
+import com.greenapex.Request.models.RegisterRequest;
+import com.greenapex.Utils.Constants;
+import com.greenapex.Utils.Utils;
+import com.greenapex.response.models.UserResponse;
+import com.greenapex.webservice.RegisterWebservice;
+import com.greenapex.widgets.CustomEditText;
+import com.greenapex.widgets.CustomTextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -201,11 +201,11 @@ public class Signup extends Activity implements OnClickListener, RegisterWebserv
             sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
             try {
                 if (userResponse.toString() != null) {
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Constants.UserData, userResponse.toString());
-                    editor.commit();
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString(Constants.UserData, userResponse.toString());
+//                    editor.commit();
 
-                    startActivity(new Intent(this.getApplicationContext(), Home.class));
+                    startActivity(new Intent(this.getApplicationContext(), Signin.class));
                     overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
                     finish();
                 } else {

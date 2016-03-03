@@ -79,29 +79,38 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="1.4"
                         android:orientation="vertical">
 
                         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                <com.greenapex.widgets.CustomTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Status: "
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black_font" />
+                            <com.greenapex.widgets.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Status: "
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="@color/black_font" />
 
                             <com.greenapex.widgets.CustomTextView
                                 android:id="@+id/tvStatus_fragProjectHome"
                                 android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginLeft="5dp"
-                                android:text="loading..."
+                                android:text="Assigned"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:textColor="@color/purple" />
+
+                            <ImageView
+                                android:id="@+id/imgChangestatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:minHeight="30dp"
+                                android:src="@drawable/ic_timthumb"
+                                android:visibility="gone" />
                         </LinearLayout>
 
                         <com.greenapex.widgets.CustomTextView
