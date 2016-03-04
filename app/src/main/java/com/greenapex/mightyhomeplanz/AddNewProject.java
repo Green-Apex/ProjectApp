@@ -71,9 +71,9 @@ public class AddNewProject extends Activity implements OnClickListener, AddJobWe
     private CustomTextView tvSubmitAddNewProject;
     private Gson gson;
     private ProgressDialog progressDialog;
-    private File photoFile;
+    private static File photoFile;
     private Utils utils;
-    private Uri cropped_Image;
+    private static Uri cropped_Image;
     private String urgencyOfWork_string = "";
     private ImageButton imgBtnDeleteImage;
     private ArrayList<String> arrImages = new ArrayList<>();

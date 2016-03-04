@@ -1,8 +1,10 @@
 package com.greenapex.mightyhomeplanz.fragments;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,16 +15,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.greenapex.R;
 import com.greenapex.Request.models.AssignJobRequest;
 import com.greenapex.Utils.Constants;
 import com.greenapex.mightyhomeplanz.AddMilestone;
 import com.greenapex.mightyhomeplanz.AddSow;
+import com.greenapex.mightyhomeplanz.ShowMileStone;
+import com.greenapex.mightyhomeplanz.entities.MileStoneModel;
 import com.greenapex.response.models.JobDetailResponse;
 import com.greenapex.response.models.MMListResponse;
 import com.greenapex.webservice.AssignjobToMMWebservice;
@@ -62,6 +68,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
     private CirclePageIndicator titleIndicator;
     private CustomTextView customTxtEditJobDescription;
     private View imgChangestatus;
+    private ListView listMilestone;
 
     public static Fragment newInstance(String jobID) {
 
@@ -164,16 +171,40 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         tvMakePayment_fragProjectHome.setOnClickListener(this);
         imgChangestatus = view.findViewById(R.id.imgChangestatus);
         imgChangestatus.setOnClickListener(this);
+        listMilestone = (ListView) view.findViewById(R.id.listMilestone);
 
-       // loadData();
+        // loadData();
     }
 
     private void loadData() {
-//        IMAGE_NAME.clear();
-//        IMAGE_NAME.addAll(jobDetailResponse.getImages());
-//        imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getActivity().getSupportFragmentManager());
-//        viewPager.setAdapter(imageFragmentPagerAdapter);
-//        titleIndicator.setViewPager(viewPager);
+        final ArrayList<String> arrMileStone = new ArrayList<>();
+        for (MileStoneModel mileStone :
+                jobDetailResponse.getMilestone()) {
+            arrMileStone.add(mileStone.getTitle());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, arrMileStone);
+        listMilestone.setAdapter(adapter);
+        listMilestone.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent showMileStone = new Intent(getActivity(), ShowMileStone.class);
+                showMileStone.putExtra(Constants.MILESTONE, jobDetailResponse.getMilestone().get(position).toString());
+                startActivity(showMileStone);
+            }
+        });
+        IMAGE_NAME.clear();
+        if (jobDetailResponse.getImages().size() > 0) {
+
+            IMAGE_NAME.addAll(jobDetailResponse.getImages());
+
+        } else {
+            IMAGE_NAME.add(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + getResources().getResourcePackageName(R.drawable.noimage) + '/' + getResources().getResourceTypeName(R.drawable.noimage) + '/' + getResources().getResourceEntryName(R.drawable.noimage));
+        }
+        imageFragmentPagerAdapter = new ImageFragmentPagerAdapter(getActivity().getSupportFragmentManager());
+        viewPager.setAdapter(imageFragmentPagerAdapter);
+        titleIndicator.setViewPager(viewPager);
+
+
 
         if (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.NEW)) {
             tvStatus.setText(Constants.NEW);
@@ -534,6 +565,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             public void assignjobToMMWebserviceSucessful(String response, String message) {
                 showLog(response);
                 showToast(message);
+                customTxtAssignJob.setVisibility(View.GONE);
             }
 
             @Override
@@ -564,7 +596,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
 
         @Override
         public int getCount() {
-            return NUM_ITEMS;
+            return IMAGE_NAME.size();
         }
 
         @Override
@@ -574,7 +606,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         }
     }
 
-    public static class SwipeFragment extends Fragment {
+    public static class SwipeFragment extends BaseFragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View swipeView = inflater.inflate(R.layout.swipe_fragment, container, false);
@@ -582,8 +614,14 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             Bundle bundle = getArguments();
             int position = bundle.getInt("position");
             String imageFileName = IMAGE_NAME.get(position);
-            int imgResId = getResources().getIdentifier(imageFileName, "drawable", "com.greenapex");
-            imageView.setImageResource(imgResId);
+            //int imgResId = getResources().getIdentifier(imageFileName, "drawable", "com.greenapex");
+            if (!imageFileName.contains("noimage"))
+                getImageLoader().load(Constants.BaseImageDomain + imageFileName).into(imageView);
+            else {
+                getImageLoader().load(Uri.parse(imageFileName)).into(imageView);
+            }
+
+//            imageView.setImageURI();
             return swipeView;
         }
 

@@ -1,7 +1,9 @@
 package com.greenapex.response.models;
 
 import com.google.gson.Gson;
+import com.greenapex.Request.models.JobDOCModel;
 import com.greenapex.mightyhomeplanz.entities.AddressModel;
+import com.greenapex.mightyhomeplanz.entities.MileStoneModel;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,8 @@ public class JobDetailResponse {
     private ArrayList<String> images;
     private ArrayList<String> userID;
     private String totalJobCost;
+    private ArrayList<JobDOCModel> jobDoc;
+    private ArrayList<MileStoneModel> milestone;
 
     public JobDetailResponse() {
         this.id = "";
@@ -36,6 +40,8 @@ public class JobDetailResponse {
         this.setImages(new ArrayList<String>());
         this.setTotalJobCost("");
         this.setUserID(new ArrayList<String>());
+        this.setJobDoc(new ArrayList<JobDOCModel>());
+        this.setMilestone(new ArrayList<MileStoneModel>());
 
     }
 
@@ -147,5 +153,21 @@ public class JobDetailResponse {
 
     public void setTotalJobCost(String totalJobCost) {
         this.totalJobCost = totalJobCost;
+    }
+
+    public ArrayList<JobDOCModel> getJobDoc() {
+        return jobDoc;
+    }
+
+    public void setJobDoc(ArrayList<JobDOCModel> jobDoc) {
+        this.jobDoc = jobDoc;
+    }
+
+    public ArrayList<MileStoneModel> getMilestone() {
+        return milestone;
+    }
+
+    public void setMilestone(ArrayList<MileStoneModel> milestone) {
+        this.milestone = milestone;
     }
 }

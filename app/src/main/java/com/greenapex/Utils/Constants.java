@@ -16,6 +16,7 @@ public class Constants {
     public static final String loginWebservice = "http://104.236.239.37:8080/v1/user/auth?";
     public static final String forgotPasswordWebservice = "http://104.236.239.37:8080/v1/user/forgetpassword?";
     public static final String AddJobWebservice = "http://104.236.239.37:8080/v1/job/createjob?userID=";
+    public static final String AddJobDocWebservice = "http://104.236.239.37:8080/v1/job/addjobdoc?userID=";
     public static final String AssignjobToMMWebservice = "http://104.236.239.37:8080/v1/job/assignjob?mmID=";
     public static final String UpdateJobDescriptionWebservice = "http://104.236.239.37:8080/v1/job/updatejobdesc?jobID=";
     public static final String ChangeJobStatusWebservice = "http://104.236.239.37:8080/v1/job/changestatus?jobID=";

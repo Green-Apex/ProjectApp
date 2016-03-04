@@ -35,7 +35,9 @@
                         android:id="@+id/pager_fragProjectHome"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/appbar_height"
-                        android:layout_marginTop="10dp"></android.support.v4.view.ViewPager>
+                        android:layout_marginTop="10dp">
+
+                    </android.support.v4.view.ViewPager>
 
                     <com.viewpagerindicator.CirclePageIndicator
                         android:id="@+id/pagerIndicator_fragProjectHome"
@@ -161,8 +163,15 @@
                     android:text="@string/milestone"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black_font"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
+                <ListView
+                    android:id="@+id/listMilestone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/customTxtTitleMileStone">
+
+                </ListView>
                 <TableLayout
                     android:id="@+id/tableMileStone"
                     android:layout_width="match_parent"
@@ -177,27 +186,28 @@
                         android:layout_height="wrap_content">
 
                         <com.greenapex.widgets.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="#1"
-                android:textColor="@color/black_font" />
+                            android:textColor="@color/black_font" />
 
-            <com.greenapex.widgets.CustomTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:text="Milestone name"
-                android:textColor="@color/black_font" />
+                        <com.greenapex.widgets.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:text="Milestone name"
+                            android:textColor="@color/black_font" />
 
-            <com.greenapex.widgets.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Paid"
-                android:textColor="@color/blue" />
+                        <com.greenapex.widgets.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="Paid"
+                            android:textColor="@color/blue" />
                     </TableRow>
                 </TableLayout>
+
 
                 <ImageButton
                     android:id="@+id/btnAddMilestone_fragProjectHome"

@@ -13,16 +13,16 @@ import com.greenapex.widgets.CustomTextView;
 
 import java.util.ArrayList;
 
-public class ViewDocsAdapter extends BaseAdapter implements OnClickListener {
+public class ViewMileStoneAdapter extends BaseAdapter implements OnClickListener {
 
     Context context;
 
     static ArrayList<JobDOCModel> list;
 
-    public ViewDocsAdapter(Context context, ArrayList<JobDOCModel> list) {
+    public ViewMileStoneAdapter(Context context, ArrayList<JobDOCModel> list) {
         super();
         this.context = context;
-        ViewDocsAdapter.list = list;
+        ViewMileStoneAdapter.list = list;
     }
 
     @Override
