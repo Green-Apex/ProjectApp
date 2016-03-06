@@ -18,9 +18,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.greenapex.R;
 import com.greenapex.Request.models.AssignJobRequest;
@@ -55,7 +55,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
     ImageFragmentPagerAdapter imageFragmentPagerAdapter;
     ViewPager viewPager;
     CustomTextView tvStatus, tvReview;
-    ImageButton btnAddMilestone;
+//    ImageButton btnAddMilestone;
 
     //public static final String[] IMAGE_NAME = {"eagle", "horse", "bonobo", "wolf", "owl", "bear",};
     private static final ArrayList<String> IMAGE_NAME = new ArrayList<>();
@@ -69,6 +69,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
     private CustomTextView customTxtEditJobDescription;
     private View imgChangestatus;
     private ListView listMilestone;
+    private RelativeLayout relativeLayoutMileStoneDetails;
 
     public static Fragment newInstance(String jobID) {
 
@@ -81,7 +82,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.frag_project_home, container, false);
+        view = inflater.inflate(R.layout.fragment_project_home, container, false);
 
         selectJobID = getArguments().getString(Constants.JOBID, "");
         activity = getActivity();
@@ -165,14 +166,14 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         customTxtAssignJob = (CustomTextView) view.findViewById(R.id.customTxtAssignJob);
         customTxtAssignJob.setOnClickListener(this);
 
-        btnAddMilestone = (ImageButton) view.findViewById(R.id.btnAddMilestone_fragProjectHome);
-        btnAddMilestone.setOnClickListener(this);
+//        btnAddMilestone = (ImageButton) view.findViewById(R.id.btnAddMilestone_fragProjectHome);
+//        btnAddMilestone.setOnClickListener(this);
         tvMakePayment_fragProjectHome = (CustomTextView) view.findViewById(R.id.tvMakePayment_fragProjectHome);
         tvMakePayment_fragProjectHome.setOnClickListener(this);
         imgChangestatus = view.findViewById(R.id.imgChangestatus);
         imgChangestatus.setOnClickListener(this);
         listMilestone = (ListView) view.findViewById(R.id.listMilestone);
-
+        relativeLayoutMileStoneDetails = (RelativeLayout) view.findViewById(R.id.relativeLayoutMileStoneDetails);
         // loadData();
     }
 
@@ -192,6 +193,11 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
                 startActivity(showMileStone);
             }
         });
+        if (arrMileStone.size() > 0) {
+            relativeLayoutMileStoneDetails.setVisibility(View.VISIBLE);
+        } else {
+            relativeLayoutMileStoneDetails.setVisibility(View.GONE);
+        }
         IMAGE_NAME.clear();
         if (jobDetailResponse.getImages().size() > 0) {
 
@@ -230,12 +236,12 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER) && jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.UNDER_ESTIMATION)) {
             tvMakePayment_fragProjectHome.setVisibility(View.VISIBLE);
             customTxtAssignJob.setVisibility(View.GONE);
-            btnAddMilestone.setVisibility(View.GONE);
+            //btnAddMilestone.setVisibility(View.GONE);
             customTxtEditJobDescription.setVisibility(View.VISIBLE);
         } else if (getUserGson().getRole().equalsIgnoreCase(Constants.PM) && jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.NEW)) {
             tvMakePayment_fragProjectHome.setVisibility(View.GONE);
             customTxtAssignJob.setVisibility(View.VISIBLE);
-            btnAddMilestone.setVisibility(View.GONE);
+            //btnAddMilestone.setVisibility(View.GONE);
             customTxtEditJobDescription.setVisibility(View.GONE);
         } else if (getUserGson().getRole().equalsIgnoreCase(Constants.MM) && jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.ASSIGNED)) {
             tvMakePayment_fragProjectHome.setVisibility(View.GONE);
@@ -245,7 +251,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         } else {
             tvMakePayment_fragProjectHome.setVisibility(View.GONE);
             customTxtAssignJob.setVisibility(View.GONE);
-            btnAddMilestone.setVisibility(View.GONE);
+            //btnAddMilestone.setVisibility(View.GONE);
             customTxtEditJobDescription.setVisibility(View.GONE);
         }
         if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER) && (jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.NEW) || jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.ASSIGNED))) {

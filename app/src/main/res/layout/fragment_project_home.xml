@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color_all"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeViewpager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appbar_height">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager_fragProjectHome"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/appbar_height"
+            android:layout_marginTop="10dp">
+
+        </android.support.v4.view.ViewPager>
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/pagerIndicator_fragProjectHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:padding="10dip"
+            app:fillColor="@color/black"
+            app:radius="3dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1.5px" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeViewpager"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <View
+            android:id="@+id/viewBorder"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="@color/black_font" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutStatusDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewBorder"
+            android:layout_marginTop="10dp"
+            android:gravity="top">
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/customTxtStartDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Start Date: TBD"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/black_font" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.4"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.greenapex.widgets.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status: "
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black_font" />
+
+                    <com.greenapex.widgets.CustomTextView
+                        android:id="@+id/tvStatus_fragProjectHome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Assigned"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/purple" />
+
+                    <ImageView
+                        android:id="@+id/imgChangestatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:minHeight="30dp"
+                        android:src="@drawable/ic_timthumb"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <com.greenapex.widgets.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cost: TBD"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black_font" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.greenapex.widgets.CustomTextView
+            android:id="@+id/customTxttitleJobDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayoutStatusDetail"
+            android:layout_marginTop="10dp"
+            android:text="@string/project_decription"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black_font" />
+
+        <com.greenapex.widgets.CustomTextView
+            android:id="@+id/customTxtJobDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/customTxttitleJobDescription"
+            android:layout_marginTop="5dp"
+            android:text="loading..."
+            android:textColor="@color/black_font" />
+
+        <com.greenapex.widgets.CustomTextView
+            android:id="@+id/customTxtEditJobDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/linearLayoutStatusDetail"
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:text="@string/edit"
+            android:textColor="@color/blue"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutMileStoneDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/relativeLayoutBottom"
+        android:layout_below="@id/relativeLayoutDetails"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <com.greenapex.widgets.CustomTextView
+            android:id="@+id/customTxtTitleMileStone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/milestone"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black_font"
+            android:visibility="visible" />
+
+        <ListView
+            android:id="@+id/listMilestone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/customTxtTitleMileStone"></ListView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/customTxtAssignJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/view_round_corner_blue_fill"
+                android:padding="10dp"
+                android:text="Assign Job"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/tvMakePayment_fragProjectHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/view_round_corner_blue_fill"
+                android:padding="10dp"
+                android:text="@string/make_payment"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/tvReview_fragProjectHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/view_round_corner_yellow_fill"
+                android:padding="10dp"
+                android:text="Add Sow"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

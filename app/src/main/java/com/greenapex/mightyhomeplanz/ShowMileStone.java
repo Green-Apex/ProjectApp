@@ -27,6 +27,7 @@ public class ShowMileStone extends BaseActivity implements View.OnClickListener 
     private CustomTextView etAmount_AddMilestone;
     private Spinner spStatus_AddMilestone;
     private MileStoneModel mileStoneModel;
+    private CustomTextView tvSubmit_AddMilestone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,11 @@ public class ShowMileStone extends BaseActivity implements View.OnClickListener 
         if (mileStoneModel.getStatus().isCompleted()) {
             spStatus_AddMilestone.setSelection(2);
         }
-
+        if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER)) {
+            tvSubmit_AddMilestone.setVisibility(View.VISIBLE);
+        } else {
+            tvSubmit_AddMilestone.setVisibility(View.GONE);
+        }
     }
 
     public void init() {
@@ -84,6 +89,7 @@ public class ShowMileStone extends BaseActivity implements View.OnClickListener 
         spStatus_AddMilestone = (Spinner) findViewById(R.id.spStatus_AddMilestone);
         spStatus_AddMilestone.setEnabled(false);
         etMilestoneTitle_AddMilestone = (CustomTextView) findViewById(R.id.etMilestoneTitle_AddMilestone);
+        tvSubmit_AddMilestone = (CustomTextView) findViewById(R.id.tvSubmit_AddMilestone);
 
         btnClose.setOnClickListener(this);
         tvSubmit.setOnClickListener(this);
