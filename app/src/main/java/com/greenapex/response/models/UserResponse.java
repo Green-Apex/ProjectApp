@@ -18,6 +18,7 @@ public class UserResponse {
     private String authToken;
     private boolean emailVerified;
     private String registrationTime;
+    private String profilePic;
 
     public UserResponse() {
         this.id = "";
@@ -29,6 +30,8 @@ public class UserResponse {
         this.setUserID("");
         this.authToken = "";
         this.registrationTime = "";
+        address = new AddressResponse();
+        this.setProfilePic("");
     }
 
     public String getId() {
@@ -125,5 +128,13 @@ public class UserResponse {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 }

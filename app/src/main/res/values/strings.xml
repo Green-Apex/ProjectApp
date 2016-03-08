@@ -46,6 +46,7 @@
         <item>Profile</item>
         <item>Alerts</item>
         <item>Projects</item>
+        <item>Add User</item>
         <item>Past Payments</item>
         <item>Sign Out</item>
     </string-array>
@@ -103,6 +104,7 @@
     <string name="milestone_description">Milestone Description</string>
     <string name="amount">Amount</string>
     <string name="status">Status</string>
+    <string name="addUser">Add User</string>
 
     <string-array name="arr_status_milestone">
         <item>InProgress</item>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color_all"
@@ -19,39 +19,10 @@
         <com.greenapex.widgets.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/update_profile"
+            android:text="@string/addUser"
             android:textColor="@color/white"
             android:textSize="22sp" />
 
-        <com.greenapex.widgets.CustomRoundedImageView
-            android:id="@+id/ivUserPic_SideMenu"
-            android:layout_width="@dimen/profile_pic_hw"
-            android:layout_height="@dimen/profile_pic_hw"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/demo_user_image"
-            app:border_width="0dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center">
-
-            <com.greenapex.widgets.CustomTextView
-                android:id="@+id/tvChangePicture_EditProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/change_picture"
-                android:textColor="@color/white" />
-
-            <com.greenapex.widgets.CustomTextView
-                android:id="@+id/tvRemovePicture_EditProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="@string/remove_picture"
-                android:textColor="@color/white" />
-        </LinearLayout>
     </LinearLayout>
 
     <ScrollView
@@ -68,31 +39,6 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <com.greenapex.widgets.CustomCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                card_view:cardBackgroundColor="@color/white"
-                card_view:cardCornerRadius="0dp"
-                card_view:cardElevation="1dp"
-                android:visibility="gone"
-                card_view:cardUseCompatPadding="true">
-
-                <com.greenapex.widgets.CustomEditText
-                    android:id="@+id/etUsername_EditProfile"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:drawableLeft="@drawable/user_icon"
-                    android:drawablePadding="17dp"
-                    android:gravity="center_vertical"
-                    android:hint="@string/hint_username"
-                    android:padding="5dp"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </com.greenapex.widgets.CustomCardView>
 
             <com.greenapex.widgets.CustomCardView
                 android:layout_width="match_parent"
@@ -169,8 +115,61 @@
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:enabled="false"
                     android:textStyle="bold" />
+            </com.greenapex.widgets.CustomCardView>
+
+            <com.greenapex.widgets.CustomCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp"
+                card_view:cardUseCompatPadding="true">
+
+                <com.greenapex.widgets.CustomEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/password_icon"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_password"
+                    android:inputType="textPassword"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </com.greenapex.widgets.CustomCardView>
+
+            <com.greenapex.widgets.CustomCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardCornerRadius="0dp"
+                card_view:cardElevation="1dp"
+                card_view:cardUseCompatPadding="true">
+
+                <com.greenapex.widgets.CustomEditText
+                    android:id="@+id/etConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/password_icon"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_confirm_password"
+                    android:inputType="textPassword"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
             </com.greenapex.widgets.CustomCardView>
 
             <com.greenapex.widgets.CustomCardView
@@ -197,6 +196,7 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
             </com.greenapex.widgets.CustomCardView>
 
             <LinearLayout

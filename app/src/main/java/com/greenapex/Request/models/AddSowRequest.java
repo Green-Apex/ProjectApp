@@ -14,6 +14,7 @@ public class AddSowRequest {
     private String jobId;
     private String role;
     private String userID;
+    private String totalJobCosting;
 
     public AddSowRequest() {
         this.setMilestones(new ArrayList<MileStoneModel>());
@@ -21,6 +22,7 @@ public class AddSowRequest {
         this.jobId = "";
         this.role = "";
         this.userID = "";
+        this.setTotalJobCosting("");
     }
 
     @Override
@@ -68,5 +70,13 @@ public class AddSowRequest {
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getTotalJobCosting() {
+        return totalJobCosting;
+    }
+
+    public void setTotalJobCosting(String totalJobCosting) {
+        this.totalJobCosting = totalJobCosting;
     }
 }

@@ -9,13 +9,19 @@ public class AddressModel {
     public static final String KEY_STREETADDRESS = "streetAddress";
     public static final String KEY_CITY = "city";
     public static final String KEY_STATE = "state";
+    public static final String KEY_ZIP = "zip";
 
 
     private String streetAddress;
     private String city;
     private String state;
+    private String zip;
 
     public AddressModel() {
+        this.setStreetAddress("");
+        this.setCity("");
+        this.setState("");
+        this.setZip("");
     }
 
     public String getStreetAddress() {
@@ -47,5 +53,13 @@ public class AddressModel {
         Gson gson = new Gson();
 
         return gson.toJson(this);
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 }

@@ -100,6 +100,12 @@ public class ViewDocsFragment extends BaseFragment implements OnClickListener {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     public void init() {
         btnAdd = (ImageButton) view.findViewById(R.id.btnAddDoc_fragViewDocs);
         btnAdd.setOnClickListener(this);
@@ -146,7 +152,7 @@ public class ViewDocsFragment extends BaseFragment implements OnClickListener {
 
     public void loadData() {
         list.addAll(jobDetailResponse.getJobDoc());
-        adapter = new ViewDocsAdapter(activity, list);
+        adapter = new ViewDocsAdapter(activity, list, getUserGson(), selectJobID);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new OnItemClickListener() {
 

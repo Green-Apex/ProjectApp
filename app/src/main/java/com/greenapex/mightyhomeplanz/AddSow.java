@@ -3,8 +3,10 @@ package com.greenapex.mightyhomeplanz;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,6 +69,7 @@ public class AddSow extends BaseActivity implements OnClickListener {
     private ProgressDialog progressDialog;
     private String uploadedFilePath;
     private CustomTextView customSelectedfilepath;
+    private CustomEditText etTotalCost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +102,7 @@ public class AddSow extends BaseActivity implements OnClickListener {
         btnCloseAddMilestone = (ImageButton) findViewById(R.id.btnClose_AddMilestone);
         linearLayoutTitle = (LinearLayout) findViewById(R.id.linearLayoutTitle);
         etMilestoneTitleAddMilestone = (CustomEditText) findViewById(R.id.etMilestoneTitle_AddMilestone);
+        etTotalCost = (CustomEditText) findViewById(R.id.etTotalCost);
         linearLayoutSelectDocument = (LinearLayout) findViewById(R.id.linearLayoutSelectDocument);
         tvBrowseAddDocument = (CustomTextView) findViewById(R.id.tvBrowse_AddDocument);
         listMileStone = (ListView) findViewById(R.id.listMileStone);
@@ -164,7 +168,7 @@ public class AddSow extends BaseActivity implements OnClickListener {
                 break;
 
             case R.id.tvSubmit_AddDocument:
-                AddSowWebservice addSowWebservice = new AddSowWebservice(new AddSowWebservice.AddSowWebserviceHandler() {
+                final AddSowWebservice addSowWebservice = new AddSowWebservice(new AddSowWebservice.AddSowWebserviceHandler() {
                     @Override
                     public void addSowWebserviceStart() {
 
@@ -181,25 +185,44 @@ public class AddSow extends BaseActivity implements OnClickListener {
                         showToast(message);
                     }
                 }, this);
-
-
-                try {
-                    AddSowRequest addSowRequest = new AddSowRequest();
-                    addSowRequest.setMilestones(arrMileStones);
-                    JobDOCModel jobDOCModel = new JobDOCModel();
-                    jobDOCModel.setDocPath(uploadedFilePath);
-                    jobDOCModel.setDocTitle(selectedfilePathName);
-                    jobDOCModel.setUploadedUserID(getUserGson().getUserID());
-                    addSowRequest.setJobDOC(jobDOCModel);
-                    addSowRequest.setJobId(selectedJobId);
-                    addSowRequest.setRole(getUserGson().getRole());
-                    addSowRequest.setUserID(getUserGson().getUserID());
-                    JSONObject params = new JSONObject(addSowRequest.toString());
-                    addSowWebservice.callService(params, Constants.METHOD_POST);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                final String totalJobCost = etTotalCost.getText().toString();
+                if (totalJobCost.length() <= 0) {
+                    Toast.makeText(AddSow.this, "Please add Total Job Cost.", Toast.LENGTH_SHORT).show();
+                    etTotalCost.requestFocus();
+                    return;
                 }
+                if (totalJobCost.equalsIgnoreCase("0")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                    builder.setTitle("Confirm");
+                    builder.setMessage("Total Job Cost is 0. Are you sure you want to continue ?");
+
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing but close the dialog
+                            AddSowtoServer(addSowWebservice, totalJobCost);
+                            dialog.dismiss();
+                        }
+
+                    });
+
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing
+
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                } else {
+                    AddSowtoServer(addSowWebservice, totalJobCost);
+                }
+
                 break;
             case R.id.tvClear_AddMilestone:
                 break;
@@ -220,6 +243,41 @@ public class AddSow extends BaseActivity implements OnClickListener {
         }
     }
 
+    private void AddSowtoServer(AddSowWebservice addSowWebservice, String totalJobCost) {
+        try {
+            AddSowRequest addSowRequest = new AddSowRequest();
+            addSowRequest.setMilestones(arrMileStones);
+            JobDOCModel jobDOCModel = new JobDOCModel();
+            jobDOCModel.setDocPath(uploadedFilePath);
+            jobDOCModel.setDocTitle(selectedfilePathName);
+            jobDOCModel.setUploadedUserID(getUserGson().getUserID());
+            addSowRequest.setJobDOC(jobDOCModel);
+            addSowRequest.setJobId(selectedJobId);
+            addSowRequest.setRole(getUserGson().getRole());
+            addSowRequest.setUserID(getUserGson().getUserID());
+            addSowRequest.setTotalJobCosting(totalJobCost);
+            JSONObject params = new JSONObject(addSowRequest.toString());
+            addSowWebservice.callService(params, Constants.METHOD_POST);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    //Yes button clicked
+                    break;
+
+                case DialogInterface.BUTTON_NEGATIVE:
+                    //No button clicked
+                    break;
+            }
+        }
+    };
     private void UpdateImageToServer(File imageFile) {
         try {
             AsyncHttpClient client = new AsyncHttpClient();

@@ -14,36 +14,35 @@ import java.io.UnsupportedEncodingException;
 /**
  * Created by admin on 15-Oct-15.
  */
-public class GetTotalJobWebservice extends WebserviceBase {
+public class AddUserWebservice extends WebserviceBase {
 
-    private final GetTotalJobWebserviceHandler handler;
+    private final AddUserWebserviceHandler handler;
 
     private Context context = null;
 
     public void callService(@NonNull final JSONObject params, int method_type) throws UnsupportedEncodingException {
-
-        String userID = null;
         try {
-            userID = params.getString("userID");
-            String url = Constants.getTotalJobWebservice + userID;
-            params.remove(userID);
+            String userID = params.getString(Constants.USERID);
+            String url = Constants.AddUserWebservice + userID;
+            params.remove(Constants.USERID);
             super.callService(url, params, method_type);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+
     }
 
     @Override
     public void callService(@NonNull JSONObject params) throws UnsupportedEncodingException, JSONException {
-        super.callService(Constants.getTotalJobWebservice, params, Constants.METHOD_POST);
+        super.callService(Constants.AddUserWebservice, params, Constants.METHOD_POST);
     }
 
 
     @Override
     public void webserviceStart() {
 
-        handler.GetTotalJobWebserviceStart();
+        handler.addUserWebserviceStart();
     }
 
     @Override
@@ -53,26 +52,26 @@ public class GetTotalJobWebservice extends WebserviceBase {
 
     @Override
     public void webserviceSucessful(String response, String message) {
-        handler.GetTotalJobWebserviceSucessful(response, message);
+        handler.addUserWebserviceSucessful(response, message);
     }
 
     @Override
     public void webserviceFailedWithMessage(String message) {
-        handler.GetTotalJobWebserviceFailedWithMessage(message);
+        handler.addUserWebserviceFailedWithMessage(message);
     }
 
-    public GetTotalJobWebservice(GetTotalJobWebserviceHandler aHandler, Context mContext) {
+    public AddUserWebservice(AddUserWebserviceHandler aHandler, Context mContext) {
         super(mContext);
         handler = aHandler;
         context = mContext;
 
     }
 
-    public interface GetTotalJobWebserviceHandler {
-        void GetTotalJobWebserviceStart();
+    public interface AddUserWebserviceHandler {
+        void addUserWebserviceStart();
 
-        void GetTotalJobWebserviceSucessful(String response, String message);
+        void addUserWebserviceSucessful(String response, String message);
 
-        void GetTotalJobWebserviceFailedWithMessage(String message);
+        void addUserWebserviceFailedWithMessage(String message);
     }
 }

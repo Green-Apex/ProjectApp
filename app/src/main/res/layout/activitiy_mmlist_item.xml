@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/customTxtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/customTxtTotalProject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/customTxtName"
+                android:text=""
+                android:textSize="12sp" />
+
+            <com.greenapex.widgets.CustomTextView
+                android:id="@+id/customTxtJobCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/customTxtName"
+                android:layout_toRightOf="@+id/customTxtTotalProject"
+                android:gravity="right"
+                android:paddingRight="5dp"
+                android:text=""
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

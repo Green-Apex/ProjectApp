@@ -23,23 +23,19 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.greenapex.R;
-import com.greenapex.Request.models.AssignJobRequest;
 import com.greenapex.Utils.Constants;
 import com.greenapex.mightyhomeplanz.AddMilestone;
 import com.greenapex.mightyhomeplanz.AddSow;
+import com.greenapex.mightyhomeplanz.ShowMMList;
 import com.greenapex.mightyhomeplanz.ShowMileStone;
 import com.greenapex.mightyhomeplanz.entities.MileStoneModel;
 import com.greenapex.response.models.JobDetailResponse;
-import com.greenapex.response.models.MMListResponse;
-import com.greenapex.webservice.AssignjobToMMWebservice;
 import com.greenapex.webservice.ChangeJobStatusWebservice;
 import com.greenapex.webservice.GetJobDetailByJobIdWebservice;
-import com.greenapex.webservice.GetMMListWebservice;
 import com.greenapex.webservice.UpdateJobDescriptionWebservice;
 import com.greenapex.widgets.CustomTextView;
 import com.viewpagerindicator.CirclePageIndicator;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,6 +66,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
     private View imgChangestatus;
     private ListView listMilestone;
     private RelativeLayout relativeLayoutMileStoneDetails;
+    private CustomTextView customTxtJobCost;
 
     public static Fragment newInstance(String jobID) {
 
@@ -157,6 +154,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         customTxtStartDate = (CustomTextView) view.findViewById(R.id.customTxtStartDate);
         customTxtJobDescription = (CustomTextView) view.findViewById(R.id.customTxtJobDescription);
         customTxtEditJobDescription = (CustomTextView) view.findViewById(R.id.customTxtEditJobDescription);
+        customTxtJobCost = (CustomTextView) view.findViewById(R.id.customTxtJobCost);
         customTxtEditJobDescription.setOnClickListener(this);
 
         tvStatus = (CustomTextView) view.findViewById(R.id.tvStatus_fragProjectHome);
@@ -178,6 +176,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
     }
 
     private void loadData() {
+        customTxtJobCost.setText("Cost: " + jobDetailResponse.getTotalJobCost());
         final ArrayList<String> arrMileStone = new ArrayList<>();
         for (MileStoneModel mileStone :
                 jobDetailResponse.getMilestone()) {
@@ -278,8 +277,10 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             }
             case R.id.customTxtAssignJob:
 
-                showMMList();
-
+//                showMMList();
+                Intent selectMMUser = new Intent(getActivity(), ShowMMList.class);
+                selectMMUser.putExtra(Constants.JOBID, selectJobID);
+                startActivityForResult(selectMMUser, Constants.SELECTMMUSER);
                 //if(PM) then Assign Job
                 //IF MM then Add Sow
                 //IF owner and SOW added then make payment
@@ -312,52 +313,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         }
     }
 
-    private void showMMList() {
-        GetMMListWebservice getMMListWebservice = new GetMMListWebservice(new GetMMListWebservice.GetMMListWebserviceHandler() {
-            @Override
-            public void getMMListWebserviceStart() {
 
-            }
-
-            @Override
-            public void getMMListWebserviceSucessful(String response, String message) {
-                ArrayList<MMListResponse> arrMM = new ArrayList<>();
-                if (response != null && response.length() > 0) {
-                    try {
-                        JSONArray mResponse = new JSONArray(response);
-                        if (mResponse != null && mResponse.length() > 0) {
-
-                            for (int i = 0; i < mResponse.length(); i++) {
-                                MMListResponse mmListResponse = new MMListResponse();
-                                mmListResponse = getGson().fromJson(mResponse.get(i).toString(), MMListResponse.class);
-                                arrMM.add(mmListResponse);
-
-                            }
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                showLog(message);
-                showMMList(arrMM);
-            }
-
-            @Override
-            public void getMMListWebserviceFailedWithMessage(String message) {
-
-            }
-        }, getActivity());
-
-        try {
-            JSONObject params = new JSONObject();
-            params.put(Constants.USERID, getUserGson().getUserID());
-            getMMListWebservice.callService(params, Constants.METHOD_GET);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void editJobDescription() {
         AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
@@ -423,49 +379,46 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
 
     }
 
-    private void addSOW() {
 
-    }
-
-    private void showMMList(final ArrayList<MMListResponse> arrMM) {
-        final ArrayList<String> arrNameList = new ArrayList<>();
-        for (int i = 0; i < arrMM.size(); i++) {
-            String mmName = arrMM.get(i).getFname() + " " + arrMM.get(i).getLname();
-            arrNameList.add(mmName);
-        }
-
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
-        builderSingle.setIcon(R.mipmap.ic_launcher);
-        builderSingle.setTitle("Please Select :");
-
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.select_dialog_singlechoice);
-        arrayAdapter.addAll(arrNameList);
-
-        builderSingle.setNegativeButton(
-                "cancel",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-        builderSingle.setAdapter(
-                arrayAdapter,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String strName = arrayAdapter.getItem(which);
-                        String mmID = arrMM.get(which).getUserID();
-
-                        AssignJobToMM(mmID);
-
-                    }
-                });
-        builderSingle.show();
-    }
+//    private void showMMList(final ArrayList<MMListResponse> arrMM) {
+//        final ArrayList<String> arrNameList = new ArrayList<>();
+//        for (int i = 0; i < arrMM.size(); i++) {
+//            String mmName = arrMM.get(i).getFname() + " " + arrMM.get(i).getLname();
+//            arrNameList.add(mmName);
+//        }
+//
+//        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
+//        builderSingle.setIcon(R.mipmap.ic_launcher);
+//        builderSingle.setTitle("Please Select :");
+//
+//        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+//                getActivity(),
+//                android.R.layout.select_dialog_singlechoice);
+//        arrayAdapter.addAll(arrNameList);
+//
+//        builderSingle.setNegativeButton(
+//                "cancel",
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//        builderSingle.setAdapter(
+//                arrayAdapter,
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String strName = arrayAdapter.getItem(which);
+//                        String mmID = arrMM.get(which).getUserID();
+//
+//                        AssignJobToMM(mmID);
+//
+//                    }
+//                });
+//        builderSingle.show();
+//    }
 
     private void showStatusList() {
         final ArrayList<String> arrNameList = new ArrayList<>();
@@ -557,43 +510,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         }
     }
 
-    private void AssignJobToMM(String mmID) {
-//        customTxtAssignJob.setVisibility(View.GONE);
-//        tvReview.setVisibility(View.VISIBLE);
-//        return;
-        AssignjobToMMWebservice assignjobToMMWebservice = new AssignjobToMMWebservice(new AssignjobToMMWebservice.AssignjobToMMWebserviceHandler() {
-            @Override
-            public void assignjobToMMWebserviceStart() {
 
-            }
-
-            @Override
-            public void assignjobToMMWebserviceSucessful(String response, String message) {
-                showLog(response);
-                showToast(message);
-                customTxtAssignJob.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void assignjobToMMWebserviceFailedWithMessage(String message) {
-                showToast(message);
-            }
-        }, getActivity());
-
-        try {
-            AssignJobRequest assignJobRequest = new AssignJobRequest();
-            assignJobRequest.setMmID(mmID);
-            assignJobRequest.setRole(getUserGson().getRole());
-            assignJobRequest.setJobID(selectJobID);
-            assignJobRequest.setPmID(getUserGson().getUserID());
-            JSONObject params = new JSONObject(assignJobRequest.toString());
-            assignjobToMMWebservice.callService(params, Constants.METHOD_POST);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static class ImageFragmentPagerAdapter extends FragmentPagerAdapter {
         public ImageFragmentPagerAdapter(FragmentManager fm) {
@@ -622,9 +539,9 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             String imageFileName = IMAGE_NAME.get(position);
             //int imgResId = getResources().getIdentifier(imageFileName, "drawable", "com.greenapex");
             if (!imageFileName.contains("noimage"))
-                getImageLoader().load(Constants.BaseImageDomain + imageFileName).into(imageView);
+                getImageLoader().load(Constants.BaseImageDomain + imageFileName).placeholder(R.drawable.noimage).into(imageView);
             else {
-                getImageLoader().load(Uri.parse(imageFileName)).into(imageView);
+                getImageLoader().load(Uri.parse(imageFileName)).placeholder(R.drawable.noimage).into(imageView);
             }
 
 //            imageView.setImageURI();
@@ -647,6 +564,12 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             case Constants.ADDSOW: {
                 if (resultCode == Activity.RESULT_OK) {
                     getJobDetail(selectJobID);
+                }
+                break;
+            }
+            case Constants.SELECTMMUSER: {
+                if (resultCode == Activity.RESULT_OK) {
+                    customTxtAssignJob.setVisibility(View.GONE);
                 }
                 break;
             }

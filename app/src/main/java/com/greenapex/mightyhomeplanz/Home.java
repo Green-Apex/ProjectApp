@@ -17,11 +17,19 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.greenapex.R;
 import com.greenapex.Utils.Constants;
 import com.greenapex.mightyhomeplanz.adapters.Menu_Custom_Adapter;
 import com.greenapex.mightyhomeplanz.fragments.HomeFragment;
+import com.greenapex.webservice.GetTotalJobWebservice;
 import com.greenapex.widgets.CustomRoundedImageView;
+import com.greenapex.widgets.CustomTextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 public class Home extends BaseFragmentActivity implements OnClickListener {
     Activity activity;
@@ -36,12 +44,13 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
 
     static String[] menus;
     public Menu_Custom_Adapter adapter;
+    private CustomTextView tvProjects_Home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        tvProjects_Home = (CustomTextView) findViewById(R.id.tvProjects_Home);
         activity = Home.this;
         /**
          * Setup the DrawerLayout and NavigationView
@@ -57,7 +66,7 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
-
+        getTotalProjects();
     }
 
     public void setupToolbar() {
@@ -84,7 +93,7 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
         rlUser = (RelativeLayout) findViewById(R.id.rlUser_SideMenu);
 
         iv = (CustomRoundedImageView) findViewById(R.id.ivUserPic_SideMenu);
-
+        Glide.with(this).load(Constants.BaseImageDomain + getUserGson().getProfilePic()).placeholder(R.drawable.noimage).into(iv);
         listDrawer = (ListView) findViewById(R.id.lvMenu);
 
         adapter = new Menu_Custom_Adapter(activity);
@@ -110,7 +119,16 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
                         mFragmentTransaction = mFragmentManager.beginTransaction();
                         mFragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
                         break;
-                    case 4:
+                    case 3:
+                        if (getUserGson().getRole().equalsIgnoreCase(Constants.PM)) {
+                            startActivity(new Intent(activity, AddUser.class));
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        } else {
+                            showToast("You are not Authorized.");
+                        }
+
+                        break;
+                    case 5:
                         if (setUserPreference("")) {
                         startActivity(new Intent(activity, Signin.class));
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -152,5 +170,32 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
             super.onBackPressed();
     }
 
+    private void getTotalProjects() {
+        GetTotalJobWebservice getTotalJobWebservice = new GetTotalJobWebservice(new GetTotalJobWebservice.GetTotalJobWebserviceHandler() {
+            @Override
+            public void GetTotalJobWebserviceStart() {
 
+            }
+
+            @Override
+            public void GetTotalJobWebserviceSucessful(String response, String message) {
+                tvProjects_Home.setText("PROJECTS:" + response);
+            }
+
+            @Override
+            public void GetTotalJobWebserviceFailedWithMessage(String message) {
+                showLog(message);
+                showToast(message);
+            }
+        }, this);
+        try {
+            JSONObject params = new JSONObject();
+            params.put(Constants.USERID, getUserGson().getUserID());
+            getTotalJobWebservice.callService(params, Constants.METHOD_GET);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

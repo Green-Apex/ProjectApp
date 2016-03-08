@@ -101,7 +101,7 @@
                     android:clickable="true"
                     android:drawableLeft="@drawable/project_enable"
                     android:drawablePadding="10dp"
-                    android:text="PROJECTS:15"
+                    android:text="PROJECTS:0"
                     android:textColor="@drawable/textselector_gray_purple" />
             </LinearLayout>
         </LinearLayout>

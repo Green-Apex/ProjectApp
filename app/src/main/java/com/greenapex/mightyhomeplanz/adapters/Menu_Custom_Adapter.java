@@ -1,8 +1,5 @@
 package com.greenapex.mightyhomeplanz.adapters;
 
-import com.greenapex.widgets.CustomTextView;
-import com.greenapex.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -11,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.greenapex.R;
+import com.greenapex.widgets.CustomTextView;
+
 public class Menu_Custom_Adapter extends BaseAdapter {
     Activity activity;
 
     String[] menu;
-    int[] menuImages = new int[]{R.drawable.ic_profile, R.drawable.ic_alerts, R.drawable.ic_projects_sidemenu,
+    int[] menuImages = new int[]{R.drawable.ic_profile, R.drawable.ic_alerts, R.drawable.ic_projects_sidemenu, R.drawable.ic_profile,
             R.drawable.ic_past_payments_sidemenu, R.drawable.ic_logout};
 
     public Menu_Custom_Adapter(Activity act) {

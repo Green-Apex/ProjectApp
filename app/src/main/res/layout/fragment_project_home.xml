@@ -103,6 +103,7 @@
                 </LinearLayout>
 
                 <com.greenapex.widgets.CustomTextView
+                    android:id="@+id/customTxtJobCost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cost: TBD"

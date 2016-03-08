@@ -103,14 +103,40 @@
                 android:hint="@string/select_file"
                 android:padding="7dp"
                 android:singleLine="true" />
+
+
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linearLayoutTotalCost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayoutSelectDocument"
+            android:orientation="vertical">
+
+            <com.greenapex.widgets.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Total Project Cost"
+                android:textColor="@color/black_font" />
+
+            <com.greenapex.widgets.CustomEditText
+                android:id="@+id/etTotalCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/view_round_corner_black"
+                android:inputType="numberDecimal"
+                android:padding="7dp"
+                android:singleLine="true" />
+        </LinearLayout>
         <ListView
             android:id="@+id/listMileStone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/LinearLayoutSubmit"
-            android:layout_below="@+id/linearLayoutSelectDocument"
+            android:layout_below="@+id/linearLayoutTotalCost"
             android:layout_marginTop="5dp"
             android:padding="7dp">
 
@@ -121,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/linearLayoutSelectDocument"
+            android:layout_below="@+id/linearLayoutTotalCost"
             android:layout_gravity="left"
             android:layout_marginTop="15dp"
             android:background="@null"
