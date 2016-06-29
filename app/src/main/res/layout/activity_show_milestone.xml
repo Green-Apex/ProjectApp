@@ -20,6 +20,7 @@
         android:src="@drawable/close_btn" />
 
     <com.greenapex.widgets.CustomTextView
+        android:id="@+id/CustTxtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_milestone"
@@ -129,7 +130,8 @@
                     android:paddingRight="20dp"
                     android:paddingTop="10dp"
                     android:text="@string/make_payment"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:visibility="invisible" />
 
                 <com.greenapex.widgets.CustomTextView
                     android:id="@+id/tvClear_AddMilestone"

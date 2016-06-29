@@ -111,5 +111,16 @@
         <item>InPreview</item>
         <item>Completed</item>
     </string-array>
+    <string name="facebook_app_id">559403087503274</string>
+    <string name="fb_login_protocol_scheme">559403087503274</string>
 
+    <string name="progressMessage">Creating Token&#8230;</string>
+    <string name="processMessage">processing&#8230;</string>
+    <string name="validationErrors">Validation Errors</string>
+    <string name="addPayment">Add Payment Method</string>
+
+    <string name="endingIn">Card ending in </string>
+    <string name="paymentMethods">Payment Methods</string>
+    <string name="cardNumber">Card Number</string>
+    <string name="ok">OK</string>
 </resources>
