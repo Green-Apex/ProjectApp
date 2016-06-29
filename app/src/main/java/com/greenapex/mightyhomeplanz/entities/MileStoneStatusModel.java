@@ -10,6 +10,7 @@ public class MileStoneStatusModel {
     private boolean inPreview;
     private boolean completed;
     private String completedDate;
+    private boolean paid;
 
     public MileStoneStatusModel() {
         this.setCompletedDate("");
@@ -52,5 +53,13 @@ public class MileStoneStatusModel {
 
     public void setCompletedDate(String completedDate) {
         this.completedDate = completedDate;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 }

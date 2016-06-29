@@ -189,6 +189,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent showMileStone = new Intent(getActivity(), ShowMileStone.class);
                 showMileStone.putExtra(Constants.MILESTONE, jobDetailResponse.getMilestone().get(position).toString());
+                showMileStone.putExtra(Constants.JOBID, jobDetailResponse.getJobID().toString());
                 startActivity(showMileStone);
             }
         });
@@ -259,6 +260,10 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
         if (getUserGson().getRole().equalsIgnoreCase(Constants.MM) && jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.UNDER_ESTIMATION)) {
             customTxtAssignJob.setVisibility(View.GONE);
             tvReview.setVisibility(View.VISIBLE);
+        }
+        if (getUserGson().getRole().equalsIgnoreCase(Constants.MM) && jobDetailResponse.getJobStatus().equalsIgnoreCase(Constants.OWNER_REVIEW)) {
+            customTxtAssignJob.setVisibility(View.GONE);
+            tvReview.setVisibility(View.GONE);
         }
         if(getUserGson().getRole().equalsIgnoreCase(Constants.MM))
             imgChangestatus.setVisibility(View.VISIBLE);
@@ -564,6 +569,7 @@ public class ProjectHomeFragment extends BaseFragment implements OnClickListener
             case Constants.ADDSOW: {
                 if (resultCode == Activity.RESULT_OK) {
                     getJobDetail(selectJobID);
+                    tvReview.setVisibility(View.GONE);
                 }
                 break;
             }

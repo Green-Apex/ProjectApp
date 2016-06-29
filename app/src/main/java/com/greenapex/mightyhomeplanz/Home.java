@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.greenapex.R;
 import com.greenapex.Utils.Constants;
+import com.greenapex.Utils.UpdateGCM;
 import com.greenapex.mightyhomeplanz.adapters.Menu_Custom_Adapter;
 import com.greenapex.mightyhomeplanz.fragments.HomeFragment;
 import com.greenapex.webservice.GetTotalJobWebservice;
@@ -66,7 +67,24 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
-        getTotalProjects();
+        UpdateGCM updateGCM = new UpdateGCM(this, getUserGson().getEmail(), new UpdateGCM.UpdateGcmWebserviceHandler() {
+            @Override
+            public void updateGcmWebserviceStart() {
+
+            }
+
+            @Override
+            public void updateGcmWebserviceSucessful(String response, String message) {
+                getTotalProjects();
+            }
+
+            @Override
+            public void updateGcmWebserviceFailedWithMessage(String message) {
+                getTotalProjects();
+            }
+        });
+        updateGCM.updateGCMID();
+
     }
 
     public void setupToolbar() {

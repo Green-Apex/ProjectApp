@@ -91,7 +91,7 @@ public class AddSow extends BaseActivity implements OnClickListener {
         firstMilestone.setTitle("Down Payment");
         firstMilestone.setDescription("Down Payment");
         MileStoneStatusModel mileStoneStatusModel = new MileStoneStatusModel();
-        mileStoneStatusModel.setInProgress(true);
+        mileStoneStatusModel.setCompleted(true);
         firstMilestone.setStatus(mileStoneStatusModel);
         arrMileStones.add(firstMilestone);
         init();

@@ -10,12 +10,14 @@ public class MileStoneModel {
     private String description;
     private String amount;
     private MileStoneStatusModel status;
+    private String milestoneID = "";
 
     public MileStoneModel() {
         this.setTitle("");
         this.setDescription("");
         this.setAmount("");
         this.setStatus(new MileStoneStatusModel());
+        this.setMilestoneID("");
     }
 
     @Override
@@ -55,5 +57,13 @@ public class MileStoneModel {
 
     public void setStatus(MileStoneStatusModel status) {
         this.status = status;
+    }
+
+    public String getMilestoneID() {
+        return milestoneID;
+    }
+
+    public void setMilestoneID(String milestoneID) {
+        this.milestoneID = milestoneID;
     }
 }

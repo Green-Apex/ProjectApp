@@ -14,9 +14,11 @@ public class Constants {
 
     public static final String registerWebservice = "http://104.236.239.37:8080/v1/user/register";
     public static final String AddUserWebservice = "http://104.236.239.37:8080/v1/user/adduser?userID=";
+    public static final String AddUpdateGcmWebservice = "http://104.236.239.37:8080/v1/user/adupdategcm?email=";
     public static final String UpdateUserWebservice = "http://104.236.239.37:8080/v1/user/updateuserprofile?userID=";
 
     public static final String loginWebservice = "http://104.236.239.37:8080/v1/user/auth?";
+    public static final String SignUpWithFBWebservice = "http://104.236.239.37:8080/v1/user/fbauth";
     public static final String forgotPasswordWebservice = "http://104.236.239.37:8080/v1/user/forgetpassword?";
     public static final String AddJobWebservice = "http://104.236.239.37:8080/v1/job/createjob?userID=";
     public static final String DeleteDocWebservice = "http://104.236.239.37:8080/v1/job/deletedoc?userID=";
@@ -24,8 +26,13 @@ public class Constants {
     public static final String AssignjobToMMWebservice = "http://104.236.239.37:8080/v1/job/assignjob?mmID=";
     public static final String UpdateJobDescriptionWebservice = "http://104.236.239.37:8080/v1/job/updatejobdesc?jobID=";
     public static final String ChangeJobStatusWebservice = "http://104.236.239.37:8080/v1/job/changestatus?jobID=";
+    public static final String ChangeMileStoneStatusWebservice = "http://104.236.239.37:8080/v1/job/changemilestonestatus?jobID=";
+    public static final String AddPaymentWebservice = "http://104.236.239.37:8080/v1/job/addpayment";
     public static final String UploadFileWebservice = "http://104.236.239.37:8080/v1/job/uploadfile";
     public static final String AddSowWebservice = "http://104.236.239.37:8080/v1/job/addsow?jobID=";
+    public static final String SendChatMessageWebservice = "http://104.236.239.37:8080/v1/job/chat?jobID=";
+
+    public static final String GetJobChatWebservice = "http://104.236.239.37:8080/v1/job/getchat?jobID=";
 
     public static final String GetNewJobWebservice = "http://104.236.239.37:8080/v1/job/getnewjoblistbyid?userID=";
     public static final String GetNewJobForPMWebservice = "http://104.236.239.37:8080/v1/job/getnewjoblist";
@@ -49,6 +56,12 @@ public class Constants {
     public static final String SELECTFILE = "Selected_file";
     public static final int SELECTMMUSER = 9876;
     public static final String DOCID = "docID";
+    public static final String CHAT = "chat";
+    public static final String SELECTED_MILE_STONE = "selected_mile_stone";
+    public static final String STRIPE_API_KEY = "sk_test_LaFAVZNBLBoc77JcwX842ixV";
+    public static final int MILESTONE_PAYMENT = 04321;
+    public static final String MILESTONEID = "milestoneID";
+    public static final String MILESTONE_STATUS = "completedStatus";
 
 
 //    public static String AddJobWebservice_Temp = "http://104.236.239.37:8080/v1/job/createjob?userID=";
@@ -78,8 +91,12 @@ public class Constants {
     public static final String JOBID = "jobID";
     public static final String MMID = "mmID";
     public static final String USERID = "userID";
+    public static final String USER_EMAIL = "email";
+    public static final String GCMID = "gcmID";
     public static final String ROLE = "role";
     public static final String JOBSTATUS = "status";
+    public static final String STARTINDEX = "startIndex";
+    public static final String ENDINDEX = "endIndex";
 
     public static final int ADDMILESTONE = 1111;
     public static final int ADDSOW = 2222;
@@ -89,6 +106,7 @@ public class Constants {
     public static final String EDITMILESTONEPOSITION = "editmilestoneposition";
     public static String OWNER_REVIEW = "OWNER_REVIEW";
     public static String OWNERREVIEW = "Owner Review";
+
 
     /**
      * Version V2 API START
