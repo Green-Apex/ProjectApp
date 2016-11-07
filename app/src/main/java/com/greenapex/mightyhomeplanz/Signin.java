@@ -51,7 +51,7 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
     private ProgressDialog progressDialog;
     private CustomTextView tvfb_Signin;
     private CallbackManager callbackManager;
-
+    private UserResponse userGson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +83,8 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
          */
 //        etUsername_Signin.setText("nilay.khandhar@green-apex.com");
 //        etPassword_Signin.setText("nilay");
-        etUsername_Signin.setText("test@");
-        etPassword_Signin.setText("test123");
+        etUsername_Signin.setText("");
+        etPassword_Signin.setText("");
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
         callbackManager = CallbackManager.Factory.create();
@@ -122,6 +122,8 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
                         loginRequest.setRole(Constants.PM);
                     else if (etUsername_Signin.getText().toString().equalsIgnoreCase("nilay.khandhar@green-apex.com"))
                         loginRequest.setRole(Constants.MM);
+                    else if (etUsername_Signin.getText().toString().equalsIgnoreCase("admin@mighty.com"))
+                        loginRequest.setRole(Constants.SPM);
 
 
                     String strParams = getGson().toJson(loginRequest);
@@ -250,7 +252,7 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
         if (response.length() > 0) {
 
             try {
-                if(!response.equalsIgnoreCase("\"\"")){
+                if (!response.equalsIgnoreCase("\"\"")) {
                     UserResponse userResponse = gson.fromJson(response, UserResponse.class);
                     SharedPreferences sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
                     if (userResponse.toString() != null) {
@@ -261,10 +263,11 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
                         startActivity(new Intent(this.getApplicationContext(), Home.class));
                         overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
                         finish();
+
                     } else {
                         Log.d("SignUp", "Error saving user response data to Shared Preference");
                     }
-                }else{
+                } else {
                     Toast.makeText(Signin.this, message, Toast.LENGTH_SHORT).show();
                 }
 
@@ -319,5 +322,13 @@ public class Signin extends Activity implements OnClickListener, LoginWebservice
                 Log.d("SignUp", "Error saving user data in preferences");
             }
         }
+    }
+
+    public UserResponse getUserGson() {
+        return userGson;
+    }
+
+    public void setUserGson(UserResponse userGson) {
+        this.userGson = userGson;
     }
 }

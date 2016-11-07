@@ -38,6 +38,10 @@ public class Constants {
     public static final String GetNewJobForPMWebservice = "http://104.236.239.37:8080/v1/job/getnewjoblist";
     public static final String GetNewJobForMMIDWebservice = "http://104.236.239.37:8080/v1/job/getnewjobbymmid?mmID=";
 
+    public static final String GetAllJoWebservice="http://104.236.239.37:8080/v1/user/getalljo?userID=";
+    public static final String GetAllPmWebservice="http://104.236.239.37:8080/v1/user/getallpm?userID=";
+
+
     public static final String GetActiveJobWebservice = "http://104.236.239.37:8080/v1/job/getactivejoblistbyuser?userID=";
     public static final String GetActiveJobForPMWebservice = "http://104.236.239.37:8080/v1/job/getactivejoblist";
     public static final String GetActiveJobForMMIDWebservice = "http://104.236.239.37:8080/v1/job/getactivejobbymmid?mmID=";
@@ -87,6 +91,7 @@ public class Constants {
     public static final String OWNER = "JO";
     public static final String PM = "PM";
     public static final String MM = "MM";
+    public static final String SPM = "SPM";
 
     public static final String JOBID = "jobID";
     public static final String MMID = "mmID";

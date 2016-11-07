@@ -15,7 +15,7 @@ buildscript {
 
 
 allprojects {
-    buildDir = "C:/Temp/${rootProject.name}/${project.name}"
+  //  buildDir = "C:/Temp/${rootProject.name}/${project.name}"
     version = VERSION_NAME
     group = GROUP
 

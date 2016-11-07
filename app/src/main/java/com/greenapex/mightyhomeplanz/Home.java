@@ -23,6 +23,7 @@ import com.greenapex.Utils.Constants;
 import com.greenapex.Utils.UpdateGCM;
 import com.greenapex.mightyhomeplanz.adapters.Menu_Custom_Adapter;
 import com.greenapex.mightyhomeplanz.fragments.HomeFragment;
+import com.greenapex.mightyhomeplanz.fragments.HomeSPMFragment;
 import com.greenapex.webservice.GetTotalJobWebservice;
 import com.greenapex.widgets.CustomRoundedImageView;
 import com.greenapex.widgets.CustomTextView;
@@ -66,7 +67,14 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
 
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
+
+        if (getUserGson().getRole().equalsIgnoreCase(Constants.SPM)) {
+            mFragmentTransaction.replace(R.id.containerView, new HomeSPMFragment()).commit();
+
+        } else {
+            mFragmentTransaction.replace(R.id.containerView, new HomeFragment()).commit();
+
+        }
         UpdateGCM updateGCM = new UpdateGCM(this, getUserGson().getEmail(), new UpdateGCM.UpdateGcmWebserviceHandler() {
             @Override
             public void updateGcmWebserviceStart() {
@@ -89,7 +97,7 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
 
     public void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER)) {
+        if (getUserGson().getRole().equalsIgnoreCase(Constants.OWNER) || getUserGson().getRole().equalsIgnoreCase(Constants.SPM)) {
             toolbar.findViewById(R.id.btnAdd_Home).setVisibility(View.VISIBLE);
             toolbar.findViewById(R.id.btnAdd_Home).setOnClickListener(this);
         } else {
@@ -146,10 +154,11 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
                         }
 
                         break;
+
                     case 5:
                         if (setUserPreference("")) {
-                        startActivity(new Intent(activity, Signin.class));
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            startActivity(new Intent(activity, Signin.class));
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                             finish();
                         }
                         break;
@@ -175,8 +184,15 @@ public class Home extends BaseFragmentActivity implements OnClickListener {
                 break;
 
             case R.id.btnAdd_Home:
+                if (getUserGson().getRole().equalsIgnoreCase(Constants.SPM)) {
+                    startActivity(new Intent(activity, AddPm.class));
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.nothing);
+                    return;
+                }
+
                 startActivity(new Intent(activity, AddNewProject.class));
                 overridePendingTransition(R.anim.slide_in_left, R.anim.nothing);
+                break;
         }
     }
 

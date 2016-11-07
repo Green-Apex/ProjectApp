@@ -30,6 +30,15 @@ public class MightyHomePlanz extends Activity {
 
         sharedPreferences = getSharedPreferences(Constants.mightyHomePlanz, Context.MODE_PRIVATE);
 
+//        UserResponse tempUser = new UserResponse();
+//        tempUser.setId("SPM101");
+//        tempUser.setRole("SPM");
+//        tempUser.setEmail("admin@mighty.com");
+//        tempUser.setUserID("SPM101");
+//
+//       sharedPreferences.edit().putString(Constants.UserData, tempUser.toString()).commit();
+
+
         gson = new GsonBuilder().create();
 
         mThread = new Thread(new Runnable() {

@@ -1,53 +1,71 @@
-package com.greenapex.Request.models;
+package com.greenapex.mightyhomeplanz.entities;
 
 import com.google.gson.Gson;
-import com.greenapex.mightyhomeplanz.entities.AddressModel;
 
 import java.util.ArrayList;
 
 /**
- * Created by admin on 07-Mar-16.by ${COMPUTERNAME}
+ * Created by admin on 20-Feb-16.by ${COMPUTERNAME}
  */
-public class AddUserRequest {
+public class JobOwnerModel {
+//    private static final String KEY_ID = "id";
+//    private static final String KEY_JOBID = "jobID";
+//    private static final String KEY_JOBDESCRIPTION = "jobDescription";
+//    private static final String KEY_SAMEADDRESS = "sameAddress";
+//    private static final String KEY_URGENCYOFWORK = "urgencyOfWork";
+//    private static final String KEY_JOBCREATIONDATE = "jobCreationDate";
+//    private static final String KEY_USERID = "userID";
+//    private static final String KEY_JOBTITLE = "jobTitle";
+
     private String id;
     private String email;
     private String fname;
     private String lname;
     private String contactNo;
+    private String userID;
     private String pwd;
     private AddressModel address;
     private String role;
     private String deviceID;
-    private String authToken;
-    private String emailVerified;
+    private boolean emailVerified;
+    private String profilePic;
     private String registrationTime;
-    private String updationTime;
+    private String fbID;
+    private String authToken;
     private ArrayList<String> comPref;
-    private String userID;
+    private String updationTime;
+    private String platform;
 
-    public AddUserRequest() {
+
+    //TODO: Images Model Pending will do after I recieve the response
+
+    public JobOwnerModel() {
         this.setId("");
         this.setEmail("");
         this.setFname("");
         this.setLname("");
         this.setContactNo("");
-        this.setPwd("");
-        this.setRole("");
-        this.setAuthToken("");
-        this.setEmailVerified("");
-        this.setRegistrationTime("");
         this.setUserID("");
-        this.setAddress(new AddressModel());
+        this.setPwd("");
+        setAddress(new AddressModel());
+        this.setRole("");
         this.setDeviceID("");
+        this.setProfilePic("");
+        this.setRegistrationTime("");
+        this.setFbID("");
+        this.setAuthToken("");
         this.setComPref(new ArrayList<String>());
-
+        this.setUpdationTime("");
+        this.setPlatform("");
     }
 
     @Override
     public String toString() {
         Gson gson = new Gson();
+
         return gson.toJson(this);
     }
+
 
     public String getId() {
         return id;
@@ -89,6 +107,14 @@ public class AddUserRequest {
         this.contactNo = contactNo;
     }
 
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public String getPwd() {
         return pwd;
     }
@@ -121,20 +147,20 @@ public class AddUserRequest {
         this.deviceID = deviceID;
     }
 
-    public String getAuthToken() {
-        return authToken;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
-
-    public String getEmailVerified() {
+    public boolean isEmailVerified() {
         return emailVerified;
     }
 
-    public void setEmailVerified(String emailVerified) {
+    public void setEmailVerified(boolean emailVerified) {
         this.emailVerified = emailVerified;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 
     public String getRegistrationTime() {
@@ -145,12 +171,20 @@ public class AddUserRequest {
         this.registrationTime = registrationTime;
     }
 
-    public String getUpdationTime() {
-        return updationTime;
+    public String getFbID() {
+        return fbID;
     }
 
-    public void setUpdationTime(String updationTime) {
-        this.updationTime = updationTime;
+    public void setFbID(String fbID) {
+        this.fbID = fbID;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 
     public ArrayList<String> getComPref() {
@@ -161,11 +195,19 @@ public class AddUserRequest {
         this.comPref = comPref;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getUpdationTime() {
+        return updationTime;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUpdationTime(String updationTime) {
+        this.updationTime = updationTime;
+    }
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 }
